@@ -1,6 +1,5 @@
 <div style="margin-top:0; padding-top:0" align="center">
-<h1 style="margin-top:0">Author.Today support demo page</h1>
-<p>Telegram Mini App Betcity</p>
+<h1 style="margin-top:0">Telegram Mini App Betcity</h1>
   
 <img src="./public/betcity_readme.jpg" width="200" alt="app screen" />
 
