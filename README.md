@@ -1,4 +1,11 @@
-# betcity
+<div style="margin-top:0; padding-top:0" align="center">
+<h1 style="margin-top:0">Author.Today support demo page</h1>
+<p>Telegram Mini App Betcity</p>
+  
+<img src="./public/betcity_readme.jpg" width="200" alt="app screen" />
+
+<p>Used technology stack: <b>Vue 3 (Options API), SCSS, Vite, Telegram SDK</b></p>
+</div>
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -26,10 +33,4 @@ npm run dev
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
