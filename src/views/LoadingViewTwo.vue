@@ -1,10 +1,10 @@
 <template>
-  <RouterView />
+  <div>
+    123
+  </div>
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-
 export default {
 
 }
