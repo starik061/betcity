@@ -24,6 +24,7 @@ export default {
 
   mounted() {
     backButton.mount();
+    backButton.show();
   }
 };
 </script>
