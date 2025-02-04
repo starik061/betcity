@@ -38,14 +38,7 @@ export default {
   },
 
   methods: {
-    closeApp() {
-      // Проверка доступности метода для закрытия
-      if (miniApp.close.isAvailable()) {
-        miniApp.close(); // Закрываем мини-приложение
-      } else {
-        console.warn('Метод мини-приложения "close" недоступен');
-      }
-    }
+
   }
 };
 </script>
