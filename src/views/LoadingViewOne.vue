@@ -4,9 +4,7 @@
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
     <RouterLink to="/Loading">Далее</RouterLink>
-    <button @click="closeApp" class="close-button">
-      Закрыть
-    </button>
+
     <div class="dots">
       <span :class="{ active: currentScreen === 0 }"></span>
       <span :class="{ active: currentScreen === 1 }"></span>
@@ -16,7 +14,7 @@
 </template>
 
 <script>
-import { miniApp } from '@telegram-apps/sdk-vue';
+
 
 export default {
   data() {
