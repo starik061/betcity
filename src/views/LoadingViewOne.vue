@@ -4,6 +4,9 @@
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
     <RouterLink to="/Loading">Далее</RouterLink>
+    <button @click="closeApp" class="close-button">
+      Закрыть
+    </button>
     <div class="dots">
       <span :class="{ active: currentScreen === 0 }"></span>
       <span :class="{ active: currentScreen === 1 }"></span>
@@ -13,7 +16,7 @@
 </template>
 
 <script>
-import { backButton } from '@telegram-apps/sdk-vue';
+import { miniApp } from '@telegram-apps/sdk-vue';
 
 export default {
   data() {
@@ -23,8 +26,19 @@ export default {
   },
 
   mounted() {
-    backButton.mount();
-    backButton.show();
+    miniApp.mount();
+
+  },
+
+  methods: {
+    closeApp() {
+      // Проверка доступности метода для закрытия
+      if (miniApp.close.isAvailable()) {
+        miniApp.close(); // Закрываем мини-приложение
+      } else {
+        console.warn('Метод мини-приложения "close" недоступен');
+      }
+    }
   }
 };
 </script>
@@ -70,5 +84,23 @@ export default {
 
 .dots span.active {
   opacity: 1;
+}
+
+
+
+.close-button {
+  padding: 10px 20px;
+  background-color: #ff3333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.close-button:hover {
+  background-color: #cc0000;
 }
 </style>
