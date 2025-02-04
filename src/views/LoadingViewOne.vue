@@ -26,8 +26,13 @@ export default {
   },
 
   mounted() {
-    miniApp.mount();
-
+    if (miniApp.mount.isAvailable()) {
+      miniApp.mount(); // Включает полноэкранный режим
+      miniApp.isMounted(); // Проверяет, активен ли режим
+      if (miniApp.requestFullscreen.isAvailable()) {
+        miniApp.requestFullscreen(); // Запрашивает переход в полноэкранный режим
+      }
+    }
   },
 
   methods: {
