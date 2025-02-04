@@ -1,6 +1,6 @@
 <template>
   <div class="main-container flex-container">
-    <img src="/public/img/loading-view-1-main-picture.png" alt="octopus-mascot of betcity">
+    <img src="/img/loading-view-1-main-picture.png" alt="octopus-mascot of betcity">
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
     <RouterLink to="/Loading">Далее</RouterLink>
@@ -13,12 +13,18 @@
 </template>
 
 <script>
+import { backButton } from '@telegram-apps/sdk-vue';
+
 export default {
   data() {
     return {
       currentScreen: 0,
     };
   },
+
+  mounted() {
+    backButton.mount();
+  }
 };
 </script>
 
