@@ -12,7 +12,7 @@ const router = createRouter({
       component: LoadingViewOne
     },
     {
-      path: "/123",
+      path: "/loading-two",
       name: "loading-two",
       component: LoadingViewTwo
     },
@@ -25,20 +25,20 @@ const router = createRouter({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-  //Здесь происходит проверка на какой платформе Телеграм открыто приложение, и если это не телефон, то перенаправляет на страницу ошибки
-  window.appRouter = router;
-  if (
-    (!window.Telegram ||
-      !window.Telegram.WebApp ||
-      !window.Telegram.WebApp.platform ||
-      window.Telegram.WebApp.platform === "unknown") &&
-    to.path !== "/unsupported-platform"
-  ) {
-    next("/unsupported-platform"); // Страница ошибки
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//Здесь происходит проверка на какой платформе Телеграм открыто приложение, и если это не телефон, то перенаправляет на страницу ошибки
+//   window.appRouter = router;
+//   if (
+//     (!window.Telegram ||
+//       !window.Telegram.WebApp ||
+//       !window.Telegram.WebApp.platform ||
+//       window.Telegram.WebApp.platform === "unknown") &&
+//     to.path !== "/unsupported-platform"
+//   ) {
+//     next("/unsupported-platform"); // Страница ошибки
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

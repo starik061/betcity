@@ -3,7 +3,10 @@
     <img src="/img/loading-view-1-main-picture.png" alt="octopus-mascot of betcity">
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
-    <RouterLink to="/Loading">Далее</RouterLink>
+    <RouterLink class="next-loading-view" to="/loading-two">
+      <span>Далее</span>
+      <IconNextBtnArrow />
+    </RouterLink>
 
     <div class="dots">
       <span :class="{ active: currentScreen === 0 }"></span>
@@ -14,9 +17,10 @@
 </template>
 
 <script>
-
+import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
 
 export default {
+  components: { IconNextBtnArrow },
   data() {
     return {
       currentScreen: 0,
@@ -62,6 +66,7 @@ export default {
 }
 
 .text {
+  margin-bottom: 9vh;
   font-family: 'Styrene A';
   font-size: 14px;
   text-align: center;
@@ -86,21 +91,18 @@ export default {
   opacity: 1;
 }
 
-
-
-.close-button {
-  padding: 10px 20px;
-  background-color: #ff3333;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
+.next-loading-view {
   display: flex;
   align-items: center;
-}
-
-.close-button:hover {
-  background-color: #cc0000;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 1.83;
+  padding: 2px 11px;
+  color: #232E3C;
+  background-color: #D0D0D2;
+  border-radius: 15px;
+  text-decoration: none;
 }
 </style>
