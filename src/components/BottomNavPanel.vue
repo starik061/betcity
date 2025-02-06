@@ -1,6 +1,6 @@
 <template>
   <nav class="bottom-nav-panel-container">
-    <IconLogoButton class="logo-btn" id="mask" />
+    <div class="logo-btn-shadow-holder"></div>
     <ul class="bottom-nav-panel-list">
       <li class="bottom-nav-panel-list-item">
         <router-link to="/home" class="bottom-nav-panel-link">
@@ -27,6 +27,8 @@
         </router-link>
       </li>
     </ul>
+    <IconLogoButton class="logo-btn" />
+
   </nav>
 </template>
 
@@ -45,37 +47,42 @@ export default {
 
 <style lang="scss" scoped>
 .bottom-nav-panel-container {
-  width: 100%;
+  width: 362px;
   margin: 0 auto;
   padding: 0 14px;
 }
 
 .bottom-nav-panel-list {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
   // border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px 25px 10px 10px;
-  background-color: transparent;
+  // border-radius: 25px 25px 10px 10px;
+  // background-color: var(--color-background);
+  background-image: url("/public/img/bottom-panel-frame.svg");
+  background-clip: border-box;
+  background-repeat: no-repeat;
+  background-size: cover;
   z-index: 10;
 }
 
 .bottom-nav-panel-list-item {
   &:nth-child(1) {
-    margin-right: 2.7%
+    margin-right: 1.5%
   }
 
   &:nth-child(3) {
-    margin-left: 12.5%;
+    margin-left: auto;
   }
 
   &:nth-child(2) {
-    margin-right: 12.5%;
+    margin-right: auto;
   }
 
   &:nth-child(4) {
-    margin-left: 2.7%;
+    margin-left: 1.5%;
   }
 }
 
@@ -86,7 +93,7 @@ export default {
   align-items: center;
   gap: 5px;
   width: 59px;
-  height: 53px;
+  height: 45px;
 
 }
 
@@ -103,8 +110,25 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  // -webkit-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
-  // -moz-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
-  // box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+  z-index: 20;
+}
+
+
+
+
+.logo-btn-shadow-holder {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+  background-color: transparent;
+  border: 0;
+  -webkit-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+  -moz-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+  box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
 }
 </style>
