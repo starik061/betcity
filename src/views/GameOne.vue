@@ -31,7 +31,7 @@ export default {
   position: fixed;
   max-width: 450px;
   left: 50%;
-  bottom: env(safe-area-inset-bottom, 48px);
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 14px);
   transform: translate(-50%, 0);
 }
 </style>
