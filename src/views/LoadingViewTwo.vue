@@ -3,7 +3,7 @@
     <img src="/img/loading-view-2-main-picture.png" alt="octopus-mascot of betcity">
     <strong class="slogan">Делай прогнозы и получай Беткоины</strong>
     <p class="text">За угаданные исходы матчей</p>
-    <RouterLink class="make-forecast" to="/">
+    <RouterLink class="make-forecast" to="/game-one">
       Сделать первый прогноз
     </RouterLink>
 

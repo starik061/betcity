@@ -46,3 +46,14 @@ body {
   background-attachment: fixed;
   color: var(--color-text);
 }
+
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

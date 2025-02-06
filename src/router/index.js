@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
+import GameOne from "../views/GameOne.vue";
 import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
@@ -15,6 +16,11 @@ const router = createRouter({
       path: "/loading-two",
       name: "loading-two",
       component: LoadingViewTwo
+    },
+    {
+      path: "/game-one",
+      name: "game-one",
+      component: GameOne
     },
 
     {
