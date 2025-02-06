@@ -58,13 +58,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  // border: 1px solid rgba(255, 255, 255, 0.1);
-  // border-radius: 25px 25px 10px 10px;
-  // background-color: var(--color-background);
+
   background-image: url("/public/img/bottom-panel-frame.svg");
-  background-clip: border-box;
+  background-clip: padding-box;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: 50% 50%;
   z-index: 10;
 }
 

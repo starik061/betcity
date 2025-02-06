@@ -31,7 +31,7 @@ export default {
   position: fixed;
   max-width: 450px;
   left: 50%;
-  bottom: 14px;
+  bottom: env(safe-area-inset-bottom, 48px);
   transform: translate(-50%, 0);
 }
 </style>
