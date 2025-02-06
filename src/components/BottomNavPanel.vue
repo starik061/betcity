@@ -1,5 +1,6 @@
 <template>
-  <nav class="main-container bottom-nav-panel-container">
+  <nav class="bottom-nav-panel-container">
+    <IconLogoButton class="logo-btn" id="mask" />
     <ul class="bottom-nav-panel-list">
       <li class="bottom-nav-panel-list-item">
         <router-link to="/home" class="bottom-nav-panel-link">
@@ -34,19 +35,18 @@ import IconBottomNavRules from '@/components/icons/IconBottomNavRules.vue';
 import IconBottomNavGame from '@/components/icons/IconBottomNavGame.vue';
 import IconBottomNavFriends from '@/components/icons/IconBottomNavFriends.vue';
 import IconBottomNavRating from '@/components/icons/IconBottomNavRating.vue';
+import IconLogoButton from '@/components/icons/IconLogoButton.vue';
 
 export default {
-  components: { IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
+  components: { IconLogoButton, IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
 
 }
 </script>
 
 <style lang="scss" scoped>
 .bottom-nav-panel-container {
-  // position: sticky;
-  // left: 0;
-  // bottom: 0;
   width: 100%;
+  margin: 0 auto;
   padding: 0 14px;
 }
 
@@ -55,9 +55,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  // border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 25px 25px 10px 10px;
   background-color: transparent;
+  z-index: 10;
 }
 
 .bottom-nav-panel-list-item {
@@ -94,5 +95,16 @@ export default {
   font-size: 12px;
   line-height: auto;
   letter-spacing: 0;
+}
+
+.logo-btn {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  // -webkit-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+  // -moz-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+  // box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
 }
 </style>

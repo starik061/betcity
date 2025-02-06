@@ -1,5 +1,8 @@
 <template>
-  <BottomNavPanel />
+  <div class="main-container">
+
+    <BottomNavPanel class="bottom-panel-nav" />
+  </div>
 </template>
 
 <script>
@@ -23,4 +26,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bottom-panel-nav {
+  position: fixed;
+  max-width: 450px;
+  left: 50%;
+  bottom: 14px;
+  transform: translate(-50%, 0);
+}
+</style>
