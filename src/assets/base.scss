@@ -21,7 +21,11 @@
 
 :root {
   --color-background: #16202F;
+  --color-element-background: #2e3744;
+  --color-element-background-2: #454d59;
+  --color-element-border: #555c67;
   --color-text: #ffffff;
+  --color-main-blue: #0070F3;
 }
 
 *,
@@ -45,6 +49,7 @@ body {
   background-position: center center;
   background-attachment: fixed;
   color: var(--color-text);
+  line-height: auto;
 }
 
 a {
