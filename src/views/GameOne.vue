@@ -2,7 +2,7 @@
   <div class="main-container game-one-container">
     <TopNavPanel class="top-panel-nav" />
 
-    <ForecastDetails />
+    <ForecastDetails v-for="(item, index) in 2" :key="index" />
 
     <BottomNavPanel class="bottom-panel-nav" />
   </div>
