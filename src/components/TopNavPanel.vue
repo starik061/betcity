@@ -104,7 +104,7 @@ export default {
       transform: translate(-50%, -50%);
       width: 6px;
       height: 6px;
-      background-color: red;
+      background-color: var(--color-element-background-rose);
       border-radius: 50%;
     }
   }

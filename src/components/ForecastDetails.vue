@@ -35,6 +35,8 @@
       </li>
     </ul>
 
+    <button class="main-btn main-forecast-btn" type="button">Подтвердить прогноз</button>
+
     <!-- !Аккордеон -->
     <div class="accordion">
 
@@ -197,6 +199,12 @@ export default {
   background-color: var(--color-element-background-2);
   font-size: 12px;
   font-weight: bold;
+}
+
+.main-forecast-btn {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12.5px;
 }
 
 .accordion {

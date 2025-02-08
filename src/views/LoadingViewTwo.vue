@@ -3,7 +3,7 @@
     <img src="/img/loading-view-2-main-picture.png" alt="octopus-mascot of betcity">
     <strong class="slogan">Делай прогнозы и получай Беткоины</strong>
     <p class="text">За угаданные исходы матчей</p>
-    <RouterLink class="make-forecast" to="/game-one">
+    <RouterLink class="main-btn" to="/game-one">
       Сделать первый прогноз
     </RouterLink>
 
@@ -88,18 +88,5 @@ export default {
 
 .dots span.active {
   opacity: 1;
-}
-
-.make-forecast {
-  margin-bottom: 20px;
-
-  font-size: 14px;
-  font-weight: bold;
-  line-height: auto;
-  padding: 12.5px 59.5px;
-  color: var(--color-text);
-  background: linear-gradient(8deg, rgba(0, 7, 167, 1) 0%, rgba(0, 112, 243, 1) 100%);
-  border-radius: 12px;
-  text-decoration: none;
 }
 </style>
