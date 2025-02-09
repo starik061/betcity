@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
-import GameOne from "../views/GameOne.vue";
+import MainView from "../views/MainView.vue";
+import Rules from "../views/Rules.vue";
+import Rating from "../views/Rating.vue";
+import Friends from "../views/Friends.vue";
 import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
@@ -18,9 +21,24 @@ const router = createRouter({
       component: LoadingViewTwo
     },
     {
-      path: "/game-one",
-      name: "game-one",
-      component: GameOne
+      path: "/main-view",
+      name: "main-view",
+      component: MainView
+    },
+    {
+      path: "/rules",
+      name: "rules",
+      component: Rules
+    },
+    {
+      path: "/rating",
+      name: "rating",
+      component: Rating
+    },
+    {
+      path: "/friends",
+      name: "friends",
+      component: Friends
     },
 
     {

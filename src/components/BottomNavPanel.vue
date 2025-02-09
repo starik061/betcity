@@ -3,7 +3,7 @@
     <div class="logo-btn-shadow-holder"></div>
     <ul class="bottom-nav-panel-list">
       <li class="bottom-nav-panel-list-item">
-        <router-link to="/home" class="bottom-nav-panel-link">
+        <router-link to="/rules" class="bottom-nav-panel-link">
           <IconBottomNavRules />
           <p class="bottom-nav-panel-text">Rules</p>
         </router-link>
@@ -15,13 +15,13 @@
         </router-link>
       </li>
       <li class="bottom-nav-panel-list-item">
-        <router-link to="/home" class="bottom-nav-panel-link">
+        <router-link to="/rating" class="bottom-nav-panel-link">
           <IconBottomNavRating />
           <p class="bottom-nav-panel-text">Rating</p>
         </router-link>
       </li>
       <li class="bottom-nav-panel-list-item">
-        <router-link to="/home" class="bottom-nav-panel-link">
+        <router-link to="/friends" class="bottom-nav-panel-link">
           <IconBottomNavGame />
           <p class="bottom-nav-panel-text">Friends</p>
         </router-link>
