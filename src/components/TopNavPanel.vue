@@ -69,16 +69,6 @@ export default {
   gap: 1.02vw;
 }
 
-.avatar {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: grey;
-  object-fit: cover;
-}
-
 .score {
   display: flex;
   justify-content: flex-start;

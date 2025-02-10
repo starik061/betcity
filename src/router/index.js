@@ -5,6 +5,7 @@ import MainView from "../views/MainView.vue";
 import Rules from "../views/Rules.vue";
 import Rating from "../views/Rating.vue";
 import Friends from "../views/Friends.vue";
+import Profile from "../views/Profile.vue";
 import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: "/friends",
       name: "friends",
       component: Friends
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
     },
 
     {
