@@ -48,9 +48,6 @@
 </template>
 
 <script>
-import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
-
-
 export default {
   components: {},
 
@@ -58,35 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.score {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px 3px 3px;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.2);
-
-  &.user-rating-score {
-    margin-left: auto;
-  }
-}
-
-.score-coin {
-  width: 17px;
-  height: 17px;
-}
-
-.score-text {
-  font-size: 14px;
-  font-weight: bold;
-  line-height: auto;
-
-  & .games-count {
-    font-size: 12px;
-  }
-}
-
 .user-rating {
   display: flex;
   width: 100%;
@@ -111,16 +79,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.user-rating-info-img {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  margin-right: 8.7%;
-  border-radius: 50%;
-  overflow: hidden;
 }
 
 .user-rating-info-name {
@@ -152,45 +110,5 @@ export default {
   background-color: var(--color-element-background);
   font-family: "Roboto";
   font-size: 15px;
-}
-
-.rating-list-container {
-  width: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--color-element-border);
-  padding: 16px;
-}
-
-.rating-list-header {
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.rating-list-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2.63%;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--color-element-border);
-}
-
-.rating-list-number {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 50%;
-  background-color: var(--color-element-background-2);
-}
-
-.rating-list-img {
-  margin-right: 0;
 }
 </style>
