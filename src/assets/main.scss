@@ -52,6 +52,8 @@
    padding: 3px 8px 3px 3px;
    border-radius: 12px;
    background-color: rgba(255, 255, 255, 0.2);
+   flex-grow: 0;
+   flex-shrink: 0;
 
    &.user-rating-score {
       margin-left: auto;
