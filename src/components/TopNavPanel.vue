@@ -2,7 +2,9 @@
   <div class="top-panel-container">
     <nav class="top-nav-container">
       <div class="left-side">
-        <img class="avatar" src="/img/avatar-placeholder.webp" />
+        <router-link class="top-nav-link" to="/profile">
+          <img class="avatar" src="/img/avatar-placeholder.webp" />
+        </router-link>
         <div class="score">
           <img class="score-coin" src="/img/coin.png" alt="coins">
           <span class="score-text">200</span>
@@ -57,8 +59,6 @@ export default {
   padding: 3px 8px 3px 4px;
   background-color: var(--color-element-background);
   border-radius: 20px;
-
-
 }
 
 .left-side,
@@ -67,6 +67,10 @@ export default {
   justify-content: start;
   align-items: center;
   gap: 1.02vw;
+}
+
+.top-nav-link {
+  display: flex;
 }
 
 .score {

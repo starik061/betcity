@@ -32,20 +32,48 @@
 
   <h2 class="rating-list-header">История прогнозов</h2>
 
-  <ul>
-    <li>
-      <div>
-        <p></p>
-        <p></p>
+  <ul class="forecast-history-list">
+    <li class="forecast-history-list-item">
+      <div class="forecast-history-list-item-wrapper">
+        <div class="forecast-history-info-container">
+          <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
+          <p class="forecast-history-date">прогноз от 01.02.2025</p>
+        </div>
+
+        <img src="/public/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+
+        <div class="score forecast-history-score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+2</span>
+        </div>
       </div>
 
-      <img src="" alt="">
-
-      <div class="score">
-        <img class="score-coin" src="/img/coin.png" alt="coins">
-        <span class="score-text">+1</span>
-      </div>
     </li>
+
+    <li class="forecast-history-list-item">
+      <div class="forecast-history-list-item-wrapper">
+        <div class="forecast-history-info-container">
+          <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
+          <p class="forecast-history-date">прогноз от 01.02.2025</p>
+        </div>
+
+        <img src="/public/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+
+        <div class="score forecast-history-score">
+          <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
+              fill="white" />
+          </svg>
+
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+2</span>
+        </div>
+      </div>
+      <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
+    </li>
+
   </ul>
 </template>
 
@@ -160,6 +188,77 @@ export default {
   border-radius: 6px;
   flex-grow: 0;
   border: none;
+}
 
+.forecast-history-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.forecast-history-list-item {
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--color-element-border);
+}
+
+.forecast-history-list-item-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.forecast-history-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.forecast-history-header {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.forecast-history-date {
+  text-transform: lowercase;
+  font-family: "Styrene A";
+  font-size: 8px;
+}
+
+.forecast-history-score {
+  position: relative;
+  margin-left: 43px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.forecast-history-img {
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.forecast-history-list-item-additional {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-element-border);
+  font-family: "Styrene A";
+  font-size: 8px;
+  text-align: end;
+
+  & span {
+    color: var(--color-element-lemongreen)
+  }
+}
+
+.forecast-history-score-arrow {
+  position: absolute;
+  top: 50%;
+  left: -22px;
+  transform: translateY(-50%) rotate(0deg);
 }
 </style>
