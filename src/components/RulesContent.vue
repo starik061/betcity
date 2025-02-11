@@ -140,14 +140,70 @@
         Осьминог
       </div>
 
-      <div class="rules-text-small ">
-        <span>Ищи нашего осьминого во время игры, тапай и получай бонусные беткоины каждый день.</span>
-
+      <div class="rules-text-small octopus-rules">
+        <span class="octopus-rules-text">Ищи нашего осьминого во время игры, тапай и получай бонусные
+          беткоины каждый день.</span>
+        <img src="/img/tap-octopus.png" class="octopus-rules-img" alt="octopus for tap">
       </div>
-
     </div>
 
+    <div class="ref-link-container rules-container text">
+      <h2 class="rules-header">Призы</h2>
 
+      <div class="rules-text-big margin">
+        Фрибеты распределяются в зависимости от места пользователя в рейтинге.
+      </div>
+
+      <div>
+        <p>Чем больше БЕТКОИНОВ, тем выше место игрока</p>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">x2</span>
+        </div>
+      </div>
+
+      <p class="change-choice-text change-choice-text">* При равенстве беткоинов победитель определяется случайным
+        образом среди игроков, набравших одинаковое количество очков.</p>
+
+      <div class="divider"></div>
+
+      <div class="rules-text-big margin">
+        Номиналы фрибетов в рейтинге распределяются следующим образом:
+      </div>
+
+      <ul class="game-rules-list">
+
+        <li class="game-rules-list-item">
+          <div class="game-rules-list-number">1</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">Название приза</p>
+        </li>
+
+        <li class="game-rules-list-item">
+          <div class="game-rules-list-number">2</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">Название приза</p>
+        </li>
+
+        <li class="game-rules-list-item">
+          <div class="game-rules-list-number">3</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">Название приза</p>
+        </li>
+      </ul>
+
+      <div class="rules-text-small margin">
+        <span>Остальные участники рейтинга разыгрывают XX фрибетов по ХХХ рублей. Бонусы будут распределены случайным
+          образом среди игроков.</span>
+      </div>
+
+      <p class="change-choice-text change-choice-text">* Сохранить место в рейтинге и получить приз смогут только
+        учавтники, зарегистрированные в БЕТСИТИ и указавшие номер телефона в личном кабинете.</p>
+
+      <div class="divider"></div>
+
+      <a href="#">Читать полные правила</a>
+    </div>
 
 
   </div>
@@ -291,5 +347,22 @@ export default {
   border-radius: 4.19px;
   border: 1px solid var(--color-element-border);
   font-size: 6.29px;
+}
+
+.octopus-rules {
+  margin-top: -22px;
+  gap: 6px;
+}
+
+.octopus-rules-img {
+  max-width: 88px;
+  aspect-ratio: 1/1;
+  margin-bottom: -10px;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.octopus-rules-text {
+  width: 62%;
 }
 </style>
