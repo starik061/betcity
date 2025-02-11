@@ -22,7 +22,7 @@
       </li>
       <li class="bottom-nav-panel-list-item">
         <router-link to="/friends" class="bottom-nav-panel-link">
-          <IconBottomNavGame />
+          <IconBottomNavFriends />
           <p class="bottom-nav-panel-text">Friends</p>
         </router-link>
       </li>

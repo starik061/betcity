@@ -66,16 +66,99 @@
         </div>
       </div>
 
+      <div class="divider"></div>
+
+      <div class="rules-text-big margin">
+        Каждую неделю даётся четыре бонусных действия, которые можно использовать по одному разу:
+      </div>
+
+      <div class="rules-text-small margin">
+        <span>1. Спрогнозировать точный исход матчей.</span>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+3</span>
+        </div>
+      </div>
+
+      <div class="rules-text-small margin">
+        <span>2. Выбрать тотал больше или меньше 2.5.</span>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+3</span>
+        </div>
+      </div>
+
+      <div class="rules-text-small margin">
+        <span>3. Написать минуту первого гола. Угадал?</span>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+5</span>
+        </div>
+      </div>
+
+      <div class="rules-text-small ">
+        <span>4. Сделать ставку с риском.</span>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">x2</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rules-text-big margin">
+        Приглашай друзей
+      </div>
+
+      <div class="rules-text-small margin">
+        <span>Зайди в раздел
+          <span class="friends-btn-immitator">
+            <IconBottomNavFriends :width="13" :height="13" /><span>Friends</span>
+          </span> и отправь пригласительную ссылку.</span>
+      </div>
+
+      <div class="ref-link-input-container rules">
+        <input class="ref-link-input" type="text" name="" value="https://www.figma.com">
+        <button type="button" class="copy-btn">
+          <IconCopyBtn />
+        </button>
+      </div>
+
+      <p class="change-choice-text change-choice-text">* Для каждого друга новая ссылка</p>
+
+      <div class="rules-text-small ">
+        <span>После авторизации друга в игре</span>
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+1</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rules-text-big margin">
+        Осьминог
+      </div>
+
+      <div class="rules-text-small ">
+        <span>Ищи нашего осьминого во время игры, тапай и получай бонусные беткоины каждый день.</span>
+
+      </div>
+
     </div>
+
+
+
 
   </div>
 </template>
 
 <script>
 import IconCopyBtn from '@/components/icons/IconCopyBtn.vue';
+import IconBottomNavFriends from '@/components/icons/IconBottomNavFriends.vue';
 
 export default {
-  components: { IconCopyBtn },
+  components: { IconCopyBtn, IconBottomNavFriends },
 }
 </script>
 
@@ -177,5 +260,36 @@ export default {
   &.margin {
     margin-bottom: 6px;
   }
+}
+
+.rules-text-small {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Styrene A";
+  font-size: 10px;
+
+  &.margin {
+    margin-bottom: 6px;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  margin: 16px 0;
+  background-color: var(--color-element-border)
+}
+
+.friends-btn-immitator {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  padding: 2.5px 5px 2.5px;
+  border-radius: 4.19px;
+  border: 1px solid var(--color-element-border);
+  font-size: 6.29px;
 }
 </style>

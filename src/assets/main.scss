@@ -66,6 +66,7 @@
 }
 
 .score-text {
+   font-family: "Nekst";
    font-size: 14px;
    font-weight: bold;
    line-height: auto;
@@ -130,4 +131,36 @@
 
 .rating-list-img {
    margin-right: 0;
+}
+
+.ref-link-input-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 2.33%;
+   padding: 0 16px 16px;
+
+   &.rules {
+      padding: 0 0 7px 0;
+   }
+}
+
+.ref-link-input {
+   height: 34px;
+   padding: 10px;
+   border: none;
+   background-color: var(--color-element-background-2);
+   border-radius: 6px;
+   font-family: "Styrene A";
+   font-size: 10px;
+   flex-grow: 1;
+}
+
+.copy-btn {
+   height: 34px;
+   padding: 3px 8px;
+   background-color: var(--color-main-blue);
+   border-radius: 6px;
+   flex-grow: 0;
+   border: none;
 }

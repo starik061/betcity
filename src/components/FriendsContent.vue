@@ -71,7 +71,6 @@ export default {
 }
 
 .ref-link-container {
-
   width: 100%;
   margin-bottom: 19px;
   border: 1px solid var(--color-element-border);
@@ -82,33 +81,5 @@ export default {
   display: block;
   width: 100%;
   transform: scale(1.05) translateY(-15px);
-}
-
-.ref-link-input-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2.33%;
-  padding: 0 16px 16px;
-}
-
-.ref-link-input {
-  height: 34px;
-  padding: 10px;
-  border: none;
-  background-color: var(--color-element-background-2);
-  border-radius: 6px;
-  font-family: "Styrene A";
-  font-size: 10px;
-  flex-grow: 1;
-}
-
-.copy-btn {
-  height: 34px;
-  padding: 3px 8px;
-  background-color: var(--color-main-blue);
-  border-radius: 6px;
-  flex-grow: 0;
-  border: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg :width="width" :height="height" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g id="Iconly/Light/3 User">
       <g id="3 User">
         <path id="Stroke 1"
@@ -24,3 +24,18 @@
     </g>
   </svg>
 </template>
+
+<script>
+export default {
+  props: {
+    width: {
+      type: Number,
+      default: '25'
+    },
+    height: {
+      type: Number,
+      default: '25'
+    },
+  }
+}
+</script>
