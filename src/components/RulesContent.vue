@@ -148,17 +148,19 @@
     </div>
 
     <div class="ref-link-container rules-container text">
-      <h2 class="rules-header">Призы</h2>
+      <h2 class="rules-header smaller-margin">Призы</h2>
 
-      <div class="rules-text-big margin">
+      <div class="rules-text-big bigger-margin">
         Фрибеты распределяются в зависимости от места пользователя в рейтинге.
       </div>
 
-      <div>
-        <p>Чем больше БЕТКОИНОВ, тем выше место игрока</p>
+      <div class="rules-frame-text-container">
+        <p class="rules-frame-text">Чем больше БЕТКОИНОВ, тем выше место игрока</p>
         <div class="score">
           <img class="score-coin" src="/img/coin.png" alt="coins">
-          <span class="score-text">x2</span>
+          <span class="score-text">
+            <IconRulesPrizesArrow />
+          </span>
         </div>
       </div>
 
@@ -167,28 +169,28 @@
 
       <div class="divider"></div>
 
-      <div class="rules-text-big margin">
+      <div class="rules-text-big biggest-margin">
         Номиналы фрибетов в рейтинге распределяются следующим образом:
       </div>
 
-      <ul class="game-rules-list">
+      <ul class="game-rules-list game-rules-prizes-list">
 
-        <li class="game-rules-list-item">
+        <li class="game-rules-list-item game-rules-prizes-list-item">
           <div class="game-rules-list-number">1</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Название приза</p>
+          <p class="game-rules-list-text">Холодильник</p>
         </li>
 
-        <li class="game-rules-list-item">
+        <li class="game-rules-list-item game-rules-prizes-list-item">
           <div class="game-rules-list-number">2</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Название приза</p>
+          <p class="game-rules-list-text">Стиральная машина</p>
         </li>
 
-        <li class="game-rules-list-item">
+        <li class="game-rules-list-item game-rules-prizes-list-item">
           <div class="game-rules-list-number">3</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Название приза</p>
+          <p class="game-rules-list-text">Автомобиль</p>
         </li>
       </ul>
 
@@ -202,7 +204,9 @@
 
       <div class="divider"></div>
 
-      <a href="#">Читать полные правила</a>
+      <div class="read-full-rules-link-wrapper">
+        <a href="#" class="read-full-rules-link">Читать полные правила</a>
+      </div>
     </div>
 
 
@@ -212,9 +216,10 @@
 <script>
 import IconCopyBtn from '@/components/icons/IconCopyBtn.vue';
 import IconBottomNavFriends from '@/components/icons/IconBottomNavFriends.vue';
+import IconRulesPrizesArrow from '@/components/icons/IconRulesPrizesArrow.vue';
 
 export default {
-  components: { IconCopyBtn, IconBottomNavFriends },
+  components: { IconCopyBtn, IconBottomNavFriends, IconRulesPrizesArrow },
 }
 </script>
 
@@ -225,6 +230,10 @@ export default {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
+
+  &.smaller-margin {
+    margin-bottom: 20px;
+  }
 }
 
 
@@ -285,7 +294,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 9px;
+  gap: 6px;
   flex-grow: 1;
 
   &.arrow-item {
@@ -315,6 +324,14 @@ export default {
 
   &.margin {
     margin-bottom: 6px;
+  }
+
+  &.bigger-margin {
+    margin-bottom: 16px;
+  }
+
+  &.biggest-margin {
+    margin-bottom: 20px;
   }
 }
 
@@ -364,5 +381,51 @@ export default {
 
 .octopus-rules-text {
   width: 62%;
+}
+
+.rules-frame-text-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--color-main-blue);
+  font-size: 13px;
+}
+
+.game-rules-prizes-list {
+  padding: 0 1.89%;
+  margin-bottom: 16px;
+
+}
+
+.rules-frame-text {
+  width: 55%
+}
+
+.game-rules-list-text {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.game-rules-list-text-2 {
+  font-family: "Styrene A";
+  font-size: 10px;
+}
+
+.game-rules-prizes-list-item {
+  width: 20%;
+  flex-grow: 0;
+}
+
+.read-full-rules-link-wrapper {
+  text-align: center;
+}
+
+.read-full-rules-link {
+  text-decoration: underline;
+  font-family: "Styrene A";
+  font-size: 10px;
 }
 </style>
