@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import LoadingViewZero from "../views/LoadingViewZero.vue";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
 import MainView from "../views/MainView.vue";
@@ -13,6 +14,11 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "loading",
+      component: LoadingViewZero
+    },
+    {
+      path: "/loading-one",
       name: "loading-one",
       component: LoadingViewOne
     },
