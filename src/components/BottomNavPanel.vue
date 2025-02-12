@@ -59,7 +59,7 @@ export default {
   align-items: center;
   padding: 10px;
 
-  background-image: url("/public/img/bottom-panel-frame.svg");
+  background-image: url("/img/bottom-panel-frame.svg");
   background-clip: padding-box;
   background-repeat: no-repeat;
   background-size: contain;

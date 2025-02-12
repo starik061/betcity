@@ -7,13 +7,13 @@
     <h2 class="header">Прогнозист <br> Павел</h2>
 
     <div class="image-container">
-      <img src="/public/img/loading-zero-coins.png" alt="coins image" class="background-loading-image">
+      <img src="/img/loading-zero-coins.png" alt="coins image" class="background-loading-image">
 
       <div class="ball-line moving "></div>
       <div class="ball-line second moving "></div>
       <div class="ball-line third moving "></div>
 
-      <img src="/public/img/ball.png" alt="ball" class="ball rotating">
+      <img src="/img/ball.png" alt="ball" class="ball rotating">
     </div>
 
     <p class="call-players-text">Зовем игроков на поле</p>
@@ -50,7 +50,7 @@ export default {
     goOn() {
       setTimeout(() => {
         this.$router.push("/loading-one")
-      }, 1500)
+      }, 5000)
     }
   }
 };
@@ -73,6 +73,7 @@ export default {
   align-items: center;
   width: 17.4%;
   aspect-ratio: 1/1;
+  margin-top: 92px;
   margin-bottom: 14px;
   border-radius: 50%;
   border: 1px solid var(--color-element-border);

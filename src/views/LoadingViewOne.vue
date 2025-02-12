@@ -1,17 +1,17 @@
 <template>
   <div class="main-container flex-container">
     <img src="/img/loading-view-1-main-picture.png" alt="octopus-mascot of betcity">
-    <strong class="slogan">Получай крутые призы</strong>
-    <p class="text">За прогнозы матчей онлайн</p>
+    <strong class="slogan">Рад видеть тебя! <br>Начнем игру?</strong>
+    <p class="text">Что тебя ждет в приложении?</p>
     <RouterLink class="next-loading-view" to="/loading-two">
       <span>Далее</span>
       <IconNextBtnArrow />
     </RouterLink>
 
     <div class="dots">
-      <span :class="{ active: currentScreen === 0 }"></span>
-      <span :class="{ active: currentScreen === 1 }"></span>
-      <span :class="{ active: currentScreen === 2 }"></span>
+      <span class="active"></span>
+      <span></span>
+      <span></span>
     </div>
   </div>
 </template>
@@ -23,8 +23,7 @@ export default {
   components: { IconNextBtnArrow },
   data() {
     return {
-      currentScreen: 0,
-    };
+          };
   },
 
   mounted() {
@@ -48,7 +47,7 @@ export default {
 
 .slogan {
   display: inline-block;
-  margin-top: -20px;
+  margin-top: 26px;
   margin-bottom: 20px;
   font-size: 32px;
   text-align: center;

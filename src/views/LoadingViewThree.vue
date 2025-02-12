@@ -1,9 +1,9 @@
 <template>
   <div class="main-container flex-container">
-    <img src="/img/loading-view-2-main-picture.png" alt="octopus-mascot of betcity">
-    <strong class="slogan">Получай крутые призы</strong>
-    <p class="text">За прогнозы матчей онлайн</p>
-    <RouterLink class="next-loading-view" to="/loading-three">
+    <img src="/img/loading-view-3-main-picture.png" alt="octopus-mascot of betcity">
+    <strong class="slogan">Делай прогнозы и получай Беткоины</strong>
+    <p class="text">За угаданные исходы матчей</p>
+    <RouterLink class="next-loading-view" to="/loading-four">
       <span>Далее</span>
       <IconNextBtnArrow />
     </RouterLink>
@@ -11,7 +11,7 @@
     <div class="dots">
       <span class="active"></span>
       <span class="active"></span>
-      <span></span>
+      <span class="active"></span>
     </div>
   </div>
 </template>
@@ -23,11 +23,21 @@ export default {
   components: { IconNextBtnArrow },
   data() {
     return {
-
+      currentScreen: 1,
     };
   },
 
   mounted() {
+    // if (miniApp.mount.isAvailable()) {
+    //   miniApp.mount(); // Включает полноэкранный режим
+    //   miniApp.isMounted(); // Проверяет, активен ли режим
+    //   if (miniApp.requestFullscreen.isAvailable()) {
+    //     miniApp.requestFullscreen(); // Запрашивает переход в полноэкранный режим
+    //   }
+    // }
+    if (window.telegram?.WebApp?.requestFullscreen) {
+      window.telegram.WebApp.requestFullscreen();
+    }
 
   },
 
@@ -48,7 +58,7 @@ export default {
 
 .slogan {
   display: inline-block;
-  margin-top: -20px;
+  margin-top: 26px;
   margin-bottom: 20px;
   font-size: 32px;
   text-align: center;

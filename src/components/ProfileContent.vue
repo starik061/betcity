@@ -40,7 +40,7 @@
           <p class="forecast-history-date">прогноз от 01.02.2025</p>
         </div>
 
-        <img src="/public/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+        <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
 
         <div class="score forecast-history-score">
           <img class="score-coin" src="/img/coin.png" alt="coins">
@@ -57,7 +57,7 @@
           <p class="forecast-history-date">прогноз от 01.02.2025</p>
         </div>
 
-        <img src="/public/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+        <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
 
         <div class="score forecast-history-score">
           <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"

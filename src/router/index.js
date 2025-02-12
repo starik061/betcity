@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoadingViewZero from "../views/LoadingViewZero.vue";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
+import LoadingViewThree from "../views/LoadingViewThree.vue";
+import LoadingViewFour from "../views/LoadingViewFour.vue";
 import MainView from "../views/MainView.vue";
 import Rules from "../views/Rules.vue";
 import Rating from "../views/Rating.vue";
@@ -26,6 +28,16 @@ const router = createRouter({
       path: "/loading-two",
       name: "loading-two",
       component: LoadingViewTwo
+    },
+    {
+      path: "/loading-three",
+      name: "loading-three",
+      component: LoadingViewThree
+    },
+    {
+      path: "/loading-four",
+      name: "loading-four",
+      component: LoadingViewFour
     },
     {
       path: "/main-view",
