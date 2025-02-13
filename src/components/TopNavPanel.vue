@@ -27,6 +27,8 @@
           <div class="gift-circle-top"></div>
         </div>
         <div class="gift-circle-top-container image-container">
+          <img class="gift-image" src="/img/gradients/top-nav-gift-gradient.png" alt="gift-gradient" width="181px"
+            height="75px">
           <img class="gift-image" src="/img/top-nav-gift.png" alt="gift" width="53px" height="53px">
         </div>
 
