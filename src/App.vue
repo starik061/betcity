@@ -1,5 +1,7 @@
 <template>
-  <RouterView />
+  <transition name="slide" mode="out-in">
+    <RouterView />
+  </transition>
 </template>
 
 <script>
@@ -37,4 +39,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/* Анимация смены экрана справа налево */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s ease-in-out, opacity 0.5s;
+}
+
+.slide-enter {
+  transform: translateX(100%);
+  /* Входящий экран начинает справа */
+  opacity: 0;
+}
+
+.slide-leave-to {
+  transform: translateX(-100%);
+  /* Уходящий экран уходит влево */
+  opacity: 0;
+}
+</style>
