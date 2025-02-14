@@ -1,7 +1,10 @@
 <template>
   <div class="main-container flex-container">
+    <div class="body-shadow body-shadow-1"></div>
+    <div class="body-shadow body-shadow-2"></div>
+    <div class="body-shadow body-shadow-3"></div>
     <div class="avatar-octopus-container">
-      <img src="/img/avatar-placeholder.webp" alt="" class="avatar-img">
+      <img src="/img/octopus-pavel.png" alt="octopus pavel - mascot of betcity" class="avatar-img">
     </div>
 
     <h2 class="header">Прогнозист <br> Павел</h2>
@@ -43,7 +46,7 @@ export default {
     if (window.telegram?.WebApp?.requestFullscreen) {
       window.telegram.WebApp.requestFullscreen();
     }
-    this.goOn()
+    // this.goOn()
   },
 
   methods: {
@@ -58,13 +61,57 @@ export default {
 
 <style lang="scss" scoped>
 .flex-container {
+
   display: flex;
   height: 100vh;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding-top: 60px;
-  padding-bottom: 150px;
+  padding-bottom: 80px;
+}
+
+.body-shadow-1 {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
+  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
+  box-shadow: 10px 10px 160px 120px rgba(0, 112, 243, 0.4);
+}
+
+.body-shadow-2 {
+  position: absolute;
+  top: 45%;
+  right: -1px;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+
+  background-color: rgba(0, 112, 243, 0.4);
+  backdrop-filter: blur(1px);
+
+  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
+  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
+  box-shadow: 10px 10px 160px 120px rgba(0, 112, 243, 0.4);
+}
+
+.body-shadow-3 {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+
+  background-color: rgba(0, 240, 255, 0.5);
+  backdrop-filter: blur(1px);
+
+  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+  box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
 }
 
 .avatar-octopus-container {
@@ -72,6 +119,8 @@ export default {
   justify-content: center;
   align-items: center;
   width: 17.4%;
+  flex-shrink: 0;
+  flex-grow: 0;
   aspect-ratio: 1/1;
   margin-top: 92px;
   margin-bottom: 14px;
@@ -100,6 +149,7 @@ export default {
 }
 
 .call-players-text {
+  margin-bottom: 10px;
   font-family: "Styrene A";
   font-size: 13px;
 }
