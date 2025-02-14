@@ -1,6 +1,6 @@
 <template>
   <transition name="slide" mode="out-in">
-    <RouterView :key="this.$route.path" />
+    <RouterView :key="Math.random()" />
   </transition>
 </template>
 

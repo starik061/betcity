@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import LoadingViewZero from "../views/LoadingViewZero.vue";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
@@ -12,7 +12,7 @@ import Profile from "../views/Profile.vue";
 import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
