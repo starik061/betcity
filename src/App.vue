@@ -1,7 +1,8 @@
 <template>
-  <transition name="slide" mode="out-in">
-    <RouterView :key="Math.random()" />
-  </transition>
+  <!-- <transition name="slide" mode="out-in">
+    <RouterView :key="this.$route.path" />
+  </transition> -->
+  <RouterView />
 </template>
 
 <script>
