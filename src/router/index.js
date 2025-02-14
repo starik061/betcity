@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import LoadingViewZero from "../views/LoadingViewZero.vue";
 import LoadingViewOne from "../views/LoadingViewOne.vue";
 import LoadingViewTwo from "../views/LoadingViewTwo.vue";
