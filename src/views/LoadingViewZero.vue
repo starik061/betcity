@@ -39,23 +39,6 @@ export default {
   },
 
   mounted() {
-    // if (miniApp.mount.isAvailable()) {
-    //   miniApp.mount(); // Включает полноэкранный режим
-    //   miniApp.isMounted(); // Проверяет, активен ли режим
-    //   if (miniApp.requestFullscreen.isAvailable()) {
-    //     miniApp.requestFullscreen(); // Запрашивает переход в полноэкранный режим
-    //   }
-    // }
-    if (window.Telegram?.WebApp) {
-      const webApp = window.Telegram.WebApp;
-      webApp.ready(); // Делаем WebApp активным
-
-      if (webApp.requestFullscreen) {
-        webApp.requestFullscreen(); // Полноэкранный режим на Android
-      }
-
-      webApp.expand(); // Для iOS и доп. расширения на Android
-    }
     this.goOn()
   },
 
@@ -63,7 +46,7 @@ export default {
     goOn() {
       setTimeout(() => {
         this.$router.push("/loading-one")
-      }, 5000)
+      }, 4000)
     }
   }
 };

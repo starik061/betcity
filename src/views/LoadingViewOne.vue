@@ -4,7 +4,16 @@
     <div class="body-shadow body-shadow-2"></div>
     <div class="body-shadow body-shadow-3"></div>
 
-    <img src="/img/loading-view-1-main-picture.png" alt="octopus-mascot of betcity">
+
+    <div class="image-container">
+      <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+      <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+      <img src="/img/loading-one-octopus.png" alt="betcity octopus mascot" class="octopus-img">
+      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+      <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+    </div>
+
     <strong class="slogan">Рад видеть тебя! <br>Начнем игру?</strong>
     <p class="text">Что тебя ждет в приложении?</p>
 
@@ -100,5 +109,62 @@ body {
   left: 50%;
   bottom: 127px;
   transform: translateX(-50%);
+}
+
+.image-container {
+  position: relative;
+  width: 63%;
+
+  & img {
+    display: block;
+  }
+}
+
+.background-rectangle {
+  width: 100%;
+}
+
+.octopus-img {
+  position: absolute;
+  width: 94%;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sean-coin {
+  position: absolute;
+  width: 12.6%;
+  aspect-ratio: 1/1;
+  top: 8%;
+  right: 0;
+  transform: rotateZ(-15deg) translate(40%, 50%);
+}
+
+.green-coin {
+  position: absolute;
+  width: 8.1%;
+  aspect-ratio: 1/1;
+  top: 2%;
+  left: 14%;
+  transform: rotateZ(60deg) translate(30%, 50%);
+}
+
+.lightblue-coin {
+  position: absolute;
+  width: 5.1%;
+  aspect-ratio: 1/1;
+  top: 55%;
+  right: 4%;
+  transform: rotateZ(30deg) translate(50%, 50%);
+}
+
+.red-coin {
+  position: absolute;
+  width: 8.13%;
+  aspect-ratio: 1/1;
+  top: 75%;
+  left: 2%;
+  transform: rotateZ(-10deg) translate(-50%, -50%);
 }
 </style>

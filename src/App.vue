@@ -29,6 +29,8 @@ export default {
 
       if (window.Telegram.WebApp.requestFullscreen) {
         window.Telegram.WebApp.requestFullscreen(); // Запросить полный экран (если доступно)
+      } else {
+        window.Telegram.WebApp.expand(); // Для iOS и доп. расширения на Android
       }
     }
   }
