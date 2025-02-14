@@ -46,7 +46,7 @@ export default {
     if (window.telegram?.WebApp?.requestFullscreen) {
       window.telegram.WebApp.requestFullscreen();
     }
-    // this.goOn()
+    this.goOn()
   },
 
   methods: {
@@ -68,50 +68,6 @@ export default {
   justify-content: flex-start;
   align-items: center;
   padding-bottom: 80px;
-}
-
-.body-shadow-1 {
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 1px;
-  height: 1px;
-  border-radius: 50%;
-  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
-  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
-  box-shadow: 10px 10px 160px 120px rgba(0, 112, 243, 0.4);
-}
-
-.body-shadow-2 {
-  position: absolute;
-  top: 45%;
-  right: -1px;
-  width: 1px;
-  height: 1px;
-  border-radius: 50%;
-
-  background-color: rgba(0, 112, 243, 0.4);
-  backdrop-filter: blur(1px);
-
-  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
-  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 112, 243, 0.4);
-  box-shadow: 10px 10px 160px 120px rgba(0, 112, 243, 0.4);
-}
-
-.body-shadow-3 {
-  position: absolute;
-  bottom: -1px;
-  left: -1px;
-  width: 1px;
-  height: 1px;
-  border-radius: 50%;
-
-  background-color: rgba(0, 240, 255, 0.5);
-  backdrop-filter: blur(1px);
-
-  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
-  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
-  box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
 }
 
 .avatar-octopus-container {

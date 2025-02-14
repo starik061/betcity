@@ -1,8 +1,15 @@
 <template>
   <div class="main-container flex-container">
+    <div class="body-shadow body-shadow-1"></div>
+    <div class="body-shadow body-shadow-2"></div>
+    <div class="body-shadow body-shadow-3"></div>
+
     <img src="/img/loading-view-2-main-picture.png" alt="octopus-mascot of betcity">
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
+  </div>
+
+  <div class="next-btn-dots-container">
     <RouterLink class="next-loading-view" to="/loading-three">
       <span>Далее</span>
       <IconNextBtnArrow />
@@ -11,6 +18,7 @@
     <div class="dots">
       <span class="active"></span>
       <span class="active"></span>
+      <span></span>
       <span></span>
     </div>
   </div>
@@ -94,5 +102,12 @@ export default {
   background-color: #D0D0D2;
   border-radius: 15px;
   text-decoration: none;
+}
+
+.next-btn-dots-container {
+  position: fixed;
+  left: 50%;
+  bottom: 127px;
+  transform: translateX(-50%);
 }
 </style>
