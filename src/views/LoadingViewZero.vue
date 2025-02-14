@@ -10,7 +10,10 @@
     <h2 class="header">Прогнозист <br> Павел</h2>
 
     <div class="image-container">
-      <img src="/img/loading-zero-coins.png" alt="coins image" class="background-loading-image">
+      <img src="/img/loading-zero-rectangle.png" alt="coins image" class="background-loading-image">
+      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+      <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
 
       <div class="ball-line moving "></div>
       <div class="ball-line second moving "></div>
@@ -109,7 +112,7 @@ export default {
 
 .image-container {
   position: relative;
-  width: 59%;
+  width: 70%;
 
 }
 
@@ -131,29 +134,57 @@ export default {
 }
 
 .ball {
+  width: 30%;
   position: absolute;
-  top: 65%;
-  left: 50%;
+  top: 55%;
+  left: 55%;
   transform: translate(-50%, -50%);
 }
 
 .ball-line {
   position: absolute;
   width: 13%;
-  height: 1px;
+  height: 2px;
   background-color: #F7B23B;
-  top: 50%;
-  left: 15%;
+  top: 42%;
+  left: 18%;
 
   &.second {
-    top: 63%;
-    left: 5%;
+    top: 54%;
+    left: 8%;
   }
 
   &.third {
-    top: 74%;
-    left: 11%;
+    top: 67%;
+    left: 15%;
   }
+}
+
+.sean-coin {
+  position: absolute;
+  width: 12.6%;
+  aspect-ratio: 1/1;
+  top: 0;
+  left: 10%;
+  transform: rotateX(20.6deg) translate(-50%, -50%);
+}
+
+.green-coin {
+  position: absolute;
+  width: 8.1%;
+  aspect-ratio: 1/1;
+  bottom: 0;
+  right: 14%;
+  transform: rotateZ(50deg) translate(30%, 50%);
+}
+
+.lightblue-coin {
+  position: absolute;
+  width: 5.1%;
+  aspect-ratio: 1/1;
+  top: 15%;
+  right: 4%;
+  transform: rotateZ(30deg) translate(50%, 50%);
 }
 
 // Анимация вращения мяча
