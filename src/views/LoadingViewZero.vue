@@ -43,8 +43,15 @@ export default {
     //     miniApp.requestFullscreen(); // Запрашивает переход в полноэкранный режим
     //   }
     // }
-    if (window.telegram?.WebApp?.requestFullscreen) {
-      window.telegram.WebApp.requestFullscreen();
+    if (window.Telegram?.WebApp) {
+      const webApp = window.Telegram.WebApp;
+      webApp.ready(); // Делаем WebApp активным
+
+      if (webApp.requestFullscreen) {
+        webApp.requestFullscreen(); // Полноэкранный режим на Android
+      }
+
+      webApp.expand(); // Для iOS и доп. расширения на Android
     }
     // this.goOn()
   },
