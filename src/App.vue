@@ -1,6 +1,6 @@
 <template>
   <transition name="slide" mode="out-in">
-    <RouterView :key="$route.fullPath" />
+    <RouterView :key="this.$route.path" />
   </transition>
 </template>
 
