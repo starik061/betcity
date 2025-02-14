@@ -56,7 +56,7 @@ export default {
 
       webApp.expand(); // Для iOS и доп. расширения на Android
     }
-    // this.goOn()
+    this.goOn()
   },
 
   methods: {
