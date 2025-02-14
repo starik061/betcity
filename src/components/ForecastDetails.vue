@@ -169,6 +169,18 @@
         <img class="congrat-modal-img" src="/img/congrat-modal-img.png" alt="">
       </div>
 
+      <div class="congrat-modal-forecast-container">
+        <div class="congrat-modal-forecast-text-container">
+          <p class="congrat-modal-forecast-header">Chelsey VS Bayern, 19:40</p>
+          <p class="congrat-modal-forecast-date">прогноз от 01.02.2025</p>
+        </div>
+        <img class="congrat-modal-team-img" src="/public/img/game-team-logo.png" alt="">
+
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">+1</span>
+        </div>
+      </div>
     </template>
   </Modal>
 </template>
@@ -487,5 +499,37 @@ export default {
   top: -100px;
   left: 0;
   transform: scale(1.10);
+}
+
+.congrat-modal-forecast-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--color-main-blue);
+  border-radius: 12px;
+}
+
+.congrat-modal-team-img {
+  width: 30px;
+  height: 30px;
+}
+
+.congrat-modal-forecast-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.congrat-modal-forecast-header {
+  font-size: 13px;
+}
+
+.congrat-modal-forecast-date {
+  font-family: "Styrene A";
+  font-size: 8px;
 }
 </style>

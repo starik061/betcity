@@ -3,9 +3,9 @@ import { defineStore } from "pinia";
 export const useAppStore = defineStore("app", {
   state: () => ({
     modalsState: {
-      dailyReward: false,
+      dailyReward: true,
       forecastDetails: false,
-      congratulations: true
+      congratulations: false
     }, // Сюда будут добавляться модалки динамически
     user: null, // Храним текущего пользователя
     settings: {} // Можно добавить настройки приложения
