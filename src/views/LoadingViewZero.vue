@@ -131,6 +131,7 @@ export default {
 .background-loading-image {
   display: block;
   width: 100%;
+  margin-bottom: 16px;
 }
 
 .ball {
@@ -173,7 +174,7 @@ export default {
   position: absolute;
   width: 8.1%;
   aspect-ratio: 1/1;
-  bottom: 0;
+  bottom: 16px;
   right: 14%;
   transform: rotateZ(50deg) translate(30%, 50%);
 }
