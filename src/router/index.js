@@ -12,7 +12,7 @@ import Profile from "../views/Profile.vue";
 import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
