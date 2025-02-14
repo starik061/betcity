@@ -26,32 +26,8 @@
 
 <script>
 import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
-
 export default {
   components: { IconNextBtnArrow },
-  data() {
-    return {
-      currentScreen: 1,
-    };
-  },
-
-  mounted() {
-    // if (miniApp.mount.isAvailable()) {
-    //   miniApp.mount(); // Включает полноэкранный режим
-    //   miniApp.isMounted(); // Проверяет, активен ли режим
-    //   if (miniApp.requestFullscreen.isAvailable()) {
-    //     miniApp.requestFullscreen(); // Запрашивает переход в полноэкранный режим
-    //   }
-    // }
-    if (window.telegram?.WebApp?.requestFullscreen) {
-      window.telegram.WebApp.requestFullscreen();
-    }
-
-  },
-
-  methods: {
-
-  }
 };
 </script>
 

@@ -26,22 +26,8 @@
 
 <script>
 import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
-
 export default {
   components: { IconNextBtnArrow },
-  data() {
-    return {
-
-    };
-  },
-
-  mounted() {
-
-  },
-
-  methods: {
-
-  }
 };
 </script>
 

@@ -174,7 +174,7 @@
           <p class="congrat-modal-forecast-header">Chelsey VS Bayern, 19:40</p>
           <p class="congrat-modal-forecast-date">прогноз от 01.02.2025</p>
         </div>
-        <img class="congrat-modal-team-img" src="/public/img/game-team-logo.png" alt="">
+        <img class="congrat-modal-team-img" src="/img/game-team-logo.png" alt="">
 
         <div class="score">
           <img class="score-coin" src="/img/coin.png" alt="coins">
