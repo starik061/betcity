@@ -46,7 +46,7 @@ export default {
     if (window.telegram?.WebApp?.requestFullscreen) {
       window.telegram.WebApp.requestFullscreen();
     }
-    this.goOn()
+    // this.goOn()
   },
 
   methods: {
@@ -65,9 +65,11 @@ export default {
   display: flex;
   height: 100vh;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  padding-top: 11%;
   padding-bottom: 80px;
+
 }
 
 .avatar-octopus-container {
