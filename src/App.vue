@@ -1,6 +1,6 @@
 <template>
   <transition name="slide" mode="out-in">
-    <RouterView />
+    <RouterView :key="$route.fullPath" />
   </transition>
 </template>
 
@@ -9,20 +9,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 export default {
   mounted() {
-    // if (
-    //   window.Telegram &&
-    //   window.Telegram.WebApp &&
-    //   window.Telegram.WebApp.platform &&
-    //   !window.Telegram.WebApp.platform === "unknown" &&
-    //   Number(window.Telegram.WebApp?.version) >= 8.0
-    // ) {
-    //   window.Telegram.WebApp.requestFullscreen();
-    // }
     if (
       window.Telegram &&
       window.Telegram.WebApp &&
       window.Telegram.WebApp.platform &&
       window.Telegram.WebApp.platform !== "unknown" &&
+      window.Telegram.WebApp.platform !== "tdesktop" && // Исключаем десктопный Telegram
       Number(window.Telegram.WebApp?.version) >= 8.0
     ) {
       if (window.Telegram.WebApp.disableVerticalSwipes) {
@@ -32,9 +24,10 @@ export default {
       if (window.Telegram.WebApp.requestFullscreen) {
         window.Telegram.WebApp.requestFullscreen(); // Запросить полный экран (если доступно)
       } else {
-        window.Telegram.WebApp.expand(); // Для iOS и доп. расширения на Android
+        window.Telegram.WebApp.expand(); // Для iOS и fallback для Android
       }
     }
+
   }
 }
 </script>
@@ -48,13 +41,21 @@ export default {
 
 .slide-enter {
   transform: translateX(100%);
-  /* Входящий экран начинает справа */
   opacity: 0;
+}
+
+.slide-enter-to {
+  transform: none;
+  opacity: 1;
+}
+
+.slide-leave {
+  transform: none;
+  opacity: 1;
 }
 
 .slide-leave-to {
   transform: translateX(-100%);
-  /* Уходящий экран уходит влево */
   opacity: 0;
 }
 </style>
