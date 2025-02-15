@@ -93,7 +93,7 @@ export default {
 .next-btn-dots-container {
   position: fixed;
   left: 50%;
-  bottom: 127px;
+  bottom: 10%;
   transform: translateX(-50%);
 }
 </style>

@@ -4,7 +4,15 @@
     <div class="body-shadow body-shadow-2"></div>
     <div class="body-shadow body-shadow-3"></div>
 
-    <img src="/img/loading-view-2-main-picture.png" alt="octopus-mascot of betcity">
+    <div class="image-container">
+      <img src="/img/loading-two-rectangle.png" alt="background rectangle" class="background-rectangle">
+      <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+      <img src="/img/loading-two-octopus.png" alt="betcity octopus mascot" class="octopus-img">
+      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+      <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+    </div>
+
     <strong class="slogan">Получай крутые призы</strong>
     <p class="text">За прогнозы матчей онлайн</p>
   </div>
@@ -42,7 +50,7 @@ export default {
 
 .slogan {
   display: inline-block;
-  margin-top: -20px;
+  margin-top: 40px;
   margin-bottom: 20px;
   font-size: 32px;
   text-align: center;
@@ -93,7 +101,64 @@ export default {
 .next-btn-dots-container {
   position: fixed;
   left: 50%;
-  bottom: 127px;
+  bottom: 10%;
   transform: translateX(-50%);
+}
+
+.image-container {
+  position: relative;
+  width: 63%;
+
+  & img {
+    display: block;
+  }
+}
+
+.background-rectangle {
+  width: 100%;
+}
+
+.octopus-img {
+  position: absolute;
+  width: 100%;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%) scale(1.1);
+}
+
+.sean-coin {
+  position: absolute;
+  width: 12.6%;
+  aspect-ratio: 1/1;
+  top: 0;
+  left: 12%;
+  transform: rotateZ(-10deg) translate(-50%, -50%);
+}
+
+.green-coin {
+  position: absolute;
+  width: 8.1%;
+  aspect-ratio: 1/1;
+  top: 60%;
+  left: 0;
+  transform: rotateZ(60deg) translate(-120%, -50%);
+}
+
+.lightblue-coin {
+  position: absolute;
+  width: 5.1%;
+  aspect-ratio: 1/1;
+  top: 55%;
+  right: 4%;
+  transform: rotateZ(30deg) translate(50%, 50%);
+}
+
+.red-coin {
+  position: absolute;
+  width: 8.13%;
+  aspect-ratio: 1/1;
+  top: 7%;
+  right: 3%;
+  transform: translate(-50%, -50%);
 }
 </style>

@@ -6,7 +6,9 @@
           <img class="avatar" src="/img/avatar-placeholder.webp" />
         </router-link>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">200</span>
         </div>
       </div>
@@ -104,11 +106,6 @@ export default {
       border-radius: 50%;
     }
   }
-}
-
-.score-coin {
-  width: 17px;
-  height: 17px;
 }
 
 .score-text {
