@@ -5,7 +5,7 @@
     <div class="body-shadow body-shadow-3"></div>
 
     <div class="image-container">
-      <img src="/img/loading-two-rectangle.png" alt="background rectangle" class="background-rectangle">
+      <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
       <img src="/img/coin-red.png" alt="red coin" class="red-coin">
       <img src="/img/loading-two-octopus.png" alt="betcity octopus mascot" class="octopus-img">
       <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
