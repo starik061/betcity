@@ -10,25 +10,21 @@ import { RouterLink, RouterView } from 'vue-router'
 
 export default {
   mounted() {
-    if (
-      window.Telegram &&
-      window.Telegram.WebApp &&
-      window.Telegram.WebApp.platform &&
-      window.Telegram.WebApp.platform !== "unknown" &&
-      window.Telegram.WebApp.platform !== "tdesktop" && // Исключаем десктопный Telegram
-      Number(window.Telegram.WebApp?.version) >= 8.0
-    ) {
-      if (window.Telegram.WebApp.disableVerticalSwipes) {
-        window.Telegram.WebApp.disableVerticalSwipes();
-      }
+    //   if (window.Telegram?.WebApp) {
+    //     const { WebApp } = window.Telegram;
+    //     WebApp.disableVerticalSwipes?.(); // Безопасный вызов без if
 
-      if (window.Telegram.WebApp.requestFullscreen) {
-        window.Telegram.WebApp.requestFullscreen(); // Запросить полный экран (если доступно)
-      } else {
-        window.Telegram.WebApp.expand(); // Для iOS и fallback для Android
-      }
-    }
+    //     // Проверяем, что НЕ десктопная версия
+    //     if (WebApp.platform !== "tdesktop") {
+    //       // Вызываем expand() для всех версий
+    //       WebApp.expand();
 
+    //       // Если доступно requestFullscreen() (для версий >= 8.0), используем его
+    //       if (parseFloat(WebApp.version) >= 8.0) {
+    //         WebApp.requestFullscreen?.();
+    //       }
+    //     }
+    //   }
   }
 }
 </script>
