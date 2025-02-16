@@ -50,6 +50,7 @@ export default {
   max-width: 450px;
   margin: 0 auto;
   padding: 0 24px;
+  pointer-events: none;
 }
 
 .game-one-container {
