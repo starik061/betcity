@@ -1,6 +1,7 @@
 <template>
   <nav class="bottom-nav-panel-container">
     <div class="logo-btn-shadow-holder"></div>
+
     <ul class="bottom-nav-panel-list">
       <li class="bottom-nav-panel-list-item">
         <router-link to="/rules" class="bottom-nav-panel-link">
@@ -9,7 +10,7 @@
         </router-link>
       </li>
       <li class="bottom-nav-panel-list-item">
-        <router-link to=" /home" class="bottom-nav-panel-link">
+        <router-link to="/home" class="bottom-nav-panel-link">
           <IconBottomNavGame />
           <p class="bottom-nav-panel-text">Game</p>
         </router-link>
@@ -27,7 +28,7 @@
         </router-link>
       </li>
     </ul>
-    <IconLogoButton class="logo-btn" />
+    <IconLogoButton class="logo-btn" @click="handleHomeClick" />
 
   </nav>
 </template>
@@ -42,6 +43,11 @@ import IconLogoButton from '@/components/icons/IconLogoButton.vue';
 export default {
   components: { IconLogoButton, IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
 
+  methods: {
+    handleHomeClick() {
+      this.$router.push('/main-view');
+    }
+  }
 }
 </script>
 

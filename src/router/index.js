@@ -13,6 +13,10 @@ import UnsupportedPlatform from "../views/UnsupportedPlatform.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  // history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { top: 0 };
+  },
   routes: [
     {
       path: "/",
