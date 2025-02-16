@@ -7,6 +7,12 @@
 
       <BottomNavPanel class="bottom-panel-nav" />
     </div>
+
+    <div class="shadows-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
+    </div>
   </div>
 </template>
 
@@ -50,5 +56,18 @@ export default {
   left: 50%;
   bottom: 60px;
   transform: translate(-50%, 0);
+}
+
+.shadows-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0 24px;
+  pointer-events: none;
 }
 </style>
