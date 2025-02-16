@@ -15,15 +15,15 @@ function initTelegramWebApp() {
     WebApp.disableVerticalSwipes?.(); // Безопасный вызов без if
 
     // Проверяем, что НЕ десктопная версия
-    // if (WebApp.platform !== "tdesktop") {
-    // Вызываем expand() для всех версий
-    WebApp.expand();
+    if (WebApp.platform !== "tdesktop") {
+      // Вызываем expand() для всех версий
+      WebApp.expand();
 
-    // Если доступно requestFullscreen() (для версий >= 8.0), используем его
-    if (parseFloat(WebApp.version) >= 8.0) {
-      WebApp.requestFullscreen?.();
+      // Если доступно requestFullscreen() (для версий >= 8.0), используем его
+      if (parseFloat(WebApp.version) >= 8.0) {
+        WebApp.requestFullscreen?.();
+      }
     }
-    // }
   }
 }
 
