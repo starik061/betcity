@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-container game-one-container">
-      <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap">
+      <!-- <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap"> -->
 
       <TopNavPanel class="top-panel-nav" />
 
