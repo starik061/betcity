@@ -28,9 +28,9 @@
         <div class="gift-circle-top-container">
           <div class="gift-circle-top"></div>
         </div>
+
+        <div class="shadow-wrapper"></div>
         <div class="gift-circle-top-container image-container">
-          <img class="gift-image" src="/img/gradients/top-nav-gift-gradient.png" alt="gift-gradient" width="181px"
-            height="75px">
           <img class="gift-image" src="/img/top-nav-gift.png" alt="gift" width="53px" height="53px">
         </div>
 
@@ -169,5 +169,29 @@ export default {
   top: 0;
   left: 50%;
   transform: translate(-50%, 7%);
+}
+
+.shadow-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -41px);
+  width: 68px;
+  /* Половина высоты круга */
+  height: 34px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    border-radius: 45%;
+    background: linear-gradient(to bottom, #56C9D0 0%, #E2E1B8 100%);
+    filter: blur(15px);
+    opacity: 0.7;
+    transform: rotate(-30deg);
+  }
 }
 </style>
