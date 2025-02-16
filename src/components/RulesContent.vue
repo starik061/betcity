@@ -550,7 +550,6 @@ export default {
   }
 }
 
-
 .octopus-shadow {
   position: relative;
   margin-bottom: -10px;
