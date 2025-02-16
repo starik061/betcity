@@ -1,18 +1,20 @@
 <template>
-  <div class="main-container game-one-container">
-    <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap">
+  <div>
+    <div class="main-container game-one-container">
+      <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap">
 
-    <TopNavPanel class="top-panel-nav" />
+      <TopNavPanel class="top-panel-nav" />
 
-    <ForecastDetails v-for="(item, index) in 2" :key="index" />
+      <ForecastDetails v-for="(item, index) in 2" :key="index" />
 
-    <BottomNavPanel class="bottom-panel-nav" />
-  </div>
+      <BottomNavPanel class="bottom-panel-nav" />
+    </div>
 
-  <div class="shadows-container">
-    <div class="body-shadow body-shadow-1"></div>
-    <div class="body-shadow body-shadow-2"></div>
-    <div class="body-shadow body-shadow-3"></div>
+    <div class="shadows-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
+    </div>
   </div>
 </template>
 

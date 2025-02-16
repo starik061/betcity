@@ -1,10 +1,12 @@
 <template>
-  <div class="main-container game-one-container">
-    <TopNavPanel class="top-panel-nav" />
+  <div>
+    <div class="main-container game-one-container">
+      <TopNavPanel class="top-panel-nav" />
 
-    <RulesContent />
+      <RulesContent />
 
-    <BottomNavPanel class="bottom-panel-nav" />
+      <BottomNavPanel class="bottom-panel-nav" />
+    </div>
   </div>
 </template>
 

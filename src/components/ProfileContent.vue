@@ -1,80 +1,82 @@
 <template>
-  <h2 class="rating-list-header">Профиль</h2>
+  <div>
+    <h2 class="rating-list-header">Профиль</h2>
 
-  <nav class="profile-info-container">
-    <div class="left-side">
-      <img class="avatar" src="/img/avatar-placeholder.webp" />
-      <div class="username-place-container">
-        <p class="username">Игорь Петров <span class="tg-username">@igorpet</span></p>
-        <span class="rating-place">5000</span>
+    <nav class="profile-info-container">
+      <div class="left-side">
+        <img class="avatar" src="/img/avatar-placeholder.webp" />
+        <div class="username-place-container">
+          <p class="username">Игорь Петров <span class="tg-username">@igorpet</span></p>
+          <span class="rating-place">5000</span>
+        </div>
+
       </div>
 
-    </div>
-
-    <div class="right-side">
-      <div class="score">
-        <img class="score-coin" src="/img/coin.png" alt="coins">
-        <span class="score-text">200</span>
+      <div class="right-side">
+        <div class="score">
+          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <span class="score-text">200</span>
+        </div>
+        <p class="score-change-period">За неделю<span>+2</span></p>
       </div>
-      <p class="score-change-period">За неделю<span>+2</span></p>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="phone-container">
-    <b class="phone-container-header">Подтвердите номер телефона</b>
-    <div class="phone-btn-container">
-      <input type=" tel" name="" id="" class="user-phone" value="+7-900-000-00-00">
-      <button type="button" class="phone-approve-btn">
-        <IconPhoneApproved />
-      </button>
+    <div class="phone-container">
+      <b class="phone-container-header">Подтвердите номер телефона</b>
+      <div class="phone-btn-container">
+        <input type=" tel" name="" id="" class="user-phone" value="+7-900-000-00-00">
+        <button type="button" class="phone-approve-btn">
+          <IconPhoneApproved />
+        </button>
+      </div>
     </div>
+
+    <h2 class="rating-list-header">История прогнозов</h2>
+
+    <ul class="forecast-history-list">
+      <li class="forecast-history-list-item">
+        <div class="forecast-history-list-item-wrapper">
+          <div class="forecast-history-info-container">
+            <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
+            <p class="forecast-history-date">прогноз от 01.02.2025</p>
+          </div>
+
+          <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+
+          <div class="score forecast-history-score">
+            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <span class="score-text">+2</span>
+          </div>
+        </div>
+
+      </li>
+
+      <li class="forecast-history-list-item">
+        <div class="forecast-history-list-item-wrapper">
+          <div class="forecast-history-info-container">
+            <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
+            <p class="forecast-history-date">прогноз от 01.02.2025</p>
+          </div>
+
+          <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+
+          <div class="score forecast-history-score">
+            <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
+                fill="white" />
+            </svg>
+
+            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <span class="score-text">+2</span>
+          </div>
+        </div>
+        <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
+      </li>
+
+    </ul>
   </div>
-
-  <h2 class="rating-list-header">История прогнозов</h2>
-
-  <ul class="forecast-history-list">
-    <li class="forecast-history-list-item">
-      <div class="forecast-history-list-item-wrapper">
-        <div class="forecast-history-info-container">
-          <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
-          <p class="forecast-history-date">прогноз от 01.02.2025</p>
-        </div>
-
-        <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
-
-        <div class="score forecast-history-score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
-          <span class="score-text">+2</span>
-        </div>
-      </div>
-
-    </li>
-
-    <li class="forecast-history-list-item">
-      <div class="forecast-history-list-item-wrapper">
-        <div class="forecast-history-info-container">
-          <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
-          <p class="forecast-history-date">прогноз от 01.02.2025</p>
-        </div>
-
-        <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
-
-        <div class="score forecast-history-score">
-          <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
-              fill="white" />
-          </svg>
-
-          <img class="score-coin" src="/img/coin.png" alt="coins">
-          <span class="score-text">+2</span>
-        </div>
-      </div>
-      <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
-    </li>
-
-  </ul>
 </template>
 
 <script>

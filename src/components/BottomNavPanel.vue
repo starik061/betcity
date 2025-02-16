@@ -1,36 +1,38 @@
 <template>
-  <nav class="bottom-nav-panel-container">
-    <div class="logo-btn-shadow-holder"></div>
+  <div>
+    <nav class="bottom-nav-panel-container">
+      <div class="logo-btn-shadow-holder"></div>
 
-    <ul class="bottom-nav-panel-list">
-      <li class="bottom-nav-panel-list-item">
-        <router-link to="/rules" class="bottom-nav-panel-link">
-          <IconBottomNavRules />
-          <p class="bottom-nav-panel-text">Rules</p>
-        </router-link>
-      </li>
-      <li class="bottom-nav-panel-list-item">
-        <router-link to="/home" class="bottom-nav-panel-link">
-          <IconBottomNavGame />
-          <p class="bottom-nav-panel-text">Game</p>
-        </router-link>
-      </li>
-      <li class="bottom-nav-panel-list-item">
-        <router-link to="/rating" class="bottom-nav-panel-link">
-          <IconBottomNavRating />
-          <p class="bottom-nav-panel-text">Rating</p>
-        </router-link>
-      </li>
-      <li class="bottom-nav-panel-list-item">
-        <router-link to="/friends" class="bottom-nav-panel-link">
-          <IconBottomNavFriends />
-          <p class="bottom-nav-panel-text">Friends</p>
-        </router-link>
-      </li>
-    </ul>
-    <IconLogoButton class="logo-btn" @click="handleHomeClick" />
+      <ul class="bottom-nav-panel-list">
+        <li class="bottom-nav-panel-list-item">
+          <router-link to="/rules" class="bottom-nav-panel-link">
+            <IconBottomNavRules />
+            <p class="bottom-nav-panel-text">Rules</p>
+          </router-link>
+        </li>
+        <li class="bottom-nav-panel-list-item">
+          <router-link to="/home" class="bottom-nav-panel-link">
+            <IconBottomNavGame />
+            <p class="bottom-nav-panel-text">Game</p>
+          </router-link>
+        </li>
+        <li class="bottom-nav-panel-list-item">
+          <router-link to="/rating" class="bottom-nav-panel-link">
+            <IconBottomNavRating />
+            <p class="bottom-nav-panel-text">Rating</p>
+          </router-link>
+        </li>
+        <li class="bottom-nav-panel-list-item">
+          <router-link to="/friends" class="bottom-nav-panel-link">
+            <IconBottomNavFriends />
+            <p class="bottom-nav-panel-text">Friends</p>
+          </router-link>
+        </li>
+      </ul>
+      <IconLogoButton class="logo-btn" @click="handleHomeClick" />
 
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script>

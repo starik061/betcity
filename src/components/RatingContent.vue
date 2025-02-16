@@ -1,49 +1,51 @@
 <template>
-  <div class="user-rating">
-    <span class="user-rating-number">4769</span>
-    <div class="user-rating-info-container">
-      <img src="/img/avatar-placeholder.webp" class="user-rating-info-img" alt="user avatar">
-      <p class="user-rating-info-name">Mihail<span class="user-rating-info-you">(вы)</span></p>
+  <div>
+    <div class="user-rating">
+      <span class="user-rating-number">4769</span>
+      <div class="user-rating-info-container">
+        <img src="/img/avatar-placeholder.webp" class="user-rating-info-img" alt="user avatar">
+        <p class="user-rating-info-name">Mihail<span class="user-rating-info-you">(вы)</span></p>
+      </div>
+      <div class="score user-rating-score">
+        <img class="score-coin" src="/img/coin.png" alt="coins">
+        <span class="score-text">200</span>
+      </div>
     </div>
-    <div class="score user-rating-score">
-      <img class="score-coin" src="/img/coin.png" alt="coins">
-      <span class="score-text">200</span>
+
+    <div class="btn-container">
+      <label class="rating-btn">
+        <input class="visually-hidden" type="radio" name="rating-type" checked>Общий</input>
+      </label>
+      <label class="rating-btn">
+        <input class="visually-hidden" type="radio" name="rating-type">Недельный</input>
+      </label>
     </div>
-  </div>
 
-  <div class="btn-container">
-    <label class="rating-btn">
-      <input class="visually-hidden" type="radio" name="rating-type" checked>Общий</input>
-    </label>
-    <label class="rating-btn">
-      <input class="visually-hidden" type="radio" name="rating-type">Недельный</input>
-    </label>
-  </div>
+    <div class="rating-list-container">
+      <h2 class="rating-list-header">Рейтинг</h2>
 
-  <div class="rating-list-container">
-    <h2 class="rating-list-header">Рейтинг</h2>
+      <ul class="rating-list">
+        <li class="rating-list-item">
+          <span class="rating-list-number">1</span>
+          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
+          <span class="rating-list-username">Maxim</span>
+          <div class="score user-rating-score">
+            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <span class="score-text">2000</span>
+          </div>
+        </li>
 
-    <ul class="rating-list">
-      <li class="rating-list-item">
-        <span class="rating-list-number">1</span>
-        <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-        <span class="rating-list-username">Maxim</span>
-        <div class="score user-rating-score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
-          <span class="score-text">2000</span>
-        </div>
-      </li>
-
-      <li class="rating-list-item">
-        <span class="rating-list-number">2</span>
-        <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-        <span class="rating-list-username">Maxim</span>
-        <div class="score user-rating-score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
-          <span class="score-text">2000</span>
-        </div>
-      </li>
-    </ul>
+        <li class="rating-list-item">
+          <span class="rating-list-number">2</span>
+          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
+          <span class="rating-list-username">Maxim</span>
+          <div class="score user-rating-score">
+            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <span class="score-text">2000</span>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
