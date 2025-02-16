@@ -1,34 +1,36 @@
 <template>
-  <div class="main-container flex-container">
+  <div>
+    <div class="main-container flex-container">
 
-    <div class="image-container">
-      <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
-      <img src="/img/loading-four-cap.png" alt="cap" class="cap">
-      <img src="/img/loading-four-gift.png" alt="gift image" class="octopus-img">
-      <img src="/img/loading-four-star.png" alt="star image" class="star">
-      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
-      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
-      <div class="img-text prizes">Призы</div>
-      <div class="img-text betcoins">БЕТКОИНЫ</div>
-      <img src="/img/lighting.svg" alt="lighting" class="lighting">
-      <img src="/img/lighting.svg" alt="lighting" class="lighting second">
-    </div>
-
-    <strong class="slogan">Будь первым в рейтинге</strong>
-    <p class="text">Копи больше беткоинов и участвуй в рейтинге за подарки</p>
-    <RouterLink class="main-btn next-forecast-btn" to="/main-view">
-      Сделать первый прогноз
-    </RouterLink>
-
-    <div class="next-btn-dots-container">
-      <div class="dots">
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
-        <span class="active"></span>
+      <div class="image-container">
+        <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+        <img src="/img/loading-four-cap.png" alt="cap" class="cap">
+        <img src="/img/loading-four-gift.png" alt="gift image" class="octopus-img">
+        <img src="/img/loading-four-star.png" alt="star image" class="star">
+        <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+        <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+        <div class="img-text prizes">Призы</div>
+        <div class="img-text betcoins">БЕТКОИНЫ</div>
+        <img src="/img/lighting.svg" alt="lighting" class="lighting">
+        <img src="/img/lighting.svg" alt="lighting" class="lighting second">
       </div>
-    </div>
 
+      <strong class="slogan">Будь первым в рейтинге</strong>
+      <p class="text">Копи больше беткоинов и участвуй в рейтинге за подарки</p>
+      <RouterLink class="main-btn next-forecast-btn" to="/main-view">
+        Сделать первый прогноз
+      </RouterLink>
+
+      <div class="next-btn-dots-container">
+        <div class="dots">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 

@@ -1,40 +1,42 @@
 <template>
-  <div class="main-container flex-container">
-    <div class="body-shadow body-shadow-1"></div>
-    <div class="body-shadow body-shadow-2"></div>
-    <div class="body-shadow body-shadow-3"></div>
+  <div>
+    <div class="main-container flex-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
 
 
-    <div class="image-container">
-      <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
-      <img src="/img/coin-red.png" alt="red coin" class="red-coin">
-      <img src="/img/loading-three-content-img.png" alt="betcity prize image" class="octopus-img">
-      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
-      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
-      <div class="img-text double">Удвоить</div>
-      <div class="img-text win">Выиграет</div>
-      <div class="img-text score">1:1
+      <div class="image-container">
+        <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+        <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+        <img src="/img/loading-three-content-img.png" alt="betcity prize image" class="octopus-img">
+        <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+        <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+        <div class="img-text double">Удвоить</div>
+        <div class="img-text win">Выиграет</div>
+        <div class="img-text score">1:1
+        </div>
+        <img src="/img/ball.png" alt="ball" class="ball">
+        <img src="/img/lighting.svg" alt="lighting" class="lighting">
+        <img src="/img/lighting.svg" alt="lighting" class="lighting second">
       </div>
-      <img src="/img/ball.png" alt="ball" class="ball">
-      <img src="/img/lighting.svg" alt="lighting" class="lighting">
-      <img src="/img/lighting.svg" alt="lighting" class="lighting second">
+
+      <strong class="slogan">Делай прогнозы и получай Беткоины</strong>
+      <p class="text">За угаданные исходы матчей</p>
     </div>
 
-    <strong class="slogan">Делай прогнозы и получай Беткоины</strong>
-    <p class="text">За угаданные исходы матчей</p>
-  </div>
+    <div class="next-btn-dots-container">
+      <RouterLink class="next-loading-view" to="/loading-four">
+        <span>Далее</span>
+        <IconNextBtnArrow />
+      </RouterLink>
 
-  <div class="next-btn-dots-container">
-    <RouterLink class="next-loading-view" to="/loading-four">
-      <span>Далее</span>
-      <IconNextBtnArrow />
-    </RouterLink>
-
-    <div class="dots">
-      <span class="active"></span>
-      <span class="active"></span>
-      <span class="active"></span>
-      <span></span>
+      <div class="dots">
+        <span class="active"></span>
+        <span class="active"></span>
+        <span class="active"></span>
+        <span></span>
+      </div>
     </div>
   </div>
 </template>

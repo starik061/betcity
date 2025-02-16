@@ -1,8 +1,8 @@
 <template>
-  <!-- <transition name="slide" mode="out-in">
+  <transition name="slide" mode="out-in">
     <RouterView :key="this.$route.path" />
-  </transition> -->
-  <RouterView />
+  </transition>
+  <!-- <RouterView /> -->
 </template>
 
 <script>

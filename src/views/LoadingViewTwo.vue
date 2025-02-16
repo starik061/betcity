@@ -1,33 +1,35 @@
 <template>
-  <div class="main-container flex-container">
-    <div class="body-shadow body-shadow-1"></div>
-    <div class="body-shadow body-shadow-2"></div>
-    <div class="body-shadow body-shadow-3"></div>
+  <div>
+    <div class="main-container flex-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
 
-    <div class="image-container">
-      <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
-      <img src="/img/coin-red.png" alt="red coin" class="red-coin">
-      <img src="/img/loading-two-octopus.png" alt="betcity octopus mascot" class="octopus-img">
-      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
-      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
-      <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+      <div class="image-container">
+        <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+        <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+        <img src="/img/loading-two-octopus.png" alt="betcity octopus mascot" class="octopus-img">
+        <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+        <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+        <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+      </div>
+
+      <strong class="slogan">Получай крутые призы</strong>
+      <p class="text">За прогнозы матчей онлайн</p>
     </div>
 
-    <strong class="slogan">Получай крутые призы</strong>
-    <p class="text">За прогнозы матчей онлайн</p>
-  </div>
+    <div class="next-btn-dots-container">
+      <RouterLink class="next-loading-view" to="/loading-three">
+        <span>Далее</span>
+        <IconNextBtnArrow />
+      </RouterLink>
 
-  <div class="next-btn-dots-container">
-    <RouterLink class="next-loading-view" to="/loading-three">
-      <span>Далее</span>
-      <IconNextBtnArrow />
-    </RouterLink>
-
-    <div class="dots">
-      <span class="active"></span>
-      <span class="active"></span>
-      <span></span>
-      <span></span>
+      <div class="dots">
+        <span class="active"></span>
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
 </template>
