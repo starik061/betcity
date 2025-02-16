@@ -7,7 +7,9 @@
         <p class="user-rating-info-name">Mihail<span class="user-rating-info-you">(вы)</span></p>
       </div>
       <div class="score user-rating-score">
-        <img class="score-coin" src="/img/coin.png" alt="coins">
+        <div class="score-coin-wrapper">
+          <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+        </div>
         <span class="score-text">200</span>
       </div>
     </div>
@@ -30,7 +32,9 @@
           <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
           <span class="rating-list-username">Maxim</span>
           <div class="score user-rating-score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">2000</span>
           </div>
         </li>
@@ -40,7 +44,9 @@
           <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
           <span class="rating-list-username">Maxim</span>
           <div class="score user-rating-score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">2000</span>
           </div>
         </li>
@@ -101,6 +107,7 @@ export default {
   display: flex;
   width: 100%;
   gap: 1.03%;
+  margin-bottom: 10px;
 }
 
 .rating-btn {

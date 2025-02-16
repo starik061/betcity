@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padding-wrapper">
     <div class="main-container game-one-container">
       <!-- <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap"> -->
 

@@ -3,7 +3,18 @@
     <h2 class="rules-header">Правила</h2>
 
     <div class="ref-link-container rules-container with-octopus">
-      <img class="rules-content-image" src="/img/rules-image.png" alt="octopus image">
+      <div class="image-container">
+        <img src="/img/loading-four-star.png" alt="star image" class="star">
+        <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+        <img src="/img/todo.png" alt=" tod olist image" class="todo-img">
+        <img src="/img/rules-octopus.png" alt="betcity octopus mascot" class="octopus-img">
+        <img src="/img/ball.png" alt="ball image" class="ball">
+        <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+        <div class="img-text play">Как играть?</div>
+        <div class="img-text simple">Простые правила</div>
+        <img src="/img/lighting.svg" alt="lighting" class="lighting">
+        <img src="/img/lighting.svg" alt="lighting" class="lighting second">
+      </div>
     </div>
 
     <div class="ref-link-container rules-container">
@@ -53,7 +64,9 @@
       <div class="rules-text-big margin">
         <span>За каждый <span style="color:#F7B23B">правильный</span> прогноз начисляем</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+2</span>
         </div>
       </div>
@@ -61,7 +74,9 @@
       <div class="rules-text-big">
         <span>За каждый <span style=" color:#E43659">неправильный</span> прогноз минусуем</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+2</span>
         </div>
       </div>
@@ -75,7 +90,9 @@
       <div class="rules-text-small margin">
         <span>1. Спрогнозировать точный исход матчей.</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+3</span>
         </div>
       </div>
@@ -83,7 +100,9 @@
       <div class="rules-text-small margin">
         <span>2. Выбрать тотал больше или меньше 2.5.</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+3</span>
         </div>
       </div>
@@ -91,7 +110,9 @@
       <div class="rules-text-small margin">
         <span>3. Написать минуту первого гола. Угадал?</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+5</span>
         </div>
       </div>
@@ -99,7 +120,9 @@
       <div class="rules-text-small ">
         <span>4. Сделать ставку с риском.</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">x2</span>
         </div>
       </div>
@@ -129,7 +152,11 @@
       <div class="rules-text-small ">
         <span>После авторизации друга в игре</span>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+          </div>
           <span class="score-text">+1</span>
         </div>
       </div>
@@ -143,7 +170,9 @@
       <div class="rules-text-small octopus-rules">
         <span class="octopus-rules-text">Ищи нашего осьминого во время игры, тапай и получай бонусные
           беткоины каждый день.</span>
-        <img src="/img/tap-octopus.png" class="octopus-rules-img" alt="octopus for tap">
+        <div class="octopus-shadow">
+          <img src="/img/tap-octopus.png" class="octopus-rules-img" alt="octopus for tap">
+        </div>
       </div>
     </div>
 
@@ -157,7 +186,11 @@
       <div class="rules-frame-text-container">
         <p class="rules-frame-text">Чем больше БЕТКОИНОВ, тем выше место игрока</p>
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+          </div>
           <span class="score-text">
             <IconRulesPrizesArrow />
           </span>
@@ -236,7 +269,6 @@ export default {
   }
 }
 
-
 .ref-link-container {
   position: relative;
   width: 100%;
@@ -266,7 +298,6 @@ export default {
 
 .game-rules-list {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   padding: 8px 6px;
 }
@@ -295,11 +326,11 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 6px;
-  flex-grow: 1;
+  flex: 1;
 
   &.arrow-item {
     flex-basis: 47px;
-    flex-grow: 0;
+    flex: none;
     align-self: center;
   }
 }
@@ -374,9 +405,6 @@ export default {
 .octopus-rules-img {
   max-width: 88px;
   aspect-ratio: 1/1;
-  margin-bottom: -10px;
-  flex-grow: 0;
-  flex-shrink: 1;
 }
 
 .octopus-rules-text {
@@ -395,8 +423,9 @@ export default {
 }
 
 .game-rules-prizes-list {
-  padding: 0 1.89%;
+  padding: 0 5%;
   margin-bottom: 16px;
+  justify-content: space-between;
 
 }
 
@@ -427,5 +456,121 @@ export default {
   text-decoration: underline;
   font-family: "Styrene A";
   font-size: 10px;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  min-height: 129px;
+
+  & img {
+    display: block;
+  }
+}
+
+.octopus-img {
+  position: absolute;
+  width: 41%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+}
+
+.ball {
+  width: 7.3%;
+  position: absolute;
+  top: -2%;
+  left: 5%;
+}
+
+.todo-img {
+  position: absolute;
+  width: 16.4%;
+  aspect-ratio: 1/1;
+  top: 5%;
+  right: 25%;
+}
+
+.lightblue-coin {
+  position: absolute;
+  width: 5.8%;
+  aspect-ratio: 1/1;
+  top: 32%;
+  right: 12%;
+  transform: rotateZ(45deg);
+}
+
+.red-coin {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1/1;
+  top: 63%;
+  left: 23%;
+  transform: rotateZ(-10deg);
+}
+
+.img-text {
+  position: absolute;
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1.2;
+  background-color: var(--color-element-background-2);
+  border-radius: 4px;
+
+  &.play {
+    top: 42%;
+    left: 12%;
+    transform: translate(-10%, -50%) rotate(-18deg);
+  }
+
+  &.simple {
+    top: 77%;
+    right: 0;
+    transform: translate(-20%, -50%) rotate(7deg);
+  }
+}
+
+.star {
+  position: absolute;
+  width: 5.8%;
+  bottom: 2%;
+  right: 2%;
+}
+
+.lighting {
+  position: absolute;
+  top: -5%;
+  left: 40%;
+  transform: rotate(-45deg);
+
+  &.second {
+    top: 77%;
+    left: 8%;
+    transform: rotate(-60deg);
+  }
+}
+
+
+.octopus-shadow {
+  position: relative;
+  margin-bottom: -10px;
+  flex-grow: 0;
+  flex-shrink: 1;
+
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -7.5px;
+    left: 0;
+    width: 80px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #E51C44 0%, #00F0FF 100%);
+    filter: blur(20px);
+    opacity: 0.6;
+    z-index: -1;
+    transform: rotate(-45deg);
+  }
 }
 </style>

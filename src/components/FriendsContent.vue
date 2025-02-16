@@ -23,7 +23,9 @@
           <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
           <span class="rating-list-username">Maxim</span>
           <div class="score user-rating-score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">2000</span>
           </div>
         </li>
@@ -33,7 +35,9 @@
           <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
           <span class="rating-list-username">Rina</span>
           <div class="score user-rating-score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">20000</span>
           </div>
         </li>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padding-wrapper">
     <div class="main-container game-one-container">
       <TopNavPanel class="top-panel-nav" />
 

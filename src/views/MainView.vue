@@ -133,10 +133,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.padding-wrapper {
-  padding-bottom: 160px;
-}
-
 .shadows-container {
   position: fixed;
   top: 0;
