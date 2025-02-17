@@ -194,4 +194,12 @@ export default {
     transform: rotate(-30deg);
   }
 }
+
+.score-coin {
+  z-index: 1;
+}
+
+.score-coin-wrapper::before {
+  z-index: 0;
+}
 </style>
