@@ -38,15 +38,48 @@ export default {
 
   },
 
-  mounted() {
-    this.goOn()
+  async mounted() {
+    await this.loadEssentialData();
+    this.$router.push("/loading-one")
   },
 
   methods: {
-    goOn() {
-      setTimeout(() => {
-        this.$router.push("/loading-one")
-      }, 4000)
+    async loadEssentialData() {
+      try {
+        // Подгрузка данных о пользователе
+        // const userData = this.telegram.initDataUnsafe.user || null;
+
+        // Имитация запроса данных с API
+        // const response = await fetch("/api/user-data");
+        // const userInfo = await response.json();
+
+        // Можно сохранить в Vuex / Pinia
+        // this.$store.commit("setUserData", userInfo);
+
+        // Дополнительная подгрузка ресурсов
+        await this.preloadImages(["/img/friends-octopus.png",
+          "/img/loading-four-cap.png",
+          "/img/loading-four-gift.png",
+          "/img/loading-one-octopus.png",
+          "/img/loading-three-content-img.png",
+          "/img/loading-two-octopus.png",
+          "/img/octopus-pavel.png",
+          "/img/rules-octopus.png",
+          "/img/todo.png",
+          "/img/top-nav-gift.png"]);
+      } catch (error) {
+        console.error("Ошибка загрузки:", error);
+      }
+    },
+    preloadImages(images) {
+      return Promise.all(images.map(src => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      }));
     }
   }
 };
