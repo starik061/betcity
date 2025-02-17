@@ -1,32 +1,34 @@
 <template>
-  <div class="main-container flex-container">
-    <div class="body-shadow body-shadow-1"></div>
-    <div class="body-shadow body-shadow-2"></div>
-    <div class="body-shadow body-shadow-3"></div>
-    <div class="avatar-octopus-container">
-      <img src="/img/octopus-pavel.png" alt="octopus pavel - mascot of betcity" class="avatar-img">
+  <keep-alive>
+    <div class="main-container flex-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
+      <div class="avatar-octopus-container">
+        <img src="/img/octopus-pavel.png" alt="octopus pavel - mascot of betcity" class="avatar-img">
+      </div>
+
+      <h2 class="header">Прогнозист <br> Павел</h2>
+
+      <div class="image-container">
+        <img src="/img/loading-zero-rectangle.png" alt="coins image" class="background-loading-image">
+        <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+        <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+        <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+
+        <div class="ball-line moving "></div>
+        <div class="ball-line second moving "></div>
+        <div class="ball-line third moving "></div>
+
+        <img src="/img/ball.png" alt="ball" class="ball rotating">
+      </div>
+
+      <p class="call-players-text">Зовем игроков на поле</p>
+
+      <strong class="instruction-text">Делай прогнозы, копи баллы, получай подарки и удовольствие от игры</strong>
+      <p class="call-players-text">in Telegram</p>
     </div>
-
-    <h2 class="header">Прогнозист <br> Павел</h2>
-
-    <div class="image-container">
-      <img src="/img/loading-zero-rectangle.png" alt="coins image" class="background-loading-image">
-      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
-      <img src="/img/coin-green.png" alt="green coin" class="green-coin">
-      <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
-
-      <div class="ball-line moving "></div>
-      <div class="ball-line second moving "></div>
-      <div class="ball-line third moving "></div>
-
-      <img src="/img/ball.png" alt="ball" class="ball rotating">
-    </div>
-
-    <p class="call-players-text">Зовем игроков на поле</p>
-
-    <strong class="instruction-text">Делай прогнозы, копи баллы, получай подарки и удовольствие от игры</strong>
-    <p class="call-players-text">in Telegram</p>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -39,8 +41,13 @@ export default {
   },
 
   async mounted() {
-    await this.loadEssentialData();
-    this.$router.push("/loading-one")
+    try {
+      await this.loadEssentialData();
+    } catch (error) {
+      console.error("Ошибка загрузки данных:", error);
+    } finally {
+      this.$router.push("/loading-one"); // Выполнится в любом случае
+    }
   },
 
   methods: {
@@ -71,15 +78,24 @@ export default {
         console.error("Ошибка загрузки:", error);
       }
     },
-    preloadImages(images) {
-      return Promise.all(images.map(src => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-      }));
+    async preloadImages(images) {
+      return Promise.all(
+        images.map(src => {
+          return new Promise(resolve => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+              document.body.appendChild(img); // Фиксируем в DOM
+              img.style.display = "none"; // Прячем картинку
+              resolve(src);
+            };
+            img.onerror = () => {
+              console.warn(`Ошибка загрузки: ${src}`);
+              resolve(null);
+            };
+          });
+        })
+      );
     }
   }
 };
