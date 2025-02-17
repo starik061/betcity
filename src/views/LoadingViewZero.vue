@@ -22,7 +22,7 @@
       <img src="/img/ball.png" alt="ball" class="ball rotating">
     </div>
 
-    <p class="call-players-text">Зовем игроков на поле</p>
+    <p class="call-players-text">Зовем игроков на поле</p>А
 
     <strong class="instruction-text">Делай прогнозы, копи баллы, получай подарки и удовольствие от игры</strong>
     <p class="call-players-text">in Telegram</p>
@@ -38,66 +38,62 @@ export default {
 
   },
 
-  async mounted() {
-    try {
-      await this.loadEssentialData();
-    } catch (error) {
-      console.error("Ошибка загрузки данных:", error);
-    } finally {
-      setTimeout(() => {
-        this.$router.push("/loading-one");
-      }, 3000);
-    }
+  mounted() {
+
+    setTimeout(() => {
+      this.$router.push("/loading-one");
+    }, 3000);
+
   },
 
-  methods: {
-    async loadEssentialData() {
-      try {
-        // Подгрузка данных о пользователе
-        // const userData = this.telegram.initDataUnsafe.user || null;
+  // methods: {
+  // async loadEssentialData() {
+  //   try {
+  // Подгрузка данных о пользователе
+  // const userData = this.telegram.initDataUnsafe.user || null;
 
-        // Имитация запроса данных с API
-        // const response = await fetch("/api/user-data");
-        // const userInfo = await response.json();
+  // Имитация запроса данных с API
+  // const response = await fetch("/api/user-data");
+  // const userInfo = await response.json();
 
-        // Можно сохранить в Vuex / Pinia
-        // this.$store.commit("setUserData", userInfo);
+  // Можно сохранить в Vuex / Pinia
+  // this.$store.commit("setUserData", userInfo);
 
-        // Дополнительная подгрузка ресурсов
-        await this.preloadImages(["/img/friends-octopus.png",
-          "/img/loading-four-cap.png",
-          "/img/loading-four-gift.png",
-          "/img/loading-one-octopus.png",
-          "/img/loading-three-content-img.png",
-          "/img/loading-two-octopus.png",
-          "/img/octopus-pavel.png",
-          "/img/rules-octopus.png",
-          "/img/todo.png",
-          "/img/top-nav-gift.png"]);
-      } catch (error) {
-        console.error("Ошибка загрузки:", error);
-      }
-    },
-    async preloadImages(images) {
-      return Promise.all(
-        images.map(src => {
-          return new Promise(resolve => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => {
-              document.body.appendChild(img); // Фиксируем в DOM
-              img.style.display = "none"; // Прячем картинку
-              resolve(src);
-            };
-            img.onerror = () => {
-              console.warn(`Ошибка загрузки: ${src}`);
-              resolve(null);
-            };
-          });
-        })
-      );
-    }
-  }
+  // Дополнительная подгрузка ресурсов
+  //     await this.preloadImages(["/img/friends-octopus.png",
+  //       "/img/loading-four-cap.png",
+  //       "/img/loading-four-gift.png",
+  //       "/img/loading-one-octopus.png",
+  //       "/img/loading-three-content-img.png",
+  //       "/img/loading-two-octopus.png",
+  //       "/img/octopus-pavel.png",
+  //       "/img/rules-octopus.png",
+  //       "/img/todo.png",
+  //       "/img/top-nav-gift.png"]);
+  //   } catch (error) {
+  //     console.error("Ошибка загрузки:", error);
+  //   }
+  // },
+  // async preloadImages(images) {
+  //   return Promise.all(
+  //     images.map(src => {
+  //       return new Promise(resolve => {
+  //         const img = new Image();
+  //         img.src = src;
+  //         img.onload = () => {
+  //           document.body.appendChild(img); // Фиксируем в DOM
+  //             img.style.display = "none"; // Прячем картинку
+  //             resolve(src);
+  //           };
+  //           img.onerror = () => {
+  //             console.warn(`Ошибка загрузки: ${src}`);
+  //             resolve(null);
+  //           };
+  //         });
+  //       })
+  //     );
+  //   }
+  // }
 };
 </script>
 

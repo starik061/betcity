@@ -85,9 +85,28 @@
     <Modal :modalOpened="appStore.modalsState.congratulations" @close-modal="closeModal('congratulations')">
       <template #modal-content>
         <strong class="daily-reward-modal-header">Поздравляем!</strong>
-        <p class="modal-text">Твой прогноз выиграл!</p>
+        <p class="congrat-modal-text">Твой прогноз выиграл!</p>
         <div class="congrat-modal-img-container">
-          <img class="congrat-modal-img" src="/img/congrat-modal-img.png" alt="">
+          <div class="image-container">
+            <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+            <img src="/img/congrat-modal-cup.png" alt="cup" class="cup">
+            <img src="/img/ball.png" alt="ball" class="ball">
+            <img src="/img/congrat-star.svg" alt="star image" class="congrat-star">
+            <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+            <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+            <img src="/img/lighting.svg" alt="lighting" class="lighting">
+            <img src="/img/lighting.svg" alt="lighting" class="lighting second">
+            <img src="/img/congrat-star-pink.svg" alt="star image" class="congrat-star-pink">
+            <img src="/img/congrat-star-pink.svg" alt="star image" class="congrat-star-pink second">
+            <img src="/img/congrat-triangle.svg" alt="triangle" class="congrat-triangle">
+            <img src="/img/congrat-triangle-2.svg" alt="triangle" class="congrat-triangle second">
+            <img src="/img/congrat-confetti-1.svg" alt="confetti" class="congrat-confetti-1">
+            <img src="/img/congrat-confetti-2.svg" alt="confetti" class="congrat-confetti-2">
+            <img src="/img/congrat-confetti-3.svg" alt="confetti" class="congrat-confetti-3">
+            <img src="/img/congrat-stick-1.svg" alt="stick" class="stick">
+            <img src="/img/congrat-stick-2.svg" alt="stick" class="stick second">
+            <div class="deco-circle"></div>
+          </div>
         </div>
 
         <div class="congrat-modal-forecast-container">
@@ -98,7 +117,9 @@
           <img class="congrat-modal-team-img" src="/img/game-team-logo.png" alt="">
 
           <div class="score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">+1</span>
           </div>
         </div>
@@ -263,17 +284,10 @@ export default {
 
 .congrat-modal-img-container {
   position: relative;
-  width: 100%;
-  height: 314px;
+  width: 72%;
+  margin-bottom: 25px;
 }
 
-.congrat-modal-img {
-  position: absolute;
-  width: 100%;
-  top: -100px;
-  left: 0;
-  transform: scale(1.10);
-}
 
 .congrat-modal-forecast-container {
   width: 100%;
@@ -355,5 +369,160 @@ export default {
     left: 84%;
     transform: rotate(25deg);
   }
+}
+
+.congrat-modal-img-container {
+  & .cup {
+    position: absolute;
+    width: 62%;
+    right: -8%;
+    top: 15%;
+  }
+
+  & .ball {
+    position: absolute;
+    width: 36%;
+    left: 4%;
+    bottom: 4%;
+  }
+
+  & .sean-coin {
+    position: absolute;
+    width: 12.6%;
+    top: 45%;
+    left: 10%;
+    transform: rotateZ(-20deg);
+  }
+
+  & .congrat-star {
+    position: absolute;
+    width: 11.4%;
+    bottom: 20%;
+    left: -1%;
+    transform: translate(-50%, -50%);
+  }
+
+  & .green-coin {
+    position: absolute;
+    width: 8.1%;
+    top: 82%;
+    left: 75%;
+    transform: rotateZ(45deg);
+  }
+
+  .lighting {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    transform: rotate(-45deg);
+
+    &.second {
+      top: 67%;
+      left: 88%;
+      transform: rotate(25deg);
+    }
+  }
+}
+
+.congrat-star-pink {
+  position: absolute;
+  width: 10.6%;
+  top: 4%;
+  right: -15%;
+  transform: rotateZ(-10deg);
+
+  &.second {
+    width: 4%;
+    top: 25%;
+    right: 90%;
+    transform: rotateZ(-10deg);
+  }
+}
+
+.congrat-triangle {
+  position: absolute;
+  width: 7%;
+  top: 14%;
+  left: -10%;
+  transform: rotateZ(5deg);
+
+  &.second {
+    width: 5.5%;
+    top: 30%;
+    left: 108%;
+  }
+}
+
+.congrat-confetti-1 {
+  position: absolute;
+  width: 12%;
+  top: -12%;
+  left: -13%;
+}
+
+.congrat-confetti-2 {
+  position: absolute;
+  width: 8%;
+  top: 6%;
+  left: 80%;
+  transform: rotateZ(-1deg);
+}
+
+.congrat-confetti-3 {
+  position: absolute;
+  width: 12%;
+  top: -14%;
+  right: -15%;
+  transform: rotateZ(-1deg);
+}
+
+.stick {
+  position: absolute;
+  width: 10%;
+  bottom: 34%;
+  left: 22%;
+  transform: rotate(-3deg);
+
+  &.second {
+    width: 12%;
+    bottom: 7%;
+    left: 92%;
+    transform: rotate(3deg);
+  }
+}
+
+.deco-circle {
+  position: absolute;
+  top: -30%;
+  left: -24%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #B766FF;
+}
+
+.score-coin-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-coin-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 2.5px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #56C9D0 0%, #E2E1B8 100%);
+  filter: blur(1px);
+  opacity: 0.7;
+}
+
+.congrat-modal-text {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
 }
 </style>
