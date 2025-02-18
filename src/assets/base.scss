@@ -79,3 +79,11 @@ input:focus {
   background-color: transparent;
   /* Убирает изменение фона */
 }
+
+/* Убираем выделение при фокусе на label */
+label:focus {
+  outline: none;
+  /* Убирает стандартную рамку */
+  background-color: transparent;
+  /* Убирает изменение фона */
+}
