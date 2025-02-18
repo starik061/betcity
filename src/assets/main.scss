@@ -246,10 +246,16 @@
   height: 1px;
   border-radius: 50%;
 
-  background-color: rgba(0, 240, 255, 0.5);
+  background-color: rgba(0, 240, 255, 0.25);
   backdrop-filter: blur(1px);
 
-  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
-  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
-  box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.15);
+  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.15);
+  box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.15);
+
+  &.without-bottom-panel {
+    -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+    -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+    box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.5);
+  }
 }

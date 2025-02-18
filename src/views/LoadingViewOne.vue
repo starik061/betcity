@@ -1,9 +1,11 @@
 <template>
   <div v-swipe="handleSwipe">
     <div class="main-container flex-container">
-      <div class="body-shadow body-shadow-1"></div>
-      <div class="body-shadow body-shadow-2"></div>
-      <div class="body-shadow body-shadow-3"></div>
+      <div class="shadows-container">
+        <div class="body-shadow body-shadow-1"></div>
+        <div class="body-shadow body-shadow-2"></div>
+        <div class="body-shadow body-shadow-3 without-bottom-panel"></div>
+      </div>
 
 
       <div class="image-container">

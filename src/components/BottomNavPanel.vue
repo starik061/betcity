@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="shadows-container">
+      <div class="bottom-nav-shadow"></div>
+    </div>
+
     <nav class="bottom-nav-panel-container">
       <div class="logo-btn-shadow-holder"></div>
 
@@ -59,6 +63,38 @@ export default {
   margin: 0 auto;
   padding: 0 14px;
 }
+
+.shadows-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 11;
+  min-width: 300px;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0 24px;
+  pointer-events: none;
+}
+
+.bottom-nav-shadow {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+
+  background-color: rgba(0, 240, 255, 0.35);
+  backdrop-filter: blur(1px);
+
+  -webkit-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.35);
+  -moz-box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.35);
+  box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.35);
+  z-index: 11;
+}
+
 
 .bottom-nav-panel-list {
   position: relative;

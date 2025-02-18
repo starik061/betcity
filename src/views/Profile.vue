@@ -1,7 +1,11 @@
 <template>
   <div class="padding-wrapper">
     <div class="main-container game-one-container">
-      <!-- <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap"> -->
+      <div class="shadows-container">
+        <div class="body-shadow body-shadow-1"></div>
+        <div class="body-shadow body-shadow-2"></div>
+        <div class="body-shadow body-shadow-3"></div>
+      </div>
 
       <TopNavPanel class="top-panel-nav" />
 
@@ -10,11 +14,6 @@
       <BottomNavPanel class="bottom-panel-nav" />
     </div>
 
-    <div class="shadows-container">
-      <div class="body-shadow body-shadow-1"></div>
-      <div class="body-shadow body-shadow-2"></div>
-      <div class="body-shadow body-shadow-3"></div>
-    </div>
   </div>
 </template>
 
@@ -45,6 +44,20 @@ export default {
 .game-one-container {
   position: relative;
   overflow: visible;
+}
+
+.shadows-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0 24px;
+  pointer-events: none;
 }
 
 .tap-octopus {

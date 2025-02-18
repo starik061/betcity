@@ -1,8 +1,11 @@
 <template>
   <div class="main-container flex-container">
-    <div class="body-shadow body-shadow-1"></div>
-    <div class="body-shadow body-shadow-2"></div>
-    <div class="body-shadow body-shadow-3"></div>
+    <div class="shadows-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3 without-bottom-panel"></div>
+    </div>
+
     <div class="avatar-octopus-container">
       <img src="/img/octopus-pavel.png" alt="octopus pavel - mascot of betcity" class="avatar-img">
     </div>
