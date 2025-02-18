@@ -1,6 +1,7 @@
 <template>
-  <div class="top-panel-container" :class="{ 'unusual-platform': platform !== 'ios' || platform !== 'android' }">
-    <div>{{ "Платформа" + this.platform }}</div>
+  <div class="top-panel-container"
+    :class="{ 'unusual-platform': this.appStore.platform !== 'ios' || this.appStore.platform !== 'android' }">
+    <div>{{ "Платформа" + this.appStore.platform }}</div>
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
@@ -55,13 +56,6 @@ export default {
     return {
       appStore: useAppStore(),
     }
-  },
-
-  computed: {
-    ...mapStores(useAppStore), // Доступ к стору через this.appStore
-    platform() {
-      return this.appStore.platform;
-    },
   },
 }
 </script>
