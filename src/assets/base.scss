@@ -70,3 +70,12 @@ button {
   border: none;
   background-color: transparent;
 }
+
+button:focus,
+a:focus,
+input:focus {
+  outline: none;
+  /* Убирает контур */
+  background-color: transparent;
+  /* Убирает изменение фона */
+}
