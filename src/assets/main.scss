@@ -26,6 +26,14 @@
   overflow: hidden;
 }
 
+.bottom-panel-nav {
+  position: fixed;
+  max-width: 450px;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 0);
+}
+
 .avatar {
   display: inline-block;
   width: 40px;

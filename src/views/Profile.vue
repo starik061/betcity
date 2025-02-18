@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .game-one-container {
   position: relative;
-  padding-top: 48px;
+  padding-top: 60px;
   overflow: visible;
 }
 
@@ -54,13 +54,5 @@ export default {
 
 .top-panel-nav {
   margin-bottom: 30px;
-}
-
-.bottom-panel-nav {
-  position: fixed;
-  max-width: 450px;
-  left: 50%;
-  bottom: 60px;
-  transform: translate(-50%, 0);
 }
 </style>
