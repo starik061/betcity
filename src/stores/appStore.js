@@ -9,7 +9,7 @@ export const useAppStore = defineStore("app", {
     },
     user: null,
     webApp: undefined,
-    platform: "android"
+    platform: undefined
   }),
   actions: {
     init() {
