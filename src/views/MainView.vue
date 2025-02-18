@@ -148,10 +148,12 @@ export default {
   },
 
   mounted() {
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      alert("Ану не трож кнопку!")
-    });
-    window.Telegram.WebApp.BackButton.show();
+    if (window.Telegram?.WebApp?.BackButton) {
+      window.Telegram.WebApp.BackButton.onClick(() => {
+        this.$router.back();
+      });
+      window.Telegram.WebApp.BackButton.show();
+    }
   },
 
   methods: {

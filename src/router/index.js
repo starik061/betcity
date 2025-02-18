@@ -89,4 +89,25 @@ const router = createRouter({
 //   }
 // });
 
+// Здесь мы иницуализируем кнопку назад в Телеграме или кнопку Закрыть для ствартового загрузочного экрана
+// Функция-обработчик для кнопки "назад"
+function telegramBackButtonHandler() {
+  // Выполняем переход назад с помощью Vue Router
+  router.back();
+}
+router.afterEach((to, from) => {
+  if (window.Telegram?.WebApp?.BackButton) {
+    // Если текущий маршрут 'loading', скрываем кнопку и удаляем обработчик
+    if (to.name === "loading") {
+      window.Telegram.WebApp.BackButton.offClick(telegramBackButtonHandler);
+      window.Telegram.WebApp.BackButton.hide();
+    } else {
+      // Если не 'loading', устанавливаем обработчик и отображаем кнопку
+      window.Telegram.WebApp.BackButton.offClick(telegramBackButtonHandler);
+      window.Telegram.WebApp.BackButton.onClick(telegramBackButtonHandler);
+      window.Telegram.WebApp.BackButton.show();
+    }
+  }
+});
+
 export default router;
