@@ -111,7 +111,7 @@ export default {
 
 .image-container {
   position: relative;
-  width: 63%;
+  width: 65%;
 
   & img {
     display: block;
