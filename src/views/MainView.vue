@@ -147,6 +147,13 @@ export default {
     }
   },
 
+  mounted() {
+    window.Telegram.WebApp.BackButton.onClick(() => {
+      alert("Ану не трож кнопку!")
+    });
+    window.Telegram.WebApp.BackButton.show();
+  },
+
   methods: {
     ...mapActions(useAppStore, ['openModal', 'closeModal'])
   }
