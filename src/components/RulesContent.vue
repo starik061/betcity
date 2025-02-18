@@ -371,7 +371,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   font-family: "Styrene A";
-  font-size: 10px;
+  font-size: 11px;
 
   &.margin {
     margin-bottom: 6px;
@@ -398,7 +398,7 @@ export default {
 }
 
 .octopus-rules {
-  margin-top: -22px;
+  margin-top: -12px;
   gap: 6px;
 }
 

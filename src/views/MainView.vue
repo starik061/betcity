@@ -318,7 +318,7 @@ export default {
 
 .congrat-modal-forecast-date {
   font-family: "Styrene A";
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .background-rectangle {
