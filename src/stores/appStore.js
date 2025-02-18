@@ -19,6 +19,7 @@ export const useAppStore = defineStore("app", {
         WebApp.disableVerticalSwipes?.();
 
         this.webApp = WebApp;
+        this.platform = WebApp.platform;
         this.user = WebApp.initDataUnsafe?.user || null;
 
         if (WebApp.platform !== "tdesktop") {

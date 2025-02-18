@@ -150,12 +150,7 @@ export default {
   },
 
   mounted() {
-    if (window.Telegram?.WebApp?.BackButton) {
-      window.Telegram.WebApp.BackButton.onClick(() => {
-        this.$router.back();
-      });
-      window.Telegram.WebApp.BackButton.show();
-    }
+
   },
 
   methods: {
