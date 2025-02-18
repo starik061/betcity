@@ -43,36 +43,11 @@ export default {
 
   methods: {
     handleSwipe(direction) {
-      // Пример: навигация по имени маршрута в зависимости от направления свайпа
       if (direction === "left") {
         this.$router.push("/loading-two");
       }
     }
   },
-
-  directives: {
-    swipe: {
-      mounted(el, binding) {
-        let startX = 0;
-        const threshold = 50; // минимальное расстояние для определения свайпа
-
-        el.addEventListener("touchstart", (e) => {
-          startX = e.touches[0].clientX;
-        });
-
-        el.addEventListener("touchend", (e) => {
-          const endX = e.changedTouches[0].clientX;
-          const diffX = endX - startX;
-
-          if (Math.abs(diffX) > threshold) {
-            let direction = diffX > 0 ? "right" : "left";
-            // Вызываем переданный метод с направлением свайпа
-            binding.value(direction);
-          }
-        });
-      }
-    }
-  }
 };
 </script>
 

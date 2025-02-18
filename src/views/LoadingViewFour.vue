@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-swipe="handleSwipe">
     <div class="main-container flex-container">
 
       <div class="image-container">
@@ -38,6 +38,16 @@
 import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
 export default {
   components: { IconNextBtnArrow },
+
+  methods: {
+    handleSwipe(direction) {
+      if (direction === 'left') {
+        this.$router.push("/main-view");
+      } else if (direction === 'right') {
+        this.$router.push("/loading-three");
+      }
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-swipe="handleSwipe">
     <div class="main-container flex-container">
       <div class="body-shadow body-shadow-1"></div>
       <div class="body-shadow body-shadow-2"></div>
@@ -45,6 +45,16 @@
 import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
 export default {
   components: { IconNextBtnArrow },
+
+  methods: {
+    handleSwipe(direction) {
+      if (direction === 'left') {
+        this.$router.push("/loading-four");
+      } else if (direction === 'right') {
+        this.$router.push("/loading-two");
+      }
+    }
+  }
 };
 </script>
 
