@@ -178,7 +178,7 @@ export default {
 
 .game-one-container {
   position: relative;
-  padding-top: 60px;
+  padding-top: 63px;
   overflow: visible;
 }
 
