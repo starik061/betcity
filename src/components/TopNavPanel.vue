@@ -1,6 +1,6 @@
 <template>
-  <div>{{ this.platform }}</div>
   <div class="top-panel-container" :class="{ 'unusual-platform': platform !== 'ios' || platform !== 'android' }">
+    <div>{{ "Платформа" + this.platform }}</div>
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
