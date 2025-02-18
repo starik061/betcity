@@ -187,8 +187,8 @@ export default {
 }
 
 .forecast-img {
-  width: 90%;
-  height: 90%;
+  width: 60px;
+  height: 60px;
 }
 
 .forecast-team {

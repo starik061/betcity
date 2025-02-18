@@ -1,5 +1,6 @@
 <template>
-  <div class="top-panel-container">
+  <div>{{ this.platform }}</div>
+  <div class="top-panel-container" :class="{ 'unusual-platform': platform !== 'ios' || platform !== 'android' }">
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
@@ -45,15 +46,35 @@
 import IconBoxingGlove from '@/components/icons/IconBoxingGlove.vue';
 import IconNotificationBell from '@/components/icons/IconNotificationBell.vue';
 import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
-
+import { mapStores } from "pinia";
+import { useAppStore } from "@/stores/appStore";
 
 export default {
   components: { IconBoxingGlove, IconNotificationBell, IconGiftArrow },
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
 
+  computed: {
+    ...mapStores(useAppStore), // Доступ к стору через this.appStore
+    platform() {
+      return this.appStore.platform;
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.top-panel-container {
+  padding-top: 63px;
+
+  &.unusual-platform {
+    padding-top: 30px;
+  }
+}
+
 .top-nav-container {
   width: 100%;
   display: flex;

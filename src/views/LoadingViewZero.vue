@@ -30,16 +30,18 @@
 </template>
 
 <script>
-
+import { useAppStore } from "@/stores/appStore";
 
 export default {
   components: {},
   data() {
-
+    return {
+      appStore: useAppStore(),
+    }
   },
 
   mounted() {
-
+    this.appStore.init();
     setTimeout(() => {
       this.$router.push("/loading-one");
     }, 3000);

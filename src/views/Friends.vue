@@ -57,7 +57,6 @@ export default {
 
 .game-one-container {
   position: relative;
-  padding-top: 65px;
   overflow: visible;
 }
 

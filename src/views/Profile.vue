@@ -44,7 +44,6 @@ export default {
 <style lang="scss" scoped>
 .game-one-container {
   position: relative;
-  padding-top: 65px;
   overflow: visible;
 }
 
