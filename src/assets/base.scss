@@ -87,3 +87,7 @@ label:focus {
   background-color: transparent;
   /* Убирает изменение фона */
 }
+
+label {
+  user-select: none;
+}
