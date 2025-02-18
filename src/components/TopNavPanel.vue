@@ -1,7 +1,6 @@
 <template>
   <div class="top-panel-container"
-    :class="{ 'unusual-platform': this.appStore.platform !== 'ios' || this.appStore.platform !== 'android' }">
-    <div>{{ "Платформа" + this.appStore.platform }}</div>
+    :class="{ 'unusual-platform': this.appStore.platform !== 'ios' && this.appStore.platform !== 'android' }">
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
