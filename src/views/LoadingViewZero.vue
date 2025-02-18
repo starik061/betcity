@@ -22,7 +22,7 @@
       <img src="/img/ball.png" alt="ball" class="ball rotating">
     </div>
 
-    <p class="call-players-text">Зовем игроков на поле</p>А
+    <p class="call-players-text">Зовем игроков на поле</p>
 
     <strong class="instruction-text">Делай прогнозы, копи баллы, получай подарки и удовольствие от игры</strong>
     <p class="call-players-text">in Telegram</p>
