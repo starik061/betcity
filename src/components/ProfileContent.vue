@@ -14,7 +14,9 @@
 
       <div class="right-side">
         <div class="score">
-          <img class="score-coin" src="/img/coin.png" alt="coins">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">200</span>
         </div>
         <p class="score-change-period">За неделю<span>+2</span></p>
@@ -44,7 +46,9 @@
           <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
 
           <div class="score forecast-history-score">
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">+2</span>
           </div>
         </div>
@@ -68,7 +72,9 @@
                 fill="white" />
             </svg>
 
-            <img class="score-coin" src="/img/coin.png" alt="coins">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
             <span class="score-text">+2</span>
           </div>
         </div>

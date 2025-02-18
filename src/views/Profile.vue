@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padding-wrapper">
     <div class="main-container game-one-container">
       <!-- <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap"> -->
 
@@ -8,6 +8,12 @@
       <ProfileContent />
 
       <BottomNavPanel class="bottom-panel-nav" />
+    </div>
+
+    <div class="shadows-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
     </div>
   </div>
 </template>
