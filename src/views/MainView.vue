@@ -152,7 +152,7 @@ export default {
   },
 
   mounted() {
-
+    setTimeout(() => { this.openModal("dailyReward") }, 1200);
   },
 
   methods: {

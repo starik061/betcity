@@ -33,11 +33,13 @@ export const useAppStore = defineStore("app", {
       }
     },
     openModal(name) {
+      document.body.style.overflow = "hidden";
       this.$patch((state) => {
         state.modalsState[name] = true;
       });
     },
     closeModal(name) {
+      document.body.style.overflow = "";
       this.$patch((state) => {
         state.modalsState[name] = false;
       });
