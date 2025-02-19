@@ -17,7 +17,14 @@
         :style="{ top: lightingPosition.top, left: lightingPosition.left }" />
     </transition>
 
+    <div class="counter-container">
+      <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
+      <div class="range-container">
+        <div class="range"></div>
+      </div>
 
+      <div class="count">+1</div>
+    </div>
   </div>
 </template>
 
@@ -192,14 +199,72 @@ export default {
   z-index: 103;
 }
 
+.counter-container {
+  position: absolute;
+  bottom: -22%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  transform: translate(-50%, 0) scale(0.82);
+  padding: 3px 8px 3px 3px;
+  background-color: #fff;
+  border-radius: 12px;
+  opacity: 0;
+  z-index: 120;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.sean-coin {
+  width: 17px;
+  height: 17px;
+}
+
+.range-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 30px;
+  height: 10px;
+  padding: 0.5px;
+  border: 1px solid rgba(22, 32, 47, 0.2);
+  ;
+  border-radius: 10px;
+}
+
+.range {
+  width: 60%;
+  height: calc(100% - 1px);
+  background-color: #F7B23B;
+  border-radius: 10px;
+}
+
+.count {
+  position: absolute;
+  right: -30%;
+  top: -60%;
+  padding: 3px 8px;
+  font-size: 14px;
+  background-color: var(--color-element-background-rose);
+  border-radius: 12px;
+  ;
+}
+
 
 // Стили для активного состояния
+
 .tap-octopus-container.active {
   /* Масштабирование до 1.5 */
   transform: scale(1.5);
 
   & .tap-octopus.active {
     transform: translate(-50%, -52%) scale(1.1);
+  }
+
+  & .counter-container {
+    transform: translate(-50%, 0) scale(0.82);
+    opacity: 1;
   }
 }
 
