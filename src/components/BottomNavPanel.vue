@@ -151,7 +151,7 @@ export default {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-51%, -49%);
   border-radius: 50%;
   z-index: 20;
 }
@@ -160,12 +160,13 @@ export default {
 
 
 .logo-btn-shadow-holder {
-  width: 70px;
-  height: 70px;
+  width: 69px;
+  height: 69px;
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-51%,
+      -49%);
   border-radius: 50%;
 
   background-color: transparent;

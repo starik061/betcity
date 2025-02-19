@@ -8,6 +8,7 @@
 
     <div class="main-container game-one-container">
       <!-- <img src="/img/tap-octopus.png" class="tap-octopus" alt="octopus for tap"> -->
+      <TapOctopus />
 
       <TopNavPanel class="top-panel-nav" />
 
@@ -135,13 +136,14 @@
 import TopNavPanel from '@/components/TopNavPanel.vue';
 import BottomNavPanel from '@/components/BottomNavPanel.vue';
 import ForecastDetails from "@/components/ForecastDetails.vue";
+import TapOctopus from "@/components/TapOctopus.vue";
 import Modal from '@/components/Modal.vue';
 
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
 export default {
-  components: { TopNavPanel, BottomNavPanel, ForecastDetails, Modal },
+  components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal },
 
   data() {
     return {
@@ -177,16 +179,6 @@ export default {
 .game-one-container {
   position: relative;
   overflow: visible;
-}
-
-.tap-octopus {
-  position: absolute;
-  top: 55vh;
-  right: -20%;
-  width: 22.5%;
-  aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
-  z-index: 100;
 }
 
 .top-panel-nav {

@@ -46,7 +46,11 @@ export default {
   mounted() {
     this.appStore.init();
     setTimeout(() => {
-      this.$router.push("/loading-one");
+      if (this.appStore.isFirstEnter) {
+        this.$router.push("/loading-one");
+      } else {
+        this.$router.push("/main-view");
+      }
     }, 3000);
 
   },

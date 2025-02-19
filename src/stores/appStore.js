@@ -5,11 +5,12 @@ export const useAppStore = defineStore("app", {
     modalsState: {
       dailyReward: false,
       forecastDetails: false,
-      congratulations: true
+      congratulations: false
     },
     user: null,
     webApp: undefined,
-    platform: undefined
+    platform: undefined,
+    isFirstEnter: false
   }),
   actions: {
     init() {

@@ -49,16 +49,6 @@ export default {
   overflow: visible;
 }
 
-.tap-octopus {
-  position: absolute;
-  top: 55vh;
-  right: -20%;
-  width: 22.5%;
-  aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-}
-
 .top-panel-nav {
   margin-bottom: 30px;
 }
