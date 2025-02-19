@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { fixBodyPadding } from "@/utils/fixBodyPadding.js";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
@@ -33,12 +34,14 @@ export const useAppStore = defineStore("app", {
       }
     },
     openModal(name) {
+      fixBodyPadding();
       document.body.style.overflow = "hidden";
       this.$patch((state) => {
         state.modalsState[name] = true;
       });
     },
     closeModal(name) {
+      fixBodyPadding();
       document.body.style.overflow = "";
       this.$patch((state) => {
         state.modalsState[name] = false;
