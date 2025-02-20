@@ -1,107 +1,121 @@
 <template>
-  <div class="tap-octopus-container" :class="{ active: isActive }" @click="handleClick">
-    <!-- <div class="content-wrapper"></div>
-    <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" />
-    <div class="tap-shadow tap-shadow-1"></div>
-    <div class="tap-shadow tap-shadow-2"></div> -->
-
-    <div class="element">
-    </div>
+  <div class="tap-octopus-container" @click="triggerAnimation" ref="octopus">
+    <div class="element"></div>
     <div class="tap-shadow"></div>
     <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" :class="{ active: isOctopusActive }" />
     <p class="tap-text">Жми</p>
 
-
-    <transition name="lighting">
-      <img v-if="isLightingVisible" src="/img/lighting.svg" alt="lighting" class="lighting"
-        :style="{ top: lightingPosition.top, left: lightingPosition.left }" />
-    </transition>
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" />
 
     <div class="counter-container">
       <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
       <div class="range-container">
         <div class="range"></div>
       </div>
-
       <div class="count">+1</div>
     </div>
   </div>
 </template>
 
 <script>
+import { gsap } from "gsap";
+
 export default {
   data() {
     return {
-      isActive: false,
-      isOctopusActive: false,
-      isLightingVisible: false, // Показывает молнию
-      lightingPosition: { top: "5%", left: "25%" }, // Начальная позиция молнии
-      timer: null,
-      octopusTimer: null,
-      lightingTimer: null, // Отдельный таймер для скрытия молнии
+      shakeAnimation: null,    // Переменная для анимации раскачивания
     };
   },
+  mounted() {
+    // Запускаем анимацию появления через случайное время от 20 до 25 секунд
+    const delay = Math.random() * 5 + 5; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
+    gsap.delayedCall(delay, this.showOctopus);
+  },
   methods: {
-    handleClick() {
-      console.log("click");
-      this.isActive = true;
-      this.isOctopusActive = true;
+    showOctopus() {
+      if (!this.$refs.octopus) return;
+      // Генерируем случайные координаты появления осьминога
+      const top = Math.random() * 60 + 15;
+      const left = Math.random() < 0.5 ? "2%" : "98%";
 
-      // Сбрасываем анимацию осьминога
-      if (this.octopusTimer) {
-        clearTimeout(this.octopusTimer);
+      gsap.set(this.$refs.octopus, {
+        opacity: 0,
+        scale: 0,
+        top: `${top}vh`,
+        left: left,
+      });
+
+      gsap.to(this.$refs.octopus, {
+        opacity: 1,
+        scale: 1.1,
+        duration: 1.2,
+        ease: "power2.out",
+        onComplete: this.startShakeAnimation, // Запуск анимации после завершения появления
+      });
+    },
+
+    startShakeAnimation() {
+      // Добавляем бесконечное движение влево-вправо
+      this.shakeAnimation = gsap.to(this.$refs.octopus, {
+        x: 7,  // Двигаем осьминога на 7px влево
+        duration: 0.6,
+        repeat: -1,  // Бесконечно
+        yoyo: true,  // Двигается в обе стороны
+        ease: "sine.inOut",  // Плавное движение
+      });
+    },
+
+    triggerAnimation() {
+      // Останавливаем анимацию раскачивания при клике
+      if (this.shakeAnimation) {
+        this.shakeAnimation.pause();
       }
-      this.octopusTimer = setTimeout(() => {
-        this.isOctopusActive = false;
-      }, 80);
 
-      // Показать молнию в случайной позиции
-      this.isLightingVisible = true;
-      this.lightingPosition = {
-        top: `${Math.random() * 40 + 5}%`, // Случайная позиция от 5% до 45%
-        left: `${Math.random() * 40 + 10}%` // Случайная позиция от 10% до 50%
-      };
+      // Перемещаем и увеличиваем осьминога
+      const octopus = this.$refs.octopus;
 
-      if (this.lightingTimer) {
-        clearTimeout(this.lightingTimer);
-      }
-      this.lightingTimer = setTimeout(() => {
-        this.isLightingVisible = false;
-      }, 150); // Молния исчезает через 150 мс
+      // Получаем размеры видимой области браузера
+      const viewportWidth = document.documentElement.clientWidth;
+      const viewportHeight = document.documentElement.clientHeight;
 
-      // Сбрасываем масштабирование через 2 секунды
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-      this.timer = setTimeout(() => {
-        this.isActive = false;
-        this.timer = null;
-      }, 2000);
-    }
+      // Получаем размеры осьминога
+      const octopusWidth = octopus.offsetWidth;
+      const octopusHeight = octopus.offsetHeight;
+
+      // Получаем текущую позицию осьминога
+      const octopusRect = octopus.getBoundingClientRect();
+      const currentX = octopusRect.left;
+      const currentY = octopusRect.top;
+
+      // Вычисляем координаты для центрирования осьминога по видимой области
+      const centerX = (viewportWidth - octopusWidth) / 2;
+      const centerY = (viewportHeight - octopusHeight) / 2;
+
+      // Считаем смещение
+      const offsetX = centerX - currentX;
+      const offsetY = centerY - currentY;
+
+      gsap.to(octopus, {
+        x: offsetX, // Центрируем по горизонтали
+        y: offsetY, // Центрируем по вертикали
+        scale: 1.5,  // Увеличиваем в 1.5 раза
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    },
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .tap-octopus-container {
-  position: fixed;
+  position: absolute;
   width: 85px;
   height: 85px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  // clip-path: circle(50% at center);
-  transition: transform 0.25s ease-out;
-  /* Плавный переход */
-  /* Начальное масштабирование */
-  transform: scale(1);
   z-index: 100;
+  opacity: 0;
+  transform: translate(-50%, -50%);
 }
-
-// .content-wrapper {
-//   position: relative;
-// }
 
 .tap-octopus {
   position: absolute;
@@ -110,12 +124,9 @@ export default {
   width: 72%;
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -52%) scale(1);
-
   pointer-events: auto;
   clip-path: circle(50% at center);
   z-index: 102;
-
-  transition: transform 0.1s ease-out;
 }
 
 .tap-shadow {
@@ -127,24 +138,11 @@ export default {
   border-radius: 45%;
   background-color: #E51C44;
   z-index: 101;
-
   background: linear-gradient(to bottom, #E51C44 0%, #00F0FF 100%);
   filter: blur(10px);
   opacity: 0.4;
   transform: translate(-50%, -50%) rotateZ(-30deg);
-
 }
-
-
-// .circle {
-//   width: 80px;
-//   height: 80px;
-//   background-color: red;
-//   background: linear-gradient(to bottom, #E51C44 0%, #00F0FF 100%);
-//   mask-image: linear-gradient(white, white), linear-gradient(to bottom, #E51C44 0%, #00F0FF 100%);
-//   mask-composite: exclude;
-//   padding: 5px;
-// }
 
 .element {
   position: relative;
@@ -176,7 +174,6 @@ export default {
   bottom: 0;
   background: rgb(3, 47, 73);
   opacity: 0.96;
-  /* Цвет фона внутри элемента */
   border-radius: inherit;
   z-index: 0;
 }
@@ -213,7 +210,6 @@ export default {
   border-radius: 12px;
   opacity: 0;
   z-index: 120;
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 .sean-coin {
@@ -229,7 +225,6 @@ export default {
   height: 10px;
   padding: 0.5px;
   border: 1px solid rgba(22, 32, 47, 0.2);
-  ;
   border-radius: 10px;
 }
 
@@ -248,49 +243,5 @@ export default {
   font-size: 14px;
   background-color: var(--color-element-background-rose);
   border-radius: 12px;
-  ;
-}
-
-
-// Стили для активного состояния
-
-.tap-octopus-container.active {
-  /* Масштабирование до 1.5 */
-  transform: scale(1.5);
-
-  & .tap-octopus.active {
-    transform: translate(-50%, -52%) scale(1.1);
-  }
-
-  & .counter-container {
-    transform: translate(-50%, 0) scale(0.82);
-    opacity: 1;
-  }
-}
-
-/* Transition для элемента lighting */
-.lighting-enter-active,
-.lighting-leave-active {
-  transition: transform 0.5s ease-out, opacity 0.15s ease-out;
-}
-
-.lighting-enter {
-  transform: scale(0.5);
-  opacity: 0;
-}
-
-.lighting-enter-to {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.lighting-leave {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.lighting-leave-to {
-  transform: scale(1.2);
-  opacity: 0;
 }
 </style>
