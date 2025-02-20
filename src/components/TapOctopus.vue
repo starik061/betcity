@@ -2,15 +2,15 @@
   <div class="tap-octopus-container" @click="triggerAnimation" ref="octopus">
     <div class="element"></div>
     <div class="tap-shadow"></div>
-    <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" :class="{ active: isOctopusActive }" />
+    <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" />
     <p class="tap-text">Жми</p>
 
     <img src="/img/lighting.svg" alt="lighting" class="lighting" />
 
-    <div class="counter-container">
+    <div class="counter-container" ref="counterContainer">
       <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
       <div class="range-container">
-        <div class="range"></div>
+        <div class="range" ref="range"></div>
       </div>
       <div class="count">+1</div>
     </div>
@@ -23,12 +23,17 @@ import { gsap } from "gsap";
 export default {
   data() {
     return {
-      shakeAnimation: null,    // Переменная для анимации раскачивания
+      shakeAnimation: null,
+      countdownInterval: null,
+      timeRemaining: 8,
+      clickCount: 0, // Добавляем переменную для отслеживания кликов
+      maxClicks: 15, // Максимальное количество кликов
+      timeout: null, // Переменная для хранения таймера, чтобы остановить клики после 8 секунд
     };
   },
   mounted() {
     // Запускаем анимацию появления через случайное время от 20 до 25 секунд
-    const delay = Math.random() * 5 + 5; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
+    const delay = Math.random() * 5 + 0; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
     gsap.delayedCall(delay, this.showOctopus);
   },
   methods: {
@@ -66,40 +71,61 @@ export default {
     },
 
     triggerAnimation() {
-      // Останавливаем анимацию раскачивания при клике
-      if (this.shakeAnimation) {
-        this.shakeAnimation.pause();
+      gsap.killTweensOf(this.$refs.octopus);
+
+      const { top, left, width, height } = this.$refs.octopus.getBoundingClientRect();
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const tl = gsap.timeline();
+      tl.to(this.$refs.octopus, {
+        x: centerX - (left + width / 2),
+        y: centerY - (top + height / 2),
+        scale: 1.5,
+        duration: 0.8,
+        ease: "power2.out",
+      })
+        .to(this.$refs.counterContainer, {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out",
+        }, "-=0.4");
+
+      this.startCountdown();
+    },
+
+    startCountdown() {
+      this.timeRemaining = 8;
+      this.clickCount = 0; // Сброс кликов при запуске таймера
+      this.timeout = setTimeout(() => {
+        if (this.clickCount < this.maxClicks) {
+          this.hideCounterContainer();
+        }
+      }, this.timeRemaining * 1000); // Таймер на 8 секунд
+
+      this.countdownInterval = setInterval(() => {
+        if (this.timeRemaining <= 0) {
+          clearInterval(this.countdownInterval);
+        } else {
+          this.timeRemaining--;
+        }
+        const width = (this.timeRemaining / 8) * 100;
+        gsap.to(this.$refs.range, { width: `${width}%`, duration: 1 });
+      }, 1000);
+    },
+
+    incrementClickCount() {
+      this.clickCount++;
+      if (this.clickCount >= this.maxClicks) {
+        clearTimeout(this.timeout); // Останавливаем таймер, если количество кликов достигло максимума
       }
+    },
 
-      // Перемещаем и увеличиваем осьминога
-      const octopus = this.$refs.octopus;
-
-      // Получаем размеры видимой области браузера
-      const viewportWidth = document.documentElement.clientWidth;
-      const viewportHeight = document.documentElement.clientHeight;
-
-      // Получаем размеры осьминога
-      const octopusWidth = octopus.offsetWidth;
-      const octopusHeight = octopus.offsetHeight;
-
-      // Получаем текущую позицию осьминога
-      const octopusRect = octopus.getBoundingClientRect();
-      const currentX = octopusRect.left;
-      const currentY = octopusRect.top;
-
-      // Вычисляем координаты для центрирования осьминога по видимой области
-      const centerX = (viewportWidth - octopusWidth) / 2;
-      const centerY = (viewportHeight - octopusHeight) / 2;
-
-      // Считаем смещение
-      const offsetX = centerX - currentX;
-      const offsetY = centerY - currentY;
-
-      gsap.to(octopus, {
-        x: offsetX, // Центрируем по горизонтали
-        y: offsetY, // Центрируем по вертикали
-        scale: 1.5,  // Увеличиваем в 1.5 раза
-        duration: 0.6,
+    hideCounterContainer() {
+      gsap.to(this.$refs.counterContainer, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 1,
         ease: "power2.out",
       });
     },
@@ -229,7 +255,7 @@ export default {
 }
 
 .range {
-  width: 60%;
+  width: calc(100% - 0.5px);
   height: calc(100% - 1px);
   background-color: #F7B23B;
   border-radius: 10px;
@@ -241,6 +267,7 @@ export default {
   top: -60%;
   padding: 3px 8px;
   font-size: 14px;
+  line-height: 1;
   background-color: var(--color-element-background-rose);
   border-radius: 12px;
 }
