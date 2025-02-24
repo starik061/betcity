@@ -61,10 +61,10 @@ export default {
 
 <style lang="scss" scoped>
 .top-panel-container {
-  padding-top: 63px;
+  padding-top: 73px;
 
   &.unusual-platform {
-    padding-top: 30px;
+    padding-top: 43px;
   }
 }
 
