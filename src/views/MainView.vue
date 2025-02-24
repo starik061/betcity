@@ -153,6 +153,7 @@ export default {
 
   mounted() {
     // setTimeout(() => { this.openModal("dailyReward") }, 1200);
+    alert(`Platform: ${this.appStore.platform}`)
   },
 
   methods: {

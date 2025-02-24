@@ -1,8 +1,8 @@
 <template>
-  <div class="tap-octopus-container" @click="triggerAnimation" ref="octopus">
+  <div class="tap-octopus-container" @click="handleClick" ref="octopus">
     <div class="element"></div>
     <div class="tap-shadow"></div>
-    <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" />
+    <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" ref="octopusImg" />
     <p class="tap-text">Жми</p>
 
     <img src="/img/lighting.svg" alt="lighting" class="lighting" />
@@ -29,6 +29,8 @@ export default {
       clickCount: 0, // Добавляем переменную для отслеживания кликов
       maxClicks: 15, // Максимальное количество кликов
       timeout: null, // Переменная для хранения таймера, чтобы остановить клики после 8 секунд
+      hasMovedToCenter: false, // Флаг, чтобы избежать повторного движения в центр
+      gameOver: false,
     };
   },
   mounted() {
@@ -70,36 +72,68 @@ export default {
       });
     },
 
-    triggerAnimation() {
+    handleClick() {
+      if (this.gameOver) return; // Игнорируем клики после окончания игры
+
+      if (!this.hasMovedToCenter) {
+        this.moveToCenter();
+      } else {
+        this.incrementClickCount();
+      }
+    },
+
+    moveToCenter() {
+      this.hasMovedToCenter = true;
       gsap.killTweensOf(this.$refs.octopus);
 
       const { top, left, width, height } = this.$refs.octopus.getBoundingClientRect();
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
 
-      const tl = gsap.timeline();
-      tl.to(this.$refs.octopus, {
+      gsap.to(this.$refs.octopus, {
         x: centerX - (left + width / 2),
         y: centerY - (top + height / 2),
         scale: 1.5,
         duration: 0.8,
         ease: "power2.out",
-      })
-        .to(this.$refs.counterContainer, {
-          opacity: 1,
-          duration: 0.5,
-          ease: "power2.out",
-        }, "-=0.4");
+      });
+
+      gsap.to(this.$refs.counterContainer, {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+      });
 
       this.startCountdown();
     },
+
+    incrementClickCount() {
+      this.clickCount++;
+
+      gsap.to(this.$refs.octopusImg, {
+        scale: 1.7,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: "power1.inOut",
+      });
+
+      if (this.clickCount >= this.maxClicks) {
+        this.gameOver = true;
+        clearInterval(this.countdownInterval);
+        this.successExplosion();  // Запуск феерии успеха
+      }
+    },
+
 
     startCountdown() {
       this.timeRemaining = 8;
       this.clickCount = 0; // Сброс кликов при запуске таймера
       this.timeout = setTimeout(() => {
+        this.hideCounterContainer();
+
         if (this.clickCount < this.maxClicks) {
-          this.hideCounterContainer();
+          this.hideOctopus();
         }
       }, this.timeRemaining * 1000); // Таймер на 8 секунд
 
@@ -114,12 +148,6 @@ export default {
       }, 1000);
     },
 
-    incrementClickCount() {
-      this.clickCount++;
-      if (this.clickCount >= this.maxClicks) {
-        clearTimeout(this.timeout); // Останавливаем таймер, если количество кликов достигло максимума
-      }
-    },
 
     hideCounterContainer() {
       gsap.to(this.$refs.counterContainer, {
@@ -129,6 +157,87 @@ export default {
         ease: "power2.out",
       });
     },
+
+    hideOctopus() {
+      if (this.clickCount < this.maxClicks) {
+        gsap.to(this.$refs.octopus, {
+          opacity: 0,
+          duration: 0.5,
+          onComplete: () => {
+            this.$refs.octopus.style.display = "none";
+          },
+        });
+      }
+    },
+
+    // Метод для феерии при успешном клике
+    successExplosion() {
+      // Увеличиваем осьминога с эффектом исчезновения
+      gsap.to(this.$refs.octopus, {
+        scale: 2.5,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.in",
+        onComplete: () => {
+          this.$refs.octopus.style.display = "none"; // Прячет осьминога
+        }
+      });
+
+      // Добавляем искры или вспышки
+      gsap.to(this.$refs.octopus, {
+        scale: 2,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power4.out",
+        onStart: () => {
+          this.createFireworks();  // Генерация фейерверков
+        }
+      });
+    },
+
+    // Функция для создания эффекта фейерверков
+    createFireworks() {
+      const fireworksContainer = document.createElement("div");
+      fireworksContainer.style.position = "absolute";
+      fireworksContainer.style.top = `${this.$refs.octopus.getBoundingClientRect().top}px`;
+      fireworksContainer.style.left = `${this.$refs.octopus.getBoundingClientRect().left}px`;
+      fireworksContainer.style.pointerEvents = "none";
+      document.body.appendChild(fireworksContainer);
+
+      for (let i = 0; i < 20; i++) {
+        const spark = document.createElement("div");
+        spark.style.position = "absolute";
+        spark.style.width = "10px";
+        spark.style.height = "10px";
+        spark.style.backgroundColor = "white";
+        spark.style.borderRadius = "50%";
+        spark.style.opacity = 1;
+        fireworksContainer.appendChild(spark);
+
+        gsap.fromTo(
+          spark,
+          { x: 0, y: 0, opacity: 1 },
+          {
+            x: Math.random() * 200 - 100, // Генерация случайных координат
+            y: Math.random() * 200 - 100,
+            opacity: 0,
+            scale: 0.2,
+            duration: 0.8,
+            repeat: 0,
+            ease: "power2.out",
+            delay: Math.random() * 0.3,  // Немного случайности в начале
+            onComplete: () => {
+              spark.remove();  // Удаляем элемент после анимации
+            }
+          }
+        );
+      }
+
+      // Удаление контейнера с фейерверками после завершения анимации
+      gsap.delayedCall(1, () => {
+        fireworksContainer.remove();
+      });
+    }
   }
 };
 </script>
