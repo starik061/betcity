@@ -4,7 +4,7 @@
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
-          <img class="avatar" src="/img/avatar-placeholder.webp" />
+          <img class="avatar" :src="avatarImage" />
         </router-link>
         <div class="score">
           <div class="score-coin-wrapper">
@@ -48,6 +48,7 @@ import IconNotificationBell from '@/components/icons/IconNotificationBell.vue';
 import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
 import { mapStores } from "pinia";
 import { useAppStore } from "@/stores/appStore";
+import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 
 export default {
   components: { IconBoxingGlove, IconNotificationBell, IconGiftArrow },
@@ -56,6 +57,19 @@ export default {
       appStore: useAppStore(),
     }
   },
+
+  computed: {
+    user() {
+      return this.appStore.user;
+    },
+
+    avatarImage() {
+      if (this.user?.photo_url) {
+        return this.user.photo_url;
+      }
+      return avatarPlaceholder
+    }
+  }
 }
 </script>
 

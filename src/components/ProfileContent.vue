@@ -4,9 +4,9 @@
 
     <nav class="profile-info-container">
       <div class="left-side">
-        <img class="avatar" src="/img/avatar-placeholder.webp" />
+        <img class="avatar" :src="avatarImage" />
         <div class="username-place-container">
-          <p class="username">Игорь Петров <span class="tg-username">@igorpet</span></p>
+          <p class="username">{{ name }} <span class="tg-username">{{ userName }}</span></p>
           <span class="rating-place">5000</span>
         </div>
 
@@ -87,10 +87,49 @@
 
 <script>
 import IconPhoneApproved from '@/components/icons/IconPhoneApproved.vue';
+import { useAppStore } from "@/stores/appStore";
+import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 
 export default {
   components: { IconPhoneApproved },
 
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
+
+  computed: {
+    user() {
+      return this.appStore.user;
+    },
+
+    avatarImage() {
+      if (this.user?.photo_url) {
+        return this.user.photo_url;
+      }
+      return avatarPlaceholder
+    },
+
+    name() {
+      if (this.user) {
+        if (this.user?.first_name || this.user?.last_name) {
+          let username = this.user.first_name + " " + this.user.last_name;
+          // Ограничение строки до 15 символов с использованием slice
+          return username.slice(0, 15) + (username.length > 15 ? '...' : '');
+        }
+      }
+      return "Нет данных";
+    },
+
+    userName() {
+      if (this.user?.username) {
+        // Ограничение строки до 15 символов с использованием slice
+        return "@" + this.user?.username.slice(0, 15) + (username.length > 15 ? '...' : '');
+      }
+      return "Нет данных";
+    }
+  }
 }
 </script>
 
