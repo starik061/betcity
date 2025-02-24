@@ -125,7 +125,7 @@ export default {
     userName() {
       if (this.user?.username) {
         // Ограничение строки до 15 символов с использованием slice
-        return "@" + this.user?.username.slice(0, 15) + (username.length > 15 ? '...' : '');
+        return "@" + this.user?.username.slice(0, 15) + (this.user?.username > 15 ? '...' : '');
       }
       return "Нет данных";
     }
