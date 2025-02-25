@@ -25,11 +25,13 @@
 
     <div class="phone-container">
       <b class="phone-container-header">Подтвердите номер телефона</b>
-      <div class="phone-btn-container">
-        <input type=" tel" name="" id="" class="user-phone" v-model="phoneNumber" @input="formatPhoneNumber" max="16">
+      <div class="phone-btn-container" :class="{ 'success': isPhoneValid }">
+        <input type=" tel" name="" id="" class="user-phone" v-model="phoneNumber" @focus="onFocus" @input="onPhoneInput"
+          max="16" placeholder="+7-900-000-00-00">
         <button type="button" class="phone-approve-btn">
           <IconPhoneApproved />
         </button>
+        <p class="phone-status-text">Номер подтвержден</p>
       </div>
     </div>
 
@@ -96,7 +98,8 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
-      phoneNumber: '+7',
+      phoneNumber: '',
+      isPhoneValid: false,
     }
   },
 
@@ -133,27 +136,60 @@ export default {
   },
 
   methods: {
-    // Форматируем номер телефона
-    formatPhoneNumber(event) {
+    onFocus() {
+      if (this.phoneNumber === '' || this.phoneNumber === '+7') {
+        this.phoneNumber = '+7';  // Если поле пустое, ставим +7
+      }
+    },
+
+    onPhoneInput(event) {
+      this.isPhoneValid = false;
+
       let value = event.target.value;
 
       // Убираем все нецифровые символы (кроме плюса)
-      value = value.replace(/\D/g, '');
+      const rawValue = value.replace(/\D/g, '');
 
-      // Применяем форматирование
-      if (value.length > 1) {
-        value = '+7' + value.slice(1)
-          .replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4'); // Форматирование с дефисами
+      // Если длина после удаления нецифровых символов больше 16, обрезаем
+      if (rawValue.length > 16) {
+        this.phoneNumber = formatPhoneNumber(rawValue.slice(0, 16));
+        return;
       }
 
-      // Ограничиваем длину 16 символами (+7-XXX-XXX-XX-XX)
-      if (value.length > 16) {
-        value = value.slice(0, 16);
-      }
+      // Если значение пустое или не начинается с +7, восстанавливаем +7
+      if (rawValue === '' || !rawValue.startsWith('7')) {
+        this.phoneNumber = '+7';
+      } else {
+        // Начинаем с +7
+        let formattedValue = '+7';
 
-      this.phoneNumber = value;
+        // Форматируем номер телефона с дефисами
+        if (rawValue.length > 1) {
+          formattedValue += '-' + rawValue.slice(1, 4);
+        }
+        if (rawValue.length > 4) {
+          formattedValue += '-' + rawValue.slice(4, 7);
+        }
+        if (rawValue.length > 7) {
+          formattedValue += '-' + rawValue.slice(7, 9);
+        }
+        if (rawValue.length > 9) {
+          formattedValue += '-' + rawValue.slice(9, 11);
+        }
+
+        // Ограничиваем длину строки до 16 символов (с дефисами)
+        if (formattedValue.length > 16) {
+          formattedValue = formattedValue.slice(0, 16);
+        }
+
+        this.phoneNumber = formattedValue;
+
+        // Проверяем, если длина форматированного значения равна 16
+        if (this.phoneNumber.length === 16) {
+          this.isPhoneValid = true;
+        }
+      }
     },
-
   }
 }
 </script>
@@ -243,13 +279,25 @@ export default {
   font-size: 13px;
   font-weight: bold;
   flex-grow: 1;
+
 }
 
 .phone-btn-container {
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 2.92%;
+
+  &.success {
+    & .user-phone {
+      outline: 1.2px solid var(--color-element-lemongreen);
+    }
+
+    & .phone-status-text {
+      display: block;
+    }
+  }
 }
 
 .phone-approve-btn {
@@ -259,6 +307,16 @@ export default {
   border-radius: 6px;
   flex-grow: 0;
   border: none;
+}
+
+.phone-status-text {
+  display: none;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  font-family: "Styrene A";
+  font-size: 8px;
+  color: var(--color-element-lemongreen);
 }
 
 .forecast-history-list {
