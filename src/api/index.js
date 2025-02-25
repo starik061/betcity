@@ -43,3 +43,28 @@ export async function getUser() {
     console.error("Ошибка авторизации:", error);
   }
 }
+
+// _____________________
+
+export async function getMatchesLive() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/matches/live`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+    const data = await response.json();
+    appStore.liveMatches = data;
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}

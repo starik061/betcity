@@ -1,106 +1,108 @@
 <template>
-  <div class="forecast-container">
-    <h2 class="forecast-header">Chelsy VS Bayern, 19:40</h2>
+  <ul class="forecast-container">
+    <li v-for="liveMatch in liveMatchesList" :key="liveMatch?.id">
+      <h2 class="forecast-header">{{ liveMatch?.name }}</h2>
 
-    <ul class="forecast-list">
-      <li class="forecast-list-item">
-        <label class="forecast-choice-btn">
-          <div class="forecast-radio-immitator"></div>
-          <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
-          <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo">
-          <p class="forecast-team"> Chelsey</p>
-          <div class="forecast-coef">1.60</div>
+      <ul class="forecast-list">
+        <li class="forecast-list-item">
+          <label class="forecast-choice-btn">
+            <div class="forecast-radio-immitator"></div>
+            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
+            <img class="forecast-img" :src="liveMatch.homeTeam.logoUrl" alt="hometeam logo">
+            <p class="forecast-team"> {{ liveMatch.homeTeam.name }}</p>
+            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "homeTeam") }}</div>
+          </label>
+        </li>
+
+        <li class="forecast-list-item">
+          <label class="forecast-choice-btn">
+            <div class="forecast-radio-immitator"></div>
+            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
+            <IconForecastDraw class="forecast-img" />
+            <!-- <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo"> -->
+            <p class="forecast-team"> Ничья</p>
+            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id) }}</div>
+          </label>
+        </li>
+
+        <li class="forecast-list-item">
+          <label class="forecast-choice-btn">
+            <div class="forecast-radio-immitator"></div>
+            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
+            <img class="forecast-img" :src="liveMatch.awayTeam.logoUrl" alt="awayteam logo">
+            <p class="forecast-team">{{ liveMatch.awayTeam.name }}</p>
+            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "awayTeam") }}</div>
+          </label>
+        </li>
+      </ul>
+
+      <button class="main-btn main-forecast-btn" type="button">Подтвердить прогноз</button>
+      <!-- !Аккордеон -->
+      <div class="accordion">
+
+        <input type="checkbox" name="forecast-accordion" class="visually-hidden" id="forecast-radio1">
+
+
+        <label for="forecast-radio1" class="accordion-header">
+          <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
+          <span>Повышенные бонусы за победу</span>
+          <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
+              fill="white" />
+          </svg>
         </label>
-      </li>
 
-      <li class="forecast-list-item">
-        <label class="forecast-choice-btn">
-          <div class="forecast-radio-immitator"></div>
-          <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
-          <IconForecastDraw class="forecast-img" />
-          <!-- <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo"> -->
-          <p class="forecast-team"> Ничья</p>
-          <div class="forecast-coef">1.60</div>
-        </label>
-      </li>
-
-      <li class="forecast-list-item">
-        <label class="forecast-choice-btn">
-          <div class="forecast-radio-immitator"></div>
-          <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
-          <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo">
-          <p class="forecast-team"> Chelsey2</p>
-          <div class="forecast-coef">1.60</div>
-        </label>
-      </li>
-    </ul>
-
-    <button class="main-btn main-forecast-btn" type="button">Подтвердить прогноз</button>
-    <!-- !Аккордеон -->
-    <div class="accordion">
-
-      <input type="checkbox" name="forecast-accordion" class="visually-hidden" id="forecast-radio1">
-
-
-      <label for="forecast-radio1" class="accordion-header">
-        <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
-        <span>Повышенные бонусы за победу</span>
-        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
-            fill="white" />
-        </svg>
-      </label>
-
-      <div class="accordion-content">
-        <ul class="accordion-content-settings-list">
-          <li class="accordion-content-settings-list-item">
-            <label class="accordion-content-settings-label">
-              <input type="checkbox" class="visually-hidden" name="">
-              <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-              <span class="accordion-content-settings-text">Точный исход</span>
-              <button type="button" class="accordion-settings-btn">
-                <IconAccordionSettingsButton @click="openModal('forecastDetails')" />
-              </button>
-            </label>
-          </li>
-          <li class="accordion-content-settings-list-item">
-            <label class="accordion-content-settings-label">
-              <input type="checkbox" class="visually-hidden" name="">
-              <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-              <span class="accordion-content-settings-text">Минута <br /> первого гола</span>
-              <button type="button" class="accordion-settings-btn">
-                <IconAccordionSettingsButton />
-              </button>
-            </label>
-          </li>
-          <li class="accordion-content-settings-list-item">
-            <label class="accordion-content-settings-label">
-              <input type="checkbox" class="visually-hidden" name="">
-              <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-              <span class="accordion-content-settings-text">Тотал больше 2.5</span>
-            </label>
-          </li>
-          <li class="accordion-content-settings-list-item">
-            <label class="accordion-content-settings-label">
-              <input type="checkbox" class="visually-hidden" name="">
-              <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-              <span class="accordion-content-settings-text">Тотал меньше 2.5</span>
-            </label>
-          </li>
-          <li class="accordion-content-settings-list-item">
-            <label class="accordion-content-settings-label">
-              <input type="checkbox" class="visually-hidden" name="">
-              <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-              <span class="accordion-content-settings-text">Ставка с риском</span>
-            </label>
-          </li>
-        </ul>
-        <div style="height: 10px;"></div>
+        <div class="accordion-content">
+          <ul class="accordion-content-settings-list">
+            <li class="accordion-content-settings-list-item">
+              <label class="accordion-content-settings-label">
+                <input type="checkbox" class="visually-hidden" name="">
+                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                <span class="accordion-content-settings-text">Точный исход</span>
+                <button type="button" class="accordion-settings-btn">
+                  <IconAccordionSettingsButton @click="openModal('forecastDetails')" />
+                </button>
+              </label>
+            </li>
+            <li class="accordion-content-settings-list-item">
+              <label class="accordion-content-settings-label">
+                <input type="checkbox" class="visually-hidden" name="">
+                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                <span class="accordion-content-settings-text">Минута <br /> первого гола</span>
+                <button type="button" class="accordion-settings-btn">
+                  <IconAccordionSettingsButton />
+                </button>
+              </label>
+            </li>
+            <li class="accordion-content-settings-list-item">
+              <label class="accordion-content-settings-label">
+                <input type="checkbox" class="visually-hidden" name="">
+                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                <span class="accordion-content-settings-text">Тотал больше 2.5</span>
+              </label>
+            </li>
+            <li class="accordion-content-settings-list-item">
+              <label class="accordion-content-settings-label">
+                <input type="checkbox" class="visually-hidden" name="">
+                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                <span class="accordion-content-settings-text">Тотал меньше 2.5</span>
+              </label>
+            </li>
+            <li class="accordion-content-settings-list-item">
+              <label class="accordion-content-settings-label">
+                <input type="checkbox" class="visually-hidden" name="">
+                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                <span class="accordion-content-settings-text">Ставка с риском</span>
+              </label>
+            </li>
+          </ul>
+          <div style="height: 10px;"></div>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 
 </template>
 
@@ -113,8 +115,39 @@ import { useAppStore } from '@/stores/appStore';
 
 export default {
   components: { IconForecastDraw, IconBoxingGlove, IconAccordionSettingsButton },
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
+
+  computed: {
+    liveMatchesList() {
+      if (this.appStore.liveMatches && Array.isArray(this.appStore.liveMatches) && this.appStore.liveMatches.length > 0) {
+        return this.appStore.liveMatches;
+      }
+      return []
+    },
+  },
+
+
   methods: {
     ...mapActions(useAppStore, ['openModal', 'closeModal']),
+
+    getTeamCoef(eventId, teamType) {
+      const liveMatch = this.liveMatchesList.find(match => { return match.id === eventId; });
+      if (liveMatch) {
+        switch (teamType) {
+          case 'homeTeam':
+            return liveMatch?.results[0]?.coefficients.P1?.kf || 0;
+          case 'awayTeam':
+            return liveMatch?.results[0]?.coefficients.P2?.kf || 0;
+          default:
+            return liveMatch?.results[0]?.coefficients.X?.kf || 0
+        }
+      }
+      return 0;
+    }
   },
 
 }

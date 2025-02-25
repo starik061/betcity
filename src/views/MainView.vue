@@ -12,7 +12,7 @@
 
       <TopNavPanel class="top-panel-nav" />
 
-      <ForecastDetails v-for="(item, index) in 2" :key="index" />
+      <ForecastDetails />
 
       <BottomNavPanel class="bottom-panel-nav" />
     </div>

@@ -12,7 +12,9 @@ export const useAppStore = defineStore("app", {
     initDataUnsafe: null,
     platform: undefined,
     isFirstEnter: false,
-    gameUserInfo: null
+
+    gameUserInfo: null,
+    liveMatches: null
   }),
   actions: {
     init() {
