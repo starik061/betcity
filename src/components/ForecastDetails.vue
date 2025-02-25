@@ -5,9 +5,10 @@
 
       <ul class="forecast-list">
         <li class="forecast-list-item">
-          <label class="forecast-choice-btn">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 1"
+            :name="'game-forecast' + liveMatch?.id" value="P1" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 1">
             <div class="forecast-radio-immitator"></div>
-            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
             <img class="forecast-img" :src="liveMatch.homeTeam.logoUrl" alt="hometeam logo">
             <p class="forecast-team"> {{ liveMatch.homeTeam.name }}</p>
             <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "homeTeam") }}</div>
@@ -15,9 +16,10 @@
         </li>
 
         <li class="forecast-list-item">
-          <label class="forecast-choice-btn">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 2"
+            :name="'game-forecast' + liveMatch?.id" value="X" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 2">
             <div class="forecast-radio-immitator"></div>
-            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
             <IconForecastDraw class="forecast-img" />
             <!-- <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo"> -->
             <p class="forecast-team"> Ничья</p>
@@ -26,9 +28,11 @@
         </li>
 
         <li class="forecast-list-item">
-          <label class="forecast-choice-btn">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 3"
+            :name="'game-forecast' + liveMatch?.id" value="P2" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 3">
             <div class="forecast-radio-immitator"></div>
-            <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
+
             <img class="forecast-img" :src="liveMatch.awayTeam.logoUrl" alt="awayteam logo">
             <p class="forecast-team">{{ liveMatch.awayTeam.name }}</p>
             <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "awayTeam") }}</div>
@@ -209,10 +213,21 @@ export default {
       linear-gradient(white 0 0);
     mask-composite: destination-out;
     mask-composite: exclude;
-
-    pointer-events: none;
   }
 }
+
+input:checked+.forecast-choice-btn {
+  &::before {
+    background: var(--color-main-blue);
+  }
+
+  & .forecast-radio-immitator {
+    border-color: var(--color-main-blue);
+    background-color: var(--color-main-blue);
+  }
+}
+
+
 
 .forecast-radio-immitator {
   position: absolute;
