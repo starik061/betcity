@@ -74,13 +74,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .top-panel-container {
+//   padding-top: 73px;
+
+//   &.unusual-platform {
+//     padding-top: 43px;
+//   }
+// }
+
 .top-panel-container {
-  padding-top: 73px;
+  padding-top: var(--tg-content-safe-area-inset-top);
 
   &.unusual-platform {
     padding-top: 43px;
   }
 }
+
 
 .top-nav-container {
   width: 100%;

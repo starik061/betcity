@@ -26,7 +26,7 @@
     <div class="phone-container">
       <b class="phone-container-header">Подтвердите номер телефона</b>
       <div class="phone-btn-container">
-        <input type=" tel" name="" id="" class="user-phone" value="+7-900-000-00-00">
+        <input type=" tel" name="" id="" class="user-phone" v-model="phoneNumber" @input="formatPhoneNumber" max="16">
         <button type="button" class="phone-approve-btn">
           <IconPhoneApproved />
         </button>
@@ -96,6 +96,7 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
+      phoneNumber: '+7',
     }
   },
 
@@ -129,6 +130,30 @@ export default {
       }
       return "Нет данных";
     }
+  },
+
+  methods: {
+    // Форматируем номер телефона
+    formatPhoneNumber(event) {
+      let value = event.target.value;
+
+      // Убираем все нецифровые символы (кроме плюса)
+      value = value.replace(/\D/g, '');
+
+      // Применяем форматирование
+      if (value.length > 1) {
+        value = '+7' + value.slice(1)
+          .replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1-$2-$3-$4'); // Форматирование с дефисами
+      }
+
+      // Ограничиваем длину 16 символами (+7-XXX-XXX-XX-XX)
+      if (value.length > 16) {
+        value = value.slice(0, 16);
+      }
+
+      this.phoneNumber = value;
+    },
+
   }
 }
 </script>
@@ -218,7 +243,6 @@ export default {
   font-size: 13px;
   font-weight: bold;
   flex-grow: 1;
-  pointer-events: none;
 }
 
 .phone-btn-container {
