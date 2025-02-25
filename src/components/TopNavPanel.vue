@@ -83,7 +83,7 @@ export default {
 // }
 
 .top-panel-container {
-  padding-top: var(--tg-content-safe-area-inset-top);
+  padding-top: calc(var(--tg-content-safe-area-inset-top) + 23px);
 
   &.unusual-platform {
     padding-top: 43px;

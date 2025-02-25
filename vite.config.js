@@ -12,5 +12,10 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url))
     }
+  },
+  server: {
+    host: true, // Разрешает доступ с внешних устройств
+    port: 5173, // Или ваш порт
+    allowedHosts: [".ngrok-free.app"] // Разрешаем все ngrok-домены
   }
 });
