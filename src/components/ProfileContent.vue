@@ -17,7 +17,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">200</span>
+          <span class="score-text">{{ gameUserInfo.balance || 0 }}</span>
         </div>
         <p class="score-change-period">За неделю<span>+2</span></p>
       </div>
@@ -104,21 +104,24 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.appStore.user;
+    tgUser() {
+      return this.appStore.initDataUnsafe?.user;
     },
 
+    gameUserInfo() {
+      return this.appStore.gameUserInfo;
+    },
     avatarImage() {
-      if (this.user?.photo_url) {
-        return this.user.photo_url;
+      if (this.tgUser?.photo_url) {
+        return this.tgUser.photo_url;
       }
       return avatarPlaceholder
     },
 
     name() {
-      if (this.user) {
-        if (this.user?.first_name || this.user?.last_name) {
-          let username = this.user.first_name + " " + this.user.last_name;
+      if (this.tgUser) {
+        if (this.tgUser?.first_name || this.tgUser?.last_name) {
+          let username = this.tgUser.first_name + " " + this.tgUser.last_name;
           // Ограничение строки до 15 символов с использованием slice
           return username.slice(0, 15) + (username.length > 15 ? '...' : '');
         }
@@ -127,9 +130,9 @@ export default {
     },
 
     userName() {
-      if (this.user?.username) {
+      if (this.tgUser?.username) {
         // Ограничение строки до 15 символов с использованием slice
-        return "@" + this.user?.username.slice(0, 15) + (this.user?.username > 15 ? '...' : '');
+        return "@" + this.tgUser?.username.slice(0, 15) + (this.tgUser?.username > 15 ? '...' : '');
       }
       return "Нет данных";
     }

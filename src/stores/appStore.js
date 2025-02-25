@@ -11,7 +11,8 @@ export const useAppStore = defineStore("app", {
     initData: null,
     initDataUnsafe: null,
     platform: undefined,
-    isFirstEnter: false
+    isFirstEnter: false,
+    gameUserInfo: null
   }),
   actions: {
     init() {
@@ -31,9 +32,6 @@ export const useAppStore = defineStore("app", {
             WebApp.requestFullscreen?.();
           }
         }
-
-        console.log("initData", this.initData);
-        console.log("initDataUnsafe", this.initDataUnsafe);
       }
     },
     openModal(name) {

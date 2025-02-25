@@ -46,13 +46,13 @@ export default {
   async mounted() {
     this.appStore.init();
     await getUser()
-    // setTimeout(() => {
-    //   if (this.appStore.isFirstEnter) {
-    //     this.$router.push("/loading-one");
-    //   } else {
-    //     this.$router.push("/main-view");
-    //   }
-    // }, 2500);
+    setTimeout(() => {
+      if (this.appStore.isFirstEnter) {
+        this.$router.push("/loading-one");
+      } else {
+        this.$router.push("/main-view");
+      }
+    }, 2500);
 
   },
 

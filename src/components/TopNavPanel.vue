@@ -10,7 +10,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">200</span>
+          <span class="score-text">{{ gameUserInfo.balance || 0 }}</span>
         </div>
       </div>
       <div class="right-side">
@@ -59,13 +59,16 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.appStore.user;
+    tgUser() {
+      return this.appStore.initDataUnsafe?.user;
     },
 
+    gameUserInfo() {
+      return this.appStore.gameUserInfo;
+    },
     avatarImage() {
-      if (this.user?.photo_url) {
-        return this.user.photo_url;
+      if (this.tgUser?.photo_url) {
+        return this.tgUser.photo_url;
       }
       return avatarPlaceholder
     }
@@ -74,14 +77,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .top-panel-container {
-//   padding-top: 73px;
-
-//   &.unusual-platform {
-//     padding-top: 43px;
-//   }
-// }
-
 .top-panel-container {
   padding-top: calc(var(--tg-content-safe-area-inset-top) + 23px);
 
