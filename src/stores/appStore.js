@@ -8,8 +8,8 @@ export const useAppStore = defineStore("app", {
       forecastDetails: false,
       congratulations: false
     },
-    user: null,
-    webApp: undefined,
+    initData: null,
+    initDataUnsafe: null,
     platform: undefined,
     isFirstEnter: false
   }),
@@ -20,9 +20,9 @@ export const useAppStore = defineStore("app", {
         WebApp.ready();
         WebApp.disableVerticalSwipes?.();
 
-        this.webApp = WebApp;
         this.platform = WebApp.platform;
-        this.user = WebApp.initDataUnsafe?.user || null;
+        this.initDataUnsafe = WebApp.initDataUnsafe || null;
+        this.initData = WebApp.initData || null;
 
         if (WebApp.platform !== "tdesktop") {
           WebApp.expand();
@@ -31,6 +31,9 @@ export const useAppStore = defineStore("app", {
             WebApp.requestFullscreen?.();
           }
         }
+
+        console.log("initData", this.initData);
+        console.log("initDataUnsafe", this.initDataUnsafe);
       }
     },
     openModal(name) {

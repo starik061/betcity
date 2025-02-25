@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-
+import { getUser } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -43,15 +43,16 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     this.appStore.init();
-    setTimeout(() => {
-      if (this.appStore.isFirstEnter) {
-        this.$router.push("/loading-one");
-      } else {
-        this.$router.push("/main-view");
-      }
-    }, 2500);
+    await getUser()
+    // setTimeout(() => {
+    //   if (this.appStore.isFirstEnter) {
+    //     this.$router.push("/loading-one");
+    //   } else {
+    //     this.$router.push("/main-view");
+    //   }
+    // }, 2500);
 
   },
 
