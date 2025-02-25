@@ -231,8 +231,13 @@ export default {
 }
 
 .forecast-team {
+  width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: 'Styrene A', sans-serif;
   font-size: 10px;
+  text-align: center;
 }
 
 .forecast-coef {
@@ -252,6 +257,7 @@ export default {
 
 .accordion {
   padding: 8px 13px;
+  margin-bottom: 30px;
   border-radius: 8px;
   border: 1px solid var(--color-main-blue);
   overflow: hidden;
