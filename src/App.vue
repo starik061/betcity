@@ -1,8 +1,9 @@
 <template>
-  <transition name="slide" mode="out-in">
-    <RouterView :key="this.$route.fullPath" />
-  </transition>
-  <!-- <RouterView /> -->
+  <router-view v-slot="{ Component }">
+    <transition name="slide" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>

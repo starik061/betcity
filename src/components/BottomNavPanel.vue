@@ -15,7 +15,7 @@
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/home" class="bottom-nav-panel-link">
+          <router-link to="/main-view" class="bottom-nav-panel-link">
             <IconBottomNavGame />
             <p class="bottom-nav-panel-text">Game</p>
           </router-link>

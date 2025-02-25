@@ -29,11 +29,11 @@
 export default {
   props: {
     width: {
-      type: Number,
+      type: String,
       default: '25'
     },
     height: {
-      type: Number,
+      type: String,
       default: '25'
     },
   }
