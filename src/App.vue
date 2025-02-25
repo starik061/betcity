@@ -11,21 +11,36 @@ import { RouterLink, RouterView } from 'vue-router'
 
 export default {
   mounted() {
-    //   if (window.Telegram?.WebApp) {
-    //     const { WebApp } = window.Telegram;
-    //     WebApp.disableVerticalSwipes?.(); // Безопасный вызов без if
+    // Проверяем, что WebApp доступен
+    if (window.Telegram?.WebApp && window.Telegram.WebApp.BackButton) {
+      this.setupBackButtonHandler();
+    }
+  },
 
-    //     // Проверяем, что НЕ десктопная версия
-    //     if (WebApp.platform !== "tdesktop") {
-    //       // Вызываем expand() для всех версий
-    //       WebApp.expand();
+  methods: {
+    setupBackButtonHandler() {
+      const telegram = window.Telegram.WebApp;
 
-    //       // Если доступно requestFullscreen() (для версий >= 8.0), используем его
-    //       if (parseFloat(WebApp.version) >= 8.0) {
-    //         WebApp.requestFullscreen?.();
-    //       }
-    //     }
-    //   }
+      const backButtonHandler = () => {
+        this.$router.back(); // Переход назад по маршруту
+      };
+
+      const currentRoute = this.$route;
+      const previousRoute = this.$router.options.history.state?.back; // Получаем предыдущий маршрут
+
+      // Единственный маршрут, на котором скрываем кнопку назад
+      const excludedRoutes = ["/"];
+
+      if (!previousRoute || excludedRoutes.includes(currentRoute.path) || excludedRoutes.includes(previousRoute)) {
+        // Если предыдущего маршрута нет или текущий/предыдущий маршрут — "/"
+        telegram.BackButton.offClick(backButtonHandler);
+        telegram.BackButton.hide();
+      } else {
+        // В остальных случаях показываем кнопку назад
+        telegram.BackButton.onClick(backButtonHandler);
+        telegram.BackButton.show();
+      }
+    }
   }
 }
 </script>

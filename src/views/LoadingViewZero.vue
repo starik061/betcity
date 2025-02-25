@@ -51,7 +51,7 @@ export default {
       } else {
         this.$router.push("/main-view");
       }
-    }, 3000);
+    }, 2500);
 
   },
 
