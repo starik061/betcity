@@ -247,12 +247,18 @@ input:checked+.forecast-choice-btn {
 
 .forecast-team {
   width: 60px;
+  height: 20px;
+  /* Высота для двух строк */
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-family: 'Styrene A', sans-serif;
   font-size: 10px;
   text-align: center;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 10px;
 }
 
 .forecast-coef {
