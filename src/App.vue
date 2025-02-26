@@ -49,7 +49,7 @@ export default {
 /* Анимация смены экрана справа налево */
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.2s ease-in-out, opacity 0.2s;
+  transition: transform 0.3s ease-in-out, opacity 0.3s;
 }
 
 .slide-enter {
