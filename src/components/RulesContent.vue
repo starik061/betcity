@@ -141,8 +141,8 @@
       </div>
 
       <div class="ref-link-input-container rules">
-        <input class="ref-link-input" type="text" name="" value="https://www.figma.com">
-        <button type="button" class="copy-btn">
+        <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" disabled>
+        <button type="button" class="copy-btn" disabled>
           <IconCopyBtn />
         </button>
       </div>
@@ -171,7 +171,7 @@
         <span class="octopus-rules-text">Ищи нашего осьминого во время игры, тапай и получай бонусные
           беткоины каждый день.</span>
         <div class="octopus-shadow">
-          <img src="/img/tap-octopus.png" class="octopus-rules-img" alt="octopus for tap">
+          <img src="/img/tap-octopus-rules.png" class="octopus-rules-img" alt="octopus for tap">
         </div>
       </div>
     </div>
@@ -344,6 +344,14 @@ export default {
   font-family: "Styrene A";
   font-size: 10px;
   color: var(--color-main-blue)
+}
+
+.ref-link-input {
+  font-family: "Styrene A";
+  font-size: 10px;
+  line-height: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
 }
 
 .rules-text-big {
