@@ -1,6 +1,6 @@
 <template>
   <ul class="forecast-container">
-    <li v-for="liveMatch in liveMatchesList" :key="liveMatch?.id">
+    <li v-for="(liveMatch, liveMatchIdx) in liveMatchesList" :key="liveMatch?.id">
       <h2 class="forecast-header">{{ liveMatch?.name }}</h2>
 
       <ul class="forecast-list">
@@ -43,7 +43,9 @@
         </li>
       </ul>
 
-      <button class="main-btn main-forecast-btn" type="button">Подтвердить прогноз</button>
+      <button v-if="hasForecast[liveMatchIdx]" class="main-btn main-forecast-btn" type="button"> Подтвердить прогноз
+      </button>
+      <button v-else class="main-btn main-forecast-btn" type="button">Изменить прогноз</button>
       <!-- !Аккордеон -->
       <div class="accordion">
 
@@ -126,7 +128,8 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
-      selectedForecast: {} // Для отслеживания выбранных прогнозов для каждой игры
+      selectedForecast: {}, // Для отслеживания выбранных прогнозов для каждой игры
+      hasForecast: [true, false], // временно для демо
     }
   },
 
