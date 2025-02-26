@@ -3,14 +3,14 @@
     <div class="user-rating">
       <span class="user-rating-number">4769</span>
       <div class="user-rating-info-container">
-        <img src="/img/avatar-placeholder.webp" class="user-rating-info-img" alt="user avatar">
-        <p class="user-rating-info-name">Mihail<span class="user-rating-info-you">(вы)</span></p>
+        <img :src="avatarImage" class="user-rating-info-img" alt="user avatar">
+        <p class="user-rating-info-name">{{ name }}<span class="user-rating-info-you">(вы)</span></p>
       </div>
       <div class="score user-rating-score">
         <div class="score-coin-wrapper">
           <img class="score-coin" src="/img/coin-cean.png" alt="coins">
         </div>
-        <span class="score-text">200</span>
+        <span class="score-text">{{ gameUserInfo?.balance || 0 }}</span>
       </div>
     </div>
 
@@ -56,9 +56,44 @@
 </template>
 
 <script>
+import { useAppStore } from '@/stores/appStore';
+import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
+
 export default {
   components: {},
 
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
+
+  computed: {
+    tgUser() {
+      return this.appStore.initDataUnsafe?.user;
+    },
+
+    gameUserInfo() {
+      return this.appStore.gameUserInfo;
+    },
+    avatarImage() {
+      if (this.tgUser?.photo_url) {
+        return this.tgUser.photo_url;
+      }
+      return avatarPlaceholder
+    },
+
+    name() {
+      if (this.tgUser) {
+        if (this.tgUser?.first_name || this.tgUser?.last_name) {
+          let username = this.tgUser.first_name + " " + this.tgUser.last_name;
+          // Ограничение строки до 15 символов с использованием slice
+          return username.slice(0, 15) + (username.length > 15 ? '...' : '');
+        }
+      }
+      return "Нет данных";
+    },
+  }
 }
 </script>
 
@@ -85,14 +120,20 @@ export default {
 
 .user-rating-info-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
 }
 
 .user-rating-info-name {
   font-size: 14px;
   font-weight: bold;
+  flex-grow: 1;
+}
 
+.user-rating-info-img {
+  flex-grow: 0;
+  margin-right: 8px;
 }
 
 .user-rating-info-you {

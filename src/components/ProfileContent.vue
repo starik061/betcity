@@ -17,7 +17,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">{{ gameUserInfo.balance || 0 }}</span>
+          <span class="score-text">{{ gameUserInfo?.balance || 0 }}</span>
         </div>
         <p class="score-change-period">За неделю<span>+2</span></p>
       </div>

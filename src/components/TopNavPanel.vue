@@ -10,7 +10,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">{{ gameUserInfo.balance || 0 }}</span>
+          <span class="score-text">{{ gameUserInfo?.balance || 0 }}</span>
         </div>
       </div>
       <div class="right-side">
