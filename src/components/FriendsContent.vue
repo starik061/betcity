@@ -16,7 +16,7 @@
       </div>
 
       <div class="ref-link-input-container">
-        <input class="ref-link-input" type="text" name="" value="https://www.figma.com" disabled>
+        <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" disabled>
         <button type="button" class="copy-btn">
           <IconCopyBtn />
         </button>
@@ -88,6 +88,14 @@ export default {
   margin-bottom: 19px;
   border: 1px solid var(--color-element-border);
   border-radius: 8px;
+}
+
+.ref-link-input {
+  font-family: "Styrene A";
+  font-size: 10px;
+  line-height: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
 }
 
 .friends-content-image {
