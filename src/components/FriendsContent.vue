@@ -17,7 +17,7 @@
 
       <div class="ref-link-input-container">
         <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" disabled>
-        <button type="button" class="copy-btn">
+        <button type="button" class="copy-btn" @click="copyInviteLink">
           <IconCopyBtn />
         </button>
       </div>
@@ -57,9 +57,19 @@
 
 <script>
 import IconCopyBtn from '@/components/icons/IconCopyBtn.vue';
+import { toast } from 'vue3-toastify';
 
 export default {
   components: { IconCopyBtn },
+
+  methods: {
+    copyInviteLink() {
+
+      toast.success("Ссылка скопирована");
+
+
+    }
+  }
 }
 </script>
 

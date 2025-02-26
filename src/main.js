@@ -1,3 +1,6 @@
+import Vue3Toastify, { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+
 import "normalize.css";
 import "./assets/main.scss";
 
@@ -32,7 +35,18 @@ import SwipeDirective from "@/directives/swipe.js";
 const app = createApp(App);
 
 app.directive("swipe", SwipeDirective);
-app.use(createPinia()).use(router).mount("#root");
+app
+  .use(createPinia())
+  .use(router)
+  .use(Vue3Toastify, {
+    autoClose: 700000000,
+    limit: 1,
+    position: toast.POSITION.TOP_CENTER,
+    transition: toast.TRANSITIONS.SLIDE,
+    hideProgressBar: true,
+    theme: "dark"
+  })
+  .mount("#root");
 
 // Вызываем инициализацию Telegram WebApp после монтирования Vue приложения
 // initTelegramWebApp();

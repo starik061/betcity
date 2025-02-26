@@ -28,7 +28,27 @@
   --color-element-lemongreen: #AFFC41;
   --color-text: #ffffff;
   --color-main-blue: #0070F3;
+
+
+  // toast varibles
+  --toastify-toast-width: 300px;
+  --toastify-color-dark: #16202F;
+  --toastify-toast-min-height: 32px;
+  --toastify-toast-max-height: 64px;
+  --toastify-font-family: "Styrene A", sans-serif;
 }
+
+.Toastify__toast {
+  padding: 4px;
+  font-size: 12px;
+  background: rgb(20, 54, 99);
+  background: linear-gradient(270deg, rgba(20, 54, 99, 1) 0%, rgba(22, 32, 47, 1) 50%, rgba(27, 79, 94, 1) 100%);
+}
+
+.Toastify__toast-icon {
+  width: 15px;
+}
+
 
 *,
 *::before,
