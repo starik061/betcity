@@ -43,9 +43,11 @@
         </li>
       </ul>
 
-      <button v-if="hasForecast[liveMatchIdx]" class="main-btn main-forecast-btn" type="button"> Подтвердить прогноз
+      <button v-if="!hasForecast[liveMatchIdx]" class="main-btn main-forecast-btn" type="button"
+        @click="handleCreateBetClick(liveMatch)"> Подтвердить прогноз
       </button>
-      <button v-else class="main-btn main-forecast-btn" type="button">Изменить прогноз</button>
+      <button v-else class="main-btn main-forecast-btn" type="button" @click="handleChangeBetClick(liveMatch)">Изменить
+        прогноз</button>
       <!-- !Аккордеон -->
       <div class="accordion">
 
@@ -122,6 +124,7 @@ import IconBoxingGlove from '@/components/icons/IconBoxingGlove.vue';
 import IconAccordionSettingsButton from '@/components/icons/IconAccordionSettingsButton.vue';
 import { mapActions } from 'pinia';
 import { useAppStore } from '@/stores/appStore';
+import { createBet, changeBet } from "@/api/index.js";
 
 export default {
   components: { IconForecastDraw, IconBoxingGlove, IconAccordionSettingsButton },
@@ -129,7 +132,7 @@ export default {
     return {
       appStore: useAppStore(),
       selectedForecast: {}, // Для отслеживания выбранных прогнозов для каждой игры
-      hasForecast: [true, false], // временно для демо
+      hasForecast: [false, true], // временно для демо
     }
   },
 
@@ -172,6 +175,14 @@ export default {
         // Устанавливаем новый прогноз для этого матча
         this.selectedForecast[matchId] = value;
       }
+    },
+
+    handleCreateBetClick(liveMatch) {
+      createBet(liveMatch.results[0]?.id, "Tb", 155,)
+    },
+
+    handleChangeBetClick(liveMatch) {
+      changeBet(liveMatch.results[0]?.id, "Tb", 155,)
     }
   }
 }

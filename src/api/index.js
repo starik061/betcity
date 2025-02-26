@@ -101,8 +101,119 @@ export async function getMatchesLive() {
         ...headers
       }
     });
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
+
     const data = await response.json();
     appStore.liveMatches = data;
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}
+
+// _____________________
+
+export async function getActiveBets() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/bet`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
+
+    const data = await response.json();
+    appStore.activeBets = data;
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}
+
+// _____________________
+
+export async function createBet(betID, amount, coefficientKey) {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  const requestBody = {
+    amount: 5, // Здесь используем переданные значения
+    coefficientKey: "Tb"
+  };
+
+  console.log("body", JSON.stringify(requestBody)); // Логируем, чтобы убедиться, что тело запроса правильное
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify(requestBody) // Преобразуем объект в строку
+    });
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}
+
+// _____________________
+
+export async function changeBet(betID, amount, coefficientKey) {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  const requestBody = {
+    amount: 5, // Здесь используем переданные значения
+    coefficientKey: "Tb"
+  };
+
+  console.log("body", JSON.stringify(requestBody)); // Логируем, чтобы убедиться, что тело запроса правильное
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify(requestBody) // Преобразуем объект в строку
+    });
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
   }

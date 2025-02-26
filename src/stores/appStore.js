@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { fixBodyPadding } from "@/utils/fixBodyPadding.js";
+import { getActiveBets } from "@/api";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
@@ -12,7 +13,8 @@ export const useAppStore = defineStore("app", {
     platform: undefined,
 
     gameUserInfo: null,
-    liveMatches: null
+    liveMatches: null,
+    activeBets: null
   }),
   actions: {
     init() {
