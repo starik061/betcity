@@ -23,9 +23,15 @@
 import TopNavPanel from '@/components/TopNavPanel.vue';
 import RatingContent from '@/components/RatingContent.vue';
 import BottomNavPanel from '@/components/BottomNavPanel.vue';
+import { initBackButton } from "@/utils/initBackButton.js";
 
 export default {
   components: { TopNavPanel, RatingContent, BottomNavPanel, },
+
+  mounted() {
+    initBackButton.call(this);
+  },
+
 };
 </script>
 

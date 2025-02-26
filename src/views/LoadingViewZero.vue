@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { getUser, getMatchesLive } from "@/api/index.js";
+import { authUser, getUserProfile, getMatchesLive } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -45,7 +45,8 @@ export default {
 
   async mounted() {
     this.appStore.init();
-    await getUser();
+    await authUser();
+    await getUserProfile();
     await getMatchesLive()
     setTimeout(() => {
       if (this.appStore.isFirstEnter) {

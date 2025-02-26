@@ -38,8 +38,14 @@
 
 <script>
 import IconNextBtnArrow from '@/components/icons/IconNextBtnArrow.vue';
+import { initBackButton } from "@/utils/initBackButton.js";
+
 export default {
   components: { IconNextBtnArrow },
+
+  mounted() {
+    initBackButton.call(this);
+  },
 
   methods: {
     handleSwipe(direction) {

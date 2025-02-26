@@ -20,6 +20,7 @@
 import TopNavPanel from '@/components/TopNavPanel.vue';
 import RulesContent from '@/components/RulesContent.vue';
 import BottomNavPanel from '@/components/BottomNavPanel.vue';
+import { initBackButton } from "@/utils/initBackButton.js";
 
 export default {
   components: { TopNavPanel, RulesContent, BottomNavPanel, },
@@ -29,8 +30,9 @@ export default {
     };
   },
 
-  mounted() {
 
+  mounted() {
+    initBackButton.call(this);
   },
 
   methods: {

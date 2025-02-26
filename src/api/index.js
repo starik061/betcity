@@ -21,7 +21,7 @@ const testAuthHeaders = {
   "tg-web-app-hash": "04252da5f5e5a03503ae28735fa09ea0e1fd16983d22fb8029ab6ea166d71d91"
 };
 
-export async function getUser() {
+export async function authUser() {
   const appStore = useAppStore();
   let headers;
   if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
@@ -30,20 +30,59 @@ export async function getUser() {
     headers = testAuthHeaders;
   }
   try {
-    const response = await fetch(`${BASE_URL}/users`, {
+    const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         ...headers
       }
     });
-    const data = await response.json();
-    appStore.gameUserInfo = data;
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
   }
 }
 
+// _____________________
+export async function getUserProfile() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/profile`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
+
+    // Проверяем, есть ли данные в теле ответа
+    const text = await response.text(); // Сначала получаем текстовый ответ
+    const data = text ? JSON.parse(text) : null; // Преобразуем в JSON, если есть текст
+
+    if (data) {
+      appStore.gameUserInfo = data;
+    } else {
+      console.error("Ответ пустой или не является JSON");
+    }
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}
 // _____________________
 
 export async function getMatchesLive() {
@@ -55,7 +94,7 @@ export async function getMatchesLive() {
     headers = testAuthHeaders;
   }
   try {
-    const response = await fetch(`${BASE_URL}/matches/live`, {
+    const response = await fetch(`${BASE_URL}/matches`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -139,6 +139,8 @@ import ForecastDetails from "@/components/ForecastDetails.vue";
 import TapOctopus from "@/components/TapOctopus.vue";
 import Modal from '@/components/Modal.vue';
 
+import { initBackButton } from "@/utils/initBackButton.js";
+
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
@@ -153,6 +155,7 @@ export default {
 
   mounted() {
     // setTimeout(() => { this.openModal("dailyReward") }, 1200);
+    initBackButton.call(this);
   },
 
   methods: {

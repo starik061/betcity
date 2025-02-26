@@ -136,7 +136,7 @@
       <div class="rules-text-small margin">
         <span>Зайди в раздел
           <span class="friends-btn-immitator">
-            <IconBottomNavFriends :width="13" :height="13" /><span>Friends</span>
+            <IconBottomNavFriends :width="'13'" :height="'13'" /><span>Friends</span>
           </span> и отправь пригласительную ссылку.</span>
       </div>
 

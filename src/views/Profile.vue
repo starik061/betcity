@@ -21,6 +21,7 @@
 import TopNavPanel from '@/components/TopNavPanel.vue';
 import ProfileContent from '@/components/ProfileContent.vue';
 import BottomNavPanel from '@/components/BottomNavPanel.vue';
+import { initBackButton } from "@/utils/initBackButton.js";
 
 export default {
   components: { TopNavPanel, ProfileContent, BottomNavPanel, },
@@ -31,7 +32,7 @@ export default {
   },
 
   mounted() {
-
+    initBackButton.call(this);
   },
 
   methods: {
