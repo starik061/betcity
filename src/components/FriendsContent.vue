@@ -16,7 +16,7 @@
       </div>
 
       <div class="ref-link-input-container">
-        <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" disabled>
+        <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" readonly>
         <button type="button" class="copy-btn" @click="copyInviteLink">
           <IconCopyBtn />
         </button>
@@ -63,11 +63,26 @@ export default {
   components: { IconCopyBtn },
 
   methods: {
-    copyInviteLink() {
+    async copyInviteLink() {
+      try {
+        const link = document.querySelector(".ref-link-input").value;
+        await navigator.clipboard.writeText(link);
 
-      toast.success("Ссылка скопирована");
+        toast.success("Ссылка скопирована!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
 
-
+        // Если нужно использовать Telegram WebApp API:
+        // if (window.Telegram?.WebApp) {
+        //   window.Telegram.WebApp.showPopup({
+        //     title: "Готово!",
+        //     message: "Ссылка скопирована в буфер обмена",
+        //     buttons: [{ text: "Ок", type: "close" }],
+        //   });
+        // }
+      } catch (err) {
+        toast.error("Ошибка копирования!");
+      }
     }
   }
 }
