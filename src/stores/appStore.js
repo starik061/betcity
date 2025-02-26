@@ -8,10 +8,8 @@ export const useAppStore = defineStore("app", {
       forecastDetails: false,
       congratulations: false
     },
-    initData: null,
     initDataUnsafe: null,
     platform: undefined,
-    isFirstEnter: false,
 
     gameUserInfo: null,
     liveMatches: null
@@ -25,7 +23,6 @@ export const useAppStore = defineStore("app", {
 
         this.platform = WebApp.platform;
         this.initDataUnsafe = WebApp.initDataUnsafe || null;
-        this.initData = WebApp.initData || null;
 
         if (WebApp.platform !== "tdesktop") {
           WebApp.expand();

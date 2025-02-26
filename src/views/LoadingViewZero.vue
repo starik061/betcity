@@ -47,14 +47,25 @@ export default {
     this.appStore.init();
     await authUser();
     await getUserProfile();
-    await getMatchesLive()
+    await getMatchesLive();
+    // Предзагрузка аватара, если доступен
+    if (this.appStore.initDataUnsafe?.user?.photoUrl) {
+      this.addPreloadLink(this.appStore.initDataUnsafe.user.photoUrl);
+    }
+    // Предзагрузка логотипов команд после получения данных о матчах
+    this.preloadTeamLogos();
+
     setTimeout(() => {
-      if (this.appStore.isFirstEnter) {
+      const isFirstEnter = false;
+      if (this.appStore?.gameUserInfo?.joinedAt === this.appStore?.gameUserInfo?.lastLogin) {
+        isFirstEnter = true;
+      }
+      if (isFirstEnter) {
         this.$router.push("/loading-one");
       } else {
         this.$router.push("/main-view");
       }
-    }, 2500);
+    }, 1500);
 
   },
 
@@ -106,6 +117,39 @@ export default {
   //     );
   //   }
   // }
+
+  addPreloadLink(imageUrl) {
+    if (!imageUrl) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.href = imageUrl;
+    link.as = 'image';
+    document.head.appendChild(link);
+  },
+
+  preloadTeamLogos() {
+    // Проверяем наличие данных о матчах
+    if (!this.appStore.liveMatches || !Array.isArray(this.appStore.liveMatches)) {
+      return;
+    }
+
+    // Берем только первые 20 матчей (или меньше, если матчей меньше 20)
+    const matchesToPreload = this.appStore.liveMatches.slice(0, 20);
+
+    // Для каждого матча предзагружаем логотипы домашней и гостевой команд
+    matchesToPreload.forEach(match => {
+      // Предзагрузка логотипа домашней команды
+      if (match?.homeTeam?.logoUrl) {
+        this.addPreloadLink(match.homeTeam.logoUrl);
+      }
+
+      // Предзагрузка логотипа гостевой команды
+      if (match?.awayTeam?.logoUrl) {
+        this.addPreloadLink(match.awayTeam.logoUrl);
+      }
+    });
+  }
 };
 </script>
 
