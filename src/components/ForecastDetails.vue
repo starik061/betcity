@@ -6,7 +6,8 @@
       <ul class="forecast-list">
         <li class="forecast-list-item">
           <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 1"
-            :name="'game-forecast' + liveMatch?.id" value="P1" />
+            :name="'game-forecast' + liveMatch?.id" value="P1" @click="toggleForecast(liveMatch?.id, 'P1')"
+            :checked="selectedForecast[liveMatch?.id] === 'P1'" />
           <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 1">
             <div class="forecast-radio-immitator"></div>
             <img class="forecast-img" :src="liveMatch.homeTeam.logoUrl" alt="hometeam logo">
@@ -17,7 +18,8 @@
 
         <li class="forecast-list-item">
           <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 2"
-            :name="'game-forecast' + liveMatch?.id" value="X" />
+            :name="'game-forecast' + liveMatch?.id" value="X" @click="toggleForecast(liveMatch?.id, 'X')"
+            :checked="selectedForecast[liveMatch?.id] === 'X'" />
           <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 2">
             <div class="forecast-radio-immitator"></div>
             <IconForecastDraw class="forecast-img" />
@@ -29,7 +31,8 @@
 
         <li class="forecast-list-item">
           <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 3"
-            :name="'game-forecast' + liveMatch?.id" value="P2" />
+            :name="'game-forecast' + liveMatch?.id" value="P2" @click="toggleForecast(liveMatch?.id, 'P2')"
+            :checked="selectedForecast[liveMatch?.id] === 'P2'" />
           <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 3">
             <div class="forecast-radio-immitator"></div>
 
@@ -122,6 +125,7 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
+      selectedForecast: {} // Для отслеживания выбранных прогнозов для каждой игры
     }
   },
 
@@ -151,10 +155,25 @@ export default {
         }
       }
       return 0;
-    }
-  },
+    },
 
+    toggleForecast(matchId, value) {
+      // Проверяем, если в данных указано определённое значение, очищаем выбор
+      console.log("value", value)
+      console.log("this.selectedForecast[matchId]", this.selectedForecast[matchId])
+      if (this.selectedForecast[matchId] === value) {
+        // Если выбран тот же прогноз, сбрасываем его
+        delete this.selectedForecast[matchId];
+      } else {
+        // Устанавливаем новый прогноз для этого матча
+        this.selectedForecast[matchId] = value;
+      }
+    }
+  }
 }
+
+
+
 </script>
 
 <style lang="scss" scoped>
