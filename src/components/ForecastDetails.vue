@@ -1,7 +1,8 @@
 <template>
   <ul class="forecast-container">
     <li v-for="(liveMatch, liveMatchIdx) in liveMatchesList" :key="liveMatch?.id">
-      <h2 class="forecast-header">{{ liveMatch?.name }}</h2>
+      <h2 class="forecast-header">{{ `${liveMatch.homeTeam.name} VS ${liveMatch.awayTeam.name},
+        ${formatMatchDate(liveMatch?.date)}` }}</h2>
 
       <ul class="forecast-list">
         <li class="forecast-list-item">
@@ -162,6 +163,16 @@ export default {
         }
       }
       return 0;
+    },
+
+    formatMatchDate(date) {
+      if (!date) return "--:--"; // Если даты нет, возвращаем заглушку
+
+      const matchDate = new Date(date);
+      const hours = matchDate.getHours().toString().padStart(2, "0");
+      const minutes = matchDate.getMinutes().toString().padStart(2, "0");
+
+      return `${hours}:${minutes}`;
     },
 
     toggleForecast(matchId, value) {
