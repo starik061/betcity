@@ -80,7 +80,7 @@
             <span>+1</span>
           </div>
         </div>
-        <button class="main-btn main-forecast-btn" type="button">Продолжить</button>
+        <button class="main-btn main-forecast-btn" type="button" @click="closeModal('dailyReward')">Продолжить</button>
       </template>
     </Modal>
 
@@ -154,7 +154,7 @@ export default {
   },
 
   mounted() {
-    // setTimeout(() => { this.openModal("dailyReward") }, 1200);
+    setTimeout(() => { this.openModal("dailyReward") }, 1200);
     initBackButton.call(this);
   },
 

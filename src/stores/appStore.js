@@ -38,6 +38,7 @@ export const useAppStore = defineStore("app", {
     openModal(name) {
       fixBodyPadding();
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       this.$patch((state) => {
         state.modalsState[name] = true;
       });
@@ -45,6 +46,9 @@ export const useAppStore = defineStore("app", {
     closeModal(name) {
       fixBodyPadding();
       document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "scroll"; // Всегда показываем вертикальную прокрутку
+      document.documentElement.style.overflowX = "hidden"; // Отключаем горизонтальную прокрутку
+
       this.$patch((state) => {
         state.modalsState[name] = false;
       });
