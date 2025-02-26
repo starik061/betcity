@@ -47,10 +47,11 @@
       <!-- !Аккордеон -->
       <div class="accordion">
 
-        <input type="checkbox" name="forecast-accordion" class="visually-hidden" id="forecast-radio1">
+        <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
+          :id="'forecast-radio' + liveMatch?.id">
 
 
-        <label for="forecast-radio1" class="accordion-header">
+        <label :for="'forecast-radio' + liveMatch?.id" class="accordion-header">
           <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
           <span>Повышенные бонусы за победу</span>
           <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -215,6 +216,7 @@ export default {
   gap: 4px;
   padding: 13% 17.5% 7.5%;
   border-radius: 8px;
+  cursor: pointer;
 
   &::before {
     content: "";
@@ -334,7 +336,7 @@ input:checked+.forecast-choice-btn {
   }
 }
 
-#forecast-radio1:checked~.accordion-content {
+.forecast-radio:checked~.accordion-content {
   max-height: 128px;
   transform: translateY(10px);
 }
