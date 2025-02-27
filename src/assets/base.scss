@@ -39,10 +39,20 @@
 }
 
 .Toastify__toast {
+  top: var(--tg-content-safe-area-inset-top);
+  // width: 292px;
   padding: 4px;
   font-size: 12px;
   background: rgb(20, 54, 99);
   background: linear-gradient(270deg, rgba(20, 54, 99, 1) 0%, rgba(22, 32, 47, 1) 50%, rgba(27, 79, 94, 1) 100%);
+
+  // @media only screen and (max-width: 480px) {
+  //   border-radius: 4px;
+  //   width: 292px;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   top: var(--tg-content-safe-area-inset-top);
+  // }
 }
 
 .Toastify__toast-icon {
@@ -68,7 +78,6 @@ html {
 }
 
 body {
-
   min-height: 100vh;
   font-family: 'Nekst', Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
