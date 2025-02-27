@@ -39,7 +39,7 @@ app
   .use(createPinia())
   .use(router)
   .use(Vue3Toastify, {
-    autoClose: 7000000,
+    autoClose: 700,
     limit: 1,
     position: toast.POSITION.TOP_CENTER,
     transition: toast.TRANSITIONS.SLIDE,

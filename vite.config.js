@@ -16,6 +16,6 @@ export default defineConfig({
   server: {
     host: true, // Разрешает доступ с внешних устройств
     port: 5173, // Или ваш порт
-    allowedHosts: [".ngrok-free.app"] // Разрешаем все ngrok-домены
+    allowedHosts: [".ngrok-free.app", "violation-twins-horse-empire.trycloudflare.com"] // Разрешаем все ngrok-домены
   }
 });

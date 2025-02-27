@@ -39,7 +39,7 @@
 }
 
 .Toastify__toast {
-  top: var(--tg-content-safe-area-inset-top);
+  top: calc(var(--tg-content-safe-area-inset-top) + 23px);
   // width: 292px;
   padding: 4px;
   font-size: 12px;
