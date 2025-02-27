@@ -36,20 +36,20 @@
         <p class="forecast-modal-text">Повышенные бонусы за победу</p>
 
         <div class="forecast-modal-settings-container">
-          <div>
-            <span>Точный исход</span>
-            <span>
-              <span>Chelsey</span>
-              <span>2</span></span>
-            <span>
-              <span>Bayern</span>
-              <span>0</span>
+          <div class="accuracy-forecast-line-wrapper">
+            <span class="forecast-type-text">Точный исход</span>
+            <span class="flex-centered">
+              <span class="team-name">Chelsey</span>
+              <span class="team-score">2</span></span>
+            <span class="flex-centered">
+              <span class="team-name">Bayern</span>
+              <span class="team-score">0</span>
             </span>
           </div>
 
-          <div>
-            <span>Минута первого гола</span>
-            <span>2</span>
+          <div class="accuracy-forecast-line-wrapper">
+            <span class="forecast-type-text">Минута первого гола</span>
+            <span class="team-score">2</span>
           </div>
         </div>
 
@@ -212,7 +212,48 @@ export default {
 }
 
 .forecast-modal-settings-container {
+  width: 100%;
   margin-bottom: 30px;
+  font-size: 13px;
+}
+
+.accuracy-forecast-line-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-element-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.forecast-type-text {
+  margin-right: auto;
+}
+
+.team-name {
+  font-family: "Styrene A";
+  font-size: 10px;
+  margin-left: 15px;
+  margin-right: 6px;
+  line-height: 1;
+}
+
+.team-score {
+  display: inline-block;
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: var(--color-element-background-2);
+}
+
+.flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 // Стили модалки ежедневной награды
