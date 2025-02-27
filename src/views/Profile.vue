@@ -1,11 +1,12 @@
 <template>
   <div class="padding-wrapper">
+    <div class="shadows-container">
+      <div class="body-shadow body-shadow-1"></div>
+      <div class="body-shadow body-shadow-2"></div>
+      <div class="body-shadow body-shadow-3"></div>
+    </div>
+
     <div class="main-container game-one-container">
-      <div class="shadows-container">
-        <div class="body-shadow body-shadow-1"></div>
-        <div class="body-shadow body-shadow-2"></div>
-        <div class="body-shadow body-shadow-3"></div>
-      </div>
 
       <TopNavPanel class="top-panel-nav" />
 

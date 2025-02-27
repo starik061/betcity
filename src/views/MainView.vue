@@ -250,7 +250,7 @@ export default {
   bottom: 23%;
   transform: translateX(-50%);
   font-family: "Styrene A";
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .daily-reward-modal-score {
@@ -500,7 +500,7 @@ export default {
   align-items: center;
 }
 
-.score-coin-wrapper::before {
+.score-coin-wrapper::before.big {
   content: "";
   position: absolute;
   top: 10%;
@@ -511,6 +511,7 @@ export default {
   background: linear-gradient(to bottom, #56C9D0 0%, #E2E1B8 100%);
   filter: blur(1px);
   opacity: 0.7;
+  z-index: -1;
 }
 
 .congrat-modal-text {
