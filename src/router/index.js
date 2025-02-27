@@ -81,11 +81,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // Этот код нужен для перенаправления на стартовый компонент загрузки, если пользователь обновляет страницу,и иначе теряются данные от хранилища
-  // if (from.name == null && to.path !== "/") {
-  //   next("/");
-  // } else {
-  next();
-  // }
+  if (from.name == null && to.path !== "/") {
+    next("/");
+  } else {
+    next();
+  }
 });
 
 // router.beforeEach((to, from, next) => {
