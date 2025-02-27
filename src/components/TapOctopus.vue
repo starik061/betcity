@@ -1,5 +1,5 @@
 <template>
-  <div class="tap-octopus-container" @click="handleClick" ref="octopus">
+  <div :key="resetKey" class="tap-octopus-container" @click="handleClick" ref="octopus">
     <div class="element"></div>
     <div class="tap-shadow"></div>
     <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" ref="octopusImg" />
@@ -24,10 +24,13 @@
 
 <script>
 import { gsap } from "gsap";
+import { useAppStore } from "@/stores/appStore";
 
 export default {
   data() {
     return {
+      resetKey: 0, // нужен чтоб после скрытия элемента не было багов с прошлыми анимациями на нем, таким образом это как бы новый элемент
+      appStore: useAppStore(),
       shakeAnimation: null,
       countdownInterval: null,
       timeRemaining: 8,
@@ -39,11 +42,74 @@ export default {
     };
   },
   mounted() {
-    // Запускаем анимацию появления через случайное время от 20 до 25 секунд
-    const delay = Math.random() * 5 + 0; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
-    gsap.delayedCall(delay, this.showOctopus);
+    if (this.appStore.tapGameCounter < 3) {
+      this.startGameShowing();
+    }
   },
   methods: {
+    startGameShowing() {
+      const delay = Math.random() * 5 + 0; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
+      gsap.delayedCall(delay, this.showOctopus);
+    },
+
+    resetGame() {
+      // Сбрасываем все внутренние переменные в начальное состояние
+      this.clickCount = 0;
+      this.timeRemaining = 8;
+      this.gameOver = false;
+      this.hasMovedToCenter = false;
+
+      // Останавливаем все активные анимации
+      if (this.shakeAnimation) {
+        gsap.killTweensOf(this.$refs.octopus); // Убиваем анимацию осьминога
+      }
+
+      // Сбрасываем стили элементов в начальные позиции
+      gsap.set(this.$refs.octopus, {
+        opacity: 0,
+        scale: 0,
+        x: 0,
+        y: 0,
+      });
+
+      gsap.set(this.$refs.octopusImg, {
+        scale: 1,
+      });
+
+      // Сбрасываем молнии
+      for (let i = 0; i < 5; i++) {
+        const lightning = this.$refs[`lighting${i}`];
+        if (lightning) {
+          gsap.set(lightning, { opacity: 0 });
+        }
+      }
+
+      // Сбрасываем счетчик и его анимации
+      gsap.set(this.$refs.counterContainer, {
+        opacity: 0,
+        scale: 0.5,
+      });
+
+      gsap.set(this.$refs.range, {
+        width: '100%',
+      });
+
+      // Очищаем таймеры
+      if (this.countdownInterval) {
+        clearInterval(this.countdownInterval);
+      }
+
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+      this.resetKey++;
+
+      if (this.appStore.tapGameCounter < 3) {
+        this.startGameShowing();
+      }
+
+    },
+
     showOctopus() {
       if (!this.$refs.octopus) return;
       // Генерируем случайные координаты появления осьминога
@@ -147,6 +213,9 @@ export default {
       if (this.clickCount >= this.maxClicks) {
         this.gameOver = true;
         clearInterval(this.countdownInterval);
+
+        this.appStore.tapGameCounter++;
+
         this.successExplosion();  // Запуск феерии успеха
       }
     },
@@ -191,6 +260,7 @@ export default {
           duration: 0.5,
           onComplete: () => {
             this.$refs.octopus.style.display = "none";
+            this.resetGame(); // Сбрасываем игру после скрытия осьминога
           },
         });
       }
@@ -206,6 +276,7 @@ export default {
         ease: "power2.in",
         onComplete: () => {
           this.$refs.octopus.style.display = "none"; // Прячет осьминога
+          this.resetGame(); // Сбрасываем игру после феерии
         }
       });
 

@@ -14,7 +14,9 @@ export const useAppStore = defineStore("app", {
 
     gameUserInfo: null,
     liveMatches: null,
-    activeBets: null
+    activeBets: null,
+
+    tapGameCounter: 0
   }),
   actions: {
     init() {
