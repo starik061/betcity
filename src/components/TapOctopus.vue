@@ -5,7 +5,12 @@
     <img src="/img/tap-octopus.png" alt="octopus for tap" class="tap-octopus" ref="octopusImg" />
     <p class="tap-text">Жми</p>
 
-    <img src="/img/lighting.svg" alt="lighting" class="lighting" />
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" ref="lighting0" />
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" ref="lighting1" />
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" ref="lighting2" />
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" ref="lighting3" />
+    <img src="/img/lighting.svg" alt="lighting" class="lighting" ref="lighting4" />
+
 
     <div class="counter-container" ref="counterContainer">
       <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
@@ -117,6 +122,27 @@ export default {
         repeat: 1,
         ease: "power1.inOut",
       });
+
+      // Генерация случайного количества молний от 3 до 5
+      const lightningCount = Math.floor(Math.random() * 3) + 3; // Рандом от 3 до 5
+
+      // Появление молний с рандомной задержкой
+      for (let i = 0; i < lightningCount; i++) {
+        const lightning = this.$refs[`lighting${i}`]; // Получаем молнию по индексу
+
+        // Случайная позиция для молнии
+        const randomTop = Math.random() * 50 + 5; // Случайное значение от 5% до 55% для верхней половины экрана
+        const randomLeft = Math.random() * 90 + 5; // Случайное значение от 5% до 95% по горизонтали
+
+        // Анимация появления молнии
+        gsap.set(lightning, { top: `${randomTop}%`, left: `${randomLeft}%`, opacity: 1 });
+        gsap.to(lightning, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power1.out",
+          delay: Math.random() * 0.3, // Рандомная задержка перед исчезновением
+        });
+      }
 
       if (this.clickCount >= this.maxClicks) {
         this.gameOver = true;
@@ -329,6 +355,10 @@ export default {
   right: 25%;
   transform: rotate(1deg);
   z-index: 103;
+  opacity: 0;
+  /* Молнии скрыты изначально */
+  pointer-events: none;
+  /* Блокируем взаимодействие с молниями */
 }
 
 .counter-container {
