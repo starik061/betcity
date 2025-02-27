@@ -57,7 +57,7 @@ export default {
     this.preloadTeamLogos();
 
     setTimeout(() => {
-      const isFirstEnter = false;
+      let isFirstEnter = false;
       if (this.appStore?.gameUserInfo?.joinedAt === this.appStore?.gameUserInfo?.lastLogin) {
         isFirstEnter = true;
       }
