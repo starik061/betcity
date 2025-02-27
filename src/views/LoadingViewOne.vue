@@ -15,6 +15,7 @@
         <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
         <img src="/img/coin-green.png" alt="green coin" class="green-coin">
         <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+        <img src="/img/i-am-pavel.png" alt="octopus greetings" class="pavel">
       </div>
 
       <strong class="slogan">Рад видеть тебя! <br>Начнем игру?</strong>
@@ -184,5 +185,14 @@ body {
   top: 75%;
   left: 2%;
   transform: rotateZ(-10deg) translate(-50%, -50%);
+}
+
+.pavel {
+  position: absolute;
+  width: 32.5%;
+  top: 45%;
+  left: 8%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 }
 </style>
