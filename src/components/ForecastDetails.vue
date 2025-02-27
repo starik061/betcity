@@ -85,7 +85,7 @@
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                 <span class="accordion-content-settings-text">Минута <br /> первого гола</span>
                 <button type="button" class="accordion-settings-btn">
-                  <IconAccordionSettingsButton />
+                  <IconAccordionSettingsButton @click="openModal('forecastDetails')" />
                 </button>
               </label>
             </li>

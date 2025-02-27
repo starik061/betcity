@@ -53,7 +53,8 @@
           </div>
         </div>
 
-        <button class="main-btn main-forecast-btn" type="button">Подтвердить прогноз</button>
+        <button class="main-btn main-forecast-btn" type="button" @click="closeModal('forecastDetails')">Подтвердить
+          прогноз</button>
       </template>
     </Modal>
 
