@@ -64,6 +64,7 @@
         <p class="modal-text">Заходи каждый день и получай Беткоин</p>
         <div class="daily-reward-modal-img-container">
           <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+          <div class="shadow-wrapper-everyday-modal"></div>
           <img src="/img/loading-four-gift.png" alt="gift image" class="octopus-img">
           <img src="/img/loading-four-star.png" alt="star image" class="star">
           <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
@@ -518,5 +519,27 @@ export default {
   margin-bottom: 20px;
   text-align: center;
   font-size: 18px;
+}
+
+.shadow-wrapper-everyday-modal {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50px);
+  width: 70%;
+  height: 70%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    background: linear-gradient(to bottom, #00F0FF 0%, #00F0FF 100%);
+    filter: blur(35px);
+    opacity: 0.15;
+  }
 }
 </style>

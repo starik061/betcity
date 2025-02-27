@@ -11,6 +11,7 @@
       <div class="image-container">
         <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
         <img src="/img/coin-red.png" alt="red coin" class="red-coin">
+        <div class="shadow-wrapper"></div>
         <img src="/img/loading-three-content-img.png" alt="betcity prize image" class="octopus-img">
         <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
         <img src="/img/coin-green.png" alt="green coin" class="green-coin">
@@ -224,6 +225,28 @@ export default {
     top: 12%;
     left: 100%;
     transform: rotate(30deg) translate(-50%, 40%);
+  }
+}
+
+.shadow-wrapper {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50px);
+  width: 60%;
+  height: 60%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    background: linear-gradient(to bottom, #FBE3DD 0%, #FBE3DD 100%);
+    filter: blur(15px);
+    opacity: 0.2;
   }
 }
 </style>

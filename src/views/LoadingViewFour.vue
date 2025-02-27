@@ -12,6 +12,7 @@
       <div class="image-container">
         <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
         <img src="/img/loading-four-cap.png" alt="cap" class="cap">
+        <div class="shadow-wrapper"></div>
         <img src="/img/loading-four-gift.png" alt="gift image" class="octopus-img">
         <img src="/img/loading-four-star.png" alt="star image" class="star">
         <img src="/img/coin-cean.png" alt="sean coin" class="sean-coin">
@@ -208,5 +209,27 @@ export default {
 
 .next-forecast-btn {
   border-radius: 8px;
+}
+
+.shadow-wrapper {
+  position: absolute;
+  top: 30%;
+  left: 55%;
+  transform: translate(-50%, -50px);
+  width: 60%;
+  height: 60%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    background: linear-gradient(to bottom, #FBE3DD 0%, #FBE3DD 100%);
+    filter: blur(15px);
+    opacity: 0.15;
+  }
 }
 </style>
