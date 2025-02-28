@@ -9,25 +9,25 @@
 
       <ul class="bottom-nav-panel-list">
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/rules" class="bottom-nav-panel-link">
+          <router-link to="/rules" class="bottom-nav-panel-link btn-style">
             <IconBottomNavRules />
             <p class="bottom-nav-panel-text">Rules</p>
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/game" class="bottom-nav-panel-link">
+          <router-link to="/game" class="bottom-nav-panel-link btn-style">
             <IconBottomNavGame />
             <p class="bottom-nav-panel-text">Game</p>
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/rating" class="bottom-nav-panel-link">
+          <router-link to="/rating" class="bottom-nav-panel-link btn-style">
             <IconBottomNavRating />
             <p class="bottom-nav-panel-text">Rating</p>
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/friends" class="bottom-nav-panel-link">
+          <router-link to="/friends" class="bottom-nav-panel-link btn-style">
             <IconBottomNavFriends />
             <p class="bottom-nav-panel-text">Friends</p>
           </router-link>
@@ -137,6 +137,7 @@ export default {
   gap: 5px;
   width: 59px;
   height: 45px;
+  border-radius: 6px;
 
 }
 
@@ -154,6 +155,10 @@ export default {
   transform: translate(-51%, -49%);
   border-radius: 50%;
   z-index: 20;
+
+  &:active {
+    box-shadow: 0 0 28px rgba(0, 112, 243, 1);
+  }
 }
 
 

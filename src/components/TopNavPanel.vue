@@ -4,7 +4,7 @@
     <nav class="top-nav-container">
       <div class="left-side">
         <router-link class="top-nav-link" to="/profile">
-          <img class="avatar" :src="avatarImage" />
+          <img class="avatar btn-style" :src="avatarImage" />
         </router-link>
         <div class="score">
           <div class="score-coin-wrapper">
