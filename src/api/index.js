@@ -23,6 +23,22 @@ const testAuthHeaders = {
 
 export async function authUser() {
   const appStore = useAppStore();
+  let startParam = "";
+  if (appStore && appStore.initDataUnsafe && appStore.initDataUnsafe.start_param) {
+    startParam = "ref" + appStore.initDataUnsafe.start_param;
+  } else {
+    // Если нет, проверяем URL
+    const params = new URLSearchParams(window.location.search);
+    const startApp = params.get("startapp");
+    const startAttach = params.get("startattach");
+
+    if (startApp) {
+      startParam = "ref" + startApp;
+    } else if (startAttach) {
+      startParam = "ref" + startAttach;
+    }
+  }
+
   let headers;
   if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
     headers = authHeaders();
@@ -35,7 +51,10 @@ export async function authUser() {
       headers: {
         "Content-Type": "application/json",
         ...headers
-      }
+      },
+      body: JSON.stringify({
+        startParam
+      })
     });
 
     // Проверяем статус ответа
@@ -76,8 +95,8 @@ export async function getUserProfile() {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
     }
     // Проверяем, есть ли данные в теле ответа
     const text = await response.text(); // Сначала получаем текстовый ответ
@@ -112,8 +131,8 @@ export async function getMatchesLive() {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
     }
 
     const data = await response.json();
@@ -143,8 +162,8 @@ export async function getActiveBets() {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
     }
 
     const data = await response.json();
@@ -183,8 +202,8 @@ export async function createBet(betID, amount, coefficientKey) {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
     }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
@@ -220,8 +239,8 @@ export async function changeBet(betID, amount, coefficientKey) {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
     }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
@@ -250,7 +269,7 @@ export async function setPhoneNumber(phone) {
     });
 
     // Проверяем статус ответа
-    if (response.status !== 201 || response.status !== 200) {
+    if (response.status !== 201 && response.status !== 200) {
       throw new Error(response.status);
     }
 
@@ -258,5 +277,45 @@ export async function setPhoneNumber(phone) {
   } catch (error) {
     console.error(error);
     return false;
+  }
+}
+
+// _____________________
+export async function generateRefLink() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  const url = `https://moongivBot/wallet?startapp=ref${appStore?.gameUserInfo?.id}`;
+
+  try {
+    const response = await fetch(`${BASE_URL}/links/shorten`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify({ url })
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    // Проверяем, есть ли данные в теле ответа
+    const text = await response.text(); // Сначала получаем текстовый ответ
+    const data = text ? JSON.parse(text) : null; // Преобразуем в JSON, если есть текст
+
+    if (data) {
+      appStore.refLink = data?.shortUrl;
+    } else {
+      console.error("Ответ пустой или не является JSON");
+    }
+  } catch (error) {
+    console.error("Ошибка генерации реф.:", error);
   }
 }

@@ -16,7 +16,7 @@
       </div>
 
       <div class="ref-link-input-container">
-        <input class="ref-link-input" type="text" name="" value="https://t.me/+kXJl2kywa6g3YWRi" readonly>
+        <input class="ref-link-input" type="text" name="" :value="appStore.refLink" readonly>
         <button type="button" class="copy-btn" @click="copyInviteLink">
           <IconCopyBtn />
         </button>
@@ -56,11 +56,17 @@
 </template>
 
 <script>
+import { useAppStore } from "@/stores/appStore";
 import IconCopyBtn from '@/components/icons/IconCopyBtn.vue';
 import { toast } from 'vue3-toastify';
 
 export default {
   components: { IconCopyBtn },
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
 
   methods: {
     async copyInviteLink() {

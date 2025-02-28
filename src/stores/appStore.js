@@ -13,6 +13,7 @@ export const useAppStore = defineStore("app", {
     platform: undefined,
 
     gameUserInfo: null,
+    refLink: "",
     liveMatches: null,
     activeBets: null,
 
