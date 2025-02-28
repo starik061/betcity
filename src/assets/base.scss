@@ -109,38 +109,7 @@ button {
   background-color: transparent;
 }
 
-label,
-input {
-  -webkit-user-select: none;
-  /* Safari */
-  -ms-user-select: none;
-  /* IE 10+ и Edge */
-  user-select: none;
-  /* Стандартный синтаксис */
-  -moz-user-select: none;
-  /* Firefox */
-}
 
-button:focus,
-a:focus,
-input:focus {
-  outline: none;
-  /* Убирает контур */
-  background-color: transparent;
-  /* Убирает изменение фона */
-}
-
-/* Убираем выделение при фокусе на label */
-label:focus {
-  outline: none;
-  /* Убирает стандартную рамку */
-  background-color: transparent;
-  /* Убирает изменение фона */
-}
-
-label {
-  user-select: none;
-}
 
 
 /* Убирает подсветку элемента при тапе на него */
