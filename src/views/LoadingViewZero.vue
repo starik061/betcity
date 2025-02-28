@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { authUser, generateRefLink, getMatchesLive, getActiveBets } from "@/api/index.js";
+import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -45,7 +45,11 @@ export default {
 
   async mounted() {
     this.appStore.init();
-    await authUser();
+
+    const successAuth = await authUser.call(this);
+    if (!successAuth) return
+
+    await getDailyRewardStatus();
     await generateRefLink()
     await getMatchesLive();
     await getActiveBets();

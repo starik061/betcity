@@ -71,8 +71,12 @@ export async function authUser() {
     } else {
       console.error("Ответ пустой или не является JSON");
     }
+
+    return true;
   } catch (error) {
     console.error("Ошибка авторизации:", error);
+    this.$router.push("/error");
+    return false;
   }
 }
 
@@ -317,5 +321,36 @@ export async function generateRefLink() {
     }
   } catch (error) {
     console.error("Ошибка генерации реф.:", error);
+  }
+}
+
+// _____________________
+
+export async function getDailyRewardStatus() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/daily/reward-status`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+
+    const data = await response.json();
+    appStore.getDailyReward = data;
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
   }
 }
