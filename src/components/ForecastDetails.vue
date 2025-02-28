@@ -74,8 +74,8 @@
                 <input type="checkbox" class="visually-hidden" name="">
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                 <span class="accordion-content-settings-text">Точный исход</span>
-                <button type="button" class="accordion-settings-btn">
-                  <IconAccordionSettingsButton @click="openModal('forecastDetails')" />
+                <button type="button" class="accordion-settings-btn" @click="openModal('forecastDetails')">
+                  <IconAccordionSettingsButton />
                 </button>
               </label>
             </li>
@@ -84,8 +84,8 @@
                 <input type="checkbox" class="visually-hidden" name="">
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                 <span class="accordion-content-settings-text">Минута <br /> первого гола</span>
-                <button type="button" class="accordion-settings-btn">
-                  <IconAccordionSettingsButton @click="openModal('forecastDetails')" />
+                <button type="button" class="accordion-settings-btn" @click="openModal('forecastDetails')">
+                  <IconAccordionSettingsButton />
                 </button>
               </label>
             </li>
