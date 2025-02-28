@@ -70,7 +70,7 @@ export default {
       } else {
         this.$router.push("/main-view");
       }
-    }, 1500);
+    }, 500);
 
   },
 
