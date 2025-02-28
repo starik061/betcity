@@ -335,7 +335,7 @@ export async function getDailyRewardStatus() {
     headers = testAuthHeaders;
   }
   try {
-    const response = await fetch(`${BASE_URL}/users/game/reward-status`, {
+    const response = await fetch(`${BASE_URL}/users/daily/reward-status`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -366,7 +366,7 @@ export async function claimDailyReward() {
     headers = testAuthHeaders;
   }
   try {
-    const response = await fetch(`${BASE_URL}/users/game/claim-reward`, {
+    const response = await fetch(`${BASE_URL}/users/daily/claim-reward`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
