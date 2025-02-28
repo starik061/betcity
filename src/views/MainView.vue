@@ -59,7 +59,7 @@
     </Modal>
 
     <!-- ! Daily rewards modal -->
-    <Modal :modalOpened="appStore.modalsState.dailyReward" @close-modal="closeModal('dailyReward')">
+    <Modal :modalOpened="appStore.modalsState.dailyReward" @close-modal="handleDailyModalClose">
       <template #modal-content>
         <strong class="daily-reward-modal-header">Ежедневная награда</strong>
         <p class="modal-text">Заходи каждый день и получай Беткоин</p>
@@ -73,7 +73,7 @@
           <img src="/img/lighting.svg" alt="lighting" class="lighting">
           <img src="/img/lighting.svg" alt="lighting" class="lighting second">
 
-          <p class="days-count-text">12 день входа</p>
+          <p class="days-count-text">{{ `${appStore.dailyRewardStatus.streak} день входа` }} </p>
 
           <div class="daily-reward-modal-score">
             <div class="score-coin-wrapper big">
@@ -82,7 +82,7 @@
             <span>+1</span>
           </div>
         </div>
-        <button class="main-btn main-forecast-btn" type="button" @click="closeModal('dailyReward')">Продолжить</button>
+        <button class="main-btn main-forecast-btn" type="button" @click="handleDailyModalClose">Продолжить</button>
       </template>
     </Modal>
 
@@ -146,6 +146,8 @@ import { initBackButton } from "@/utils/initBackButton.js";
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
+import { claimDailyReward } from "@/api/index.js";
+
 export default {
   components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal },
 
@@ -156,12 +158,20 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => { this.openModal("dailyReward") }, 1200);
     initBackButton.call(this);
+    if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); }
   },
 
   methods: {
-    ...mapActions(useAppStore, ['openModal', 'closeModal'])
+    ...mapActions(useAppStore, ['openModal', 'closeModal']),
+
+    async handleDailyModalClose() {
+      const reward = await claimDailyReward();
+      this.closeModal('dailyReward')
+      if (reward) {
+        this.appStore.gameUserInfo.balance += reward;
+      }
+    }
   }
 };
 </script>

@@ -14,7 +14,7 @@ export const useAppStore = defineStore("app", {
 
     gameUserInfo: null,
     refLink: "",
-    getDailyReward: true,
+    dailyRewardStatus: { hasClaimed: false, streak: 0 },
     liveMatches: null,
     activeBets: null,
 
