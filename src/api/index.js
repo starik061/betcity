@@ -39,8 +39,18 @@ export async function authUser() {
     });
 
     // Проверяем статус ответа
-    if (!response.ok) {
-      throw new Error(`Ошибка сервера: ${response.status}`);
+    if (response.status !== 200 && response.status !== 201) {
+      throw new Error(`Ошибка авторизации: ${response.status}`);
+    }
+
+    // Проверяем, есть ли данные в теле ответа
+    const text = await response.text(); // Сначала получаем текстовый ответ
+    const data = text ? JSON.parse(text) : null; // Преобразуем в JSON, если есть текст
+
+    if (data) {
+      appStore.gameUserInfo = data;
+    } else {
+      console.error("Ответ пустой или не является JSON");
     }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
@@ -69,7 +79,6 @@ export async function getUserProfile() {
     if (!response.ok) {
       throw new Error(`Ошибка сервера: ${response.status}`);
     }
-
     // Проверяем, есть ли данные в теле ответа
     const text = await response.text(); // Сначала получаем текстовый ответ
     const data = text ? JSON.parse(text) : null; // Преобразуем в JSON, если есть текст

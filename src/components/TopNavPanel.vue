@@ -79,7 +79,6 @@ export default {
   }
 }
 
-
 .top-nav-container {
   width: 100%;
   display: flex;

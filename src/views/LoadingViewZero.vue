@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { authUser, getUserProfile, getMatchesLive, getActiveBets } from "@/api/index.js";
+import { authUser, getMatchesLive, getActiveBets } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -46,7 +46,7 @@ export default {
   async mounted() {
     this.appStore.init();
     await authUser();
-    await getUserProfile();
+
     await getMatchesLive();
     await getActiveBets();
     // Предзагрузка аватара, если доступен
