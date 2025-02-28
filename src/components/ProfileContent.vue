@@ -28,14 +28,16 @@
       <div class="phone-btn-container"
         :class="{ 'success': userPhoneInProfile, 'error': !userPhoneInProfile && phoneValidErrorMessage }">
         <MaskInput v-if="!userPhoneInProfile" class="user-phone" v-model="phoneNumberMasked"
-          mask="+#-###-###-##-##-##-##-##-##" placeholder="+7-900-000-00-00"
-          @input="validatePhoneNumber(phoneNumber)" />
+          mask="+#-###-###-##-##-##-##-##-##" placeholder="+7-900-000-00-00" @input="validatePhoneNumber(phoneNumber)"
+          @focus="onFocus" />
         <input v-else class="user-phone" :value="userPhoneInProfile" disabled />
-        <button type="button" class="phone-approve-btn" :class="{ 'active': !userPhoneInProfile }"
-          @click="handlePhoneBtnClick" :disabled="userPhoneInProfile">
+        <button type="button" class="phone-approve-btn"
+          :class="{ 'active': !userPhoneInProfile && !phoneValidErrorMessage }" @click="handlePhoneBtnClick"
+          :disabled="userPhoneInProfile">
           <IconPhoneApproved />
         </button>
-        <p class="phone-status-text">Номер подтвержден</p>
+        <p v-if="userPhoneInProfile" class="phone-status-text">Номер подтвержден</p>
+        <p v-else class="phone-status-text">Введите корректный номер</p>
       </div>
     </div>
 
@@ -105,7 +107,7 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
-      phoneNumberMasked: '+',
+      phoneNumberMasked: '',
 
       isPhoneValid: false,
       phoneValidErrorMessage: false,
@@ -178,29 +180,35 @@ export default {
   },
 
   methods: {
+    onFocus() {
+      this.phoneValidErrorMessage = false;
+    },
     validatePhoneNumber(value) {
       if (value.length < 10) {
         this.isPhoneValid = false;
-        this.phoneValidErrorMessage = true;
+
         return false;
       }
-      this.phoneValidErrorMessage = false;
+
       this.isPhoneValid = true;
       return true;
     },
 
     async handlePhoneBtnClick() {
-      if (!validatePhoneNumber(this.phoneNumber)) {
+      if (!this.validatePhoneNumber(this.phoneNumber)) {
+        this.phoneValidErrorMessage = true;
         return;
       }
-      if (isPhoneValid) {
+      if (this.isPhoneValid) {
         const isPhoneAccepted = await setPhoneNumber(this.phoneNumber);
 
         if (isPhoneAccepted) {
+          await getUserProfile();
           toast.success("Номер телефона подтвержден");
         }
         else {
           toast.error("Проверьте правильность введенного номера. Он должен содержать от 10 до 20 цифр");
+          this.phoneValidErrorMessage = true;
         }
       }
     }
@@ -327,6 +335,7 @@ export default {
 
     & .phone-status-text {
       display: block;
+      color: var(--color-element-background-rose);
     }
   }
 }
