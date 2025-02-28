@@ -14,10 +14,6 @@
         </div>
       </div>
       <div class="right-side">
-        <div class="score score-games">
-          <IconBoxingGlove />
-          <span class="score-text games-count">4/4</span>
-        </div>
         <div class="score notifications">
           <IconNotificationBell />
         </div>
@@ -43,15 +39,13 @@
 </template>
 
 <script>
-import IconBoxingGlove from '@/components/icons/IconBoxingGlove.vue';
 import IconNotificationBell from '@/components/icons/IconNotificationBell.vue';
 import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
-import { mapStores } from "pinia";
 import { useAppStore } from "@/stores/appStore";
 import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 
 export default {
-  components: { IconBoxingGlove, IconNotificationBell, IconGiftArrow },
+  components: { IconNotificationBell, IconGiftArrow },
   data() {
     return {
       appStore: useAppStore(),
@@ -118,10 +112,6 @@ export default {
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.2);
 
-  &.score-games {
-    padding: 1.5px 8px 1.5px 2px;
-  }
-
   &.notifications {
     padding: 2px 8px 2px 8px;
     position: relative;
@@ -144,10 +134,6 @@ export default {
   font-size: 14px;
   font-weight: bold;
   line-height: auto;
-
-  & .games-count {
-    font-size: 12px;
-  }
 }
 
 .gift-element {
