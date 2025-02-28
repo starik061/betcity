@@ -73,7 +73,7 @@
           <img src="/img/lighting.svg" alt="lighting" class="lighting">
           <img src="/img/lighting.svg" alt="lighting" class="lighting second">
 
-          <p class="days-count-text">{{ `${appStore.dailyRewardStatus.streak} день входа` }} </p>
+          <p class="days-count-text">{{ `${appStore.dailyRewardStatus.streak || 1} день входа` }} </p>
 
           <div class="daily-reward-modal-score">
             <div class="score-coin-wrapper big">
@@ -160,6 +160,7 @@ export default {
   mounted() {
     initBackButton.call(this);
     if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); }
+
   },
 
   methods: {
