@@ -218,3 +218,33 @@ export async function changeBet(betID, amount, coefficientKey) {
     console.error("Ошибка авторизации:", error);
   }
 }
+
+// _____________________
+
+export async function setPhoneNumber(phone) {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/users/phone`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify({ phone })
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 200) {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <ul class="forecast-container">
+  <ul v-if="liveMatchesList?.length > 0" class="forecast-container">
     <li v-for="(liveMatch, liveMatchIdx) in liveMatchesList" :key="liveMatch?.id">
       <h2 class="forecast-header">{{ `${liveMatch.homeTeam.name} VS ${liveMatch.awayTeam.name},
         ${formatMatchDate(liveMatch?.date)}` }}</h2>
@@ -116,7 +116,7 @@
       </div>
     </li>
   </ul>
-
+  <p v-else class="no-matches-text">Доступные для прогнозов матчи отсутствуют.</p>
 </template>
 
 <script>
@@ -419,5 +419,11 @@ input:checked+.forecast-choice-btn {
   flex-grow: 0;
   flex-shrink: 0;
   flex-wrap: wrap;
+}
+
+.no-matches-text {
+  margin-top: 60px;
+  font-size: 13px;
+  text-align: center;
 }
 </style>

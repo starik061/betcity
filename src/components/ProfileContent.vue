@@ -28,7 +28,7 @@
       <div class="phone-btn-container" :class="{ 'success': isPhoneValid }">
         <input type=" tel" name="" id="" class="user-phone" v-model="phoneNumber" @focus="onFocus" @input="onPhoneInput"
           max="16" placeholder="+7-900-000-00-00">
-        <button type="button" class="phone-approve-btn">
+        <button type="button" class="phone-approve-btn" @click="handlePhoneBtnClick">
           <IconPhoneApproved />
         </button>
         <p class="phone-status-text">Номер подтвержден</p>
@@ -91,6 +91,7 @@
 import IconPhoneApproved from '@/components/icons/IconPhoneApproved.vue';
 import { useAppStore } from "@/stores/appStore";
 import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
+import { setPhoneNumber } from "@/api/index.js";
 
 export default {
   components: { IconPhoneApproved },
@@ -193,6 +194,10 @@ export default {
         }
       }
     },
+
+    handlePhoneBtnClick() {
+      console.log("sd")
+    }
   }
 }
 </script>
