@@ -160,7 +160,6 @@ export default {
   mounted() {
     initBackButton.call(this);
     if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); }
-
   },
 
   methods: {

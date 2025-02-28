@@ -378,10 +378,10 @@ export async function claimDailyReward() {
     if (response.status !== 201 && response.status !== 200) {
       throw new Error(response.status);
     }
-    const data = response.json();
+    const data = await response.json();
     return data.reward;
   } catch (error) {
     console.error("Ошибка получения ежедневной награды:", error);
-    return false;
+    return fals5e;
   }
 }
