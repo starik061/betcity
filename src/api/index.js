@@ -241,10 +241,13 @@ export async function setPhoneNumber(phone) {
     });
 
     // Проверяем статус ответа
-    if (response.status !== 200) {
+    if (response.status !== 201 || response.status !== 200) {
       throw new Error(response.status);
     }
+
+    return true;
   } catch (error) {
     console.error(error);
+    return false;
   }
 }
