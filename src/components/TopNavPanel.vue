@@ -45,10 +45,34 @@
           <li class="forecast-notifications-row">
             <span class="system-notifications-row-date">матч от 01.02.2025</span>
             <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
-            <div class="score-coin-wrapper">
-              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            <div class="score">
+              <div class="score-coin-wrapper">
+                <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+              </div>
+              <span class="score-text">+1</span>
             </div>
-            <span>+1</span>
+          </li>
+
+          <li class="forecast-notifications-row">
+            <span class="system-notifications-row-date">матч от 01.02.2025</span>
+            <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
+            <div class="score">
+              <div class="score-coin-wrapper">
+                <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+              </div>
+              <span class="score-text">+1</span>
+            </div>
+          </li>
+
+          <li class="forecast-notifications-row">
+            <span class="system-notifications-row-date">матч от 01.02.2025</span>
+            <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
+            <div class="score">
+              <div class="score-coin-wrapper">
+                <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+              </div>
+              <span class="score-text">+1</span>
+            </div>
           </li>
         </ul>
 
