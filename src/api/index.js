@@ -25,7 +25,7 @@ export async function authUser() {
   const appStore = useAppStore();
   let startParam = "";
   if (appStore && appStore.initDataUnsafe && appStore.initDataUnsafe.start_param) {
-    startParam = "ref" + appStore.initDataUnsafe.start_param;
+    startParam = appStore.initDataUnsafe.start_param;
   } else {
     // Если нет, проверяем URL
     const params = new URLSearchParams(window.location.search);
@@ -33,9 +33,9 @@ export async function authUser() {
     const startAttach = params.get("startattach");
 
     if (startApp) {
-      startParam = "ref" + startApp;
+      startParam = startApp;
     } else if (startAttach) {
-      startParam = "ref" + startAttach;
+      startParam = startAttach;
     }
   }
 
@@ -383,7 +383,7 @@ export async function claimDailyReward() {
     return data.reward;
   } catch (error) {
     console.error("Ошибка получения ежедневной награды:", error);
-    return fals5e;
+    return false;
   }
 }
 

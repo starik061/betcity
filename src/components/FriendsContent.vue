@@ -26,30 +26,19 @@
     <div class="rating-list-container">
       <h2 class="rating-list-header">Статистика друзей</h2>
 
-      <ul class="rating-list">
-        <li class="rating-list-item">
-          <span class="rating-list-number">1</span>
-          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-          <span class="rating-list-username">Maxim</span>
+      <ul class="rating-list" v-if="appStore.referrals.length > 0">
+        <li class="rating-list-item" v-for="(friend, friendIdx) in appStore.referrals" :key="friend + friendIdx">
+          <span class="rating-list-number">{{ friendIdx + 1 }}</span>
+          <img :src="friend.pic || avatarPlaceholder" class="user-rating-info-img rating-list-img" alt="user avatar">
+          <span class="rating-list-username">{{ friend.name }}</span>
           <div class="score user-rating-score">
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">2000</span>
+            <span class="score-text">{{ friend.balance || 0 }}</span>
           </div>
         </li>
 
-        <li class="rating-list-item">
-          <span class="rating-list-number rectangular">1248</span>
-          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-          <span class="rating-list-username">Rina</span>
-          <div class="score user-rating-score">
-            <div class="score-coin-wrapper">
-              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-            </div>
-            <span class="score-text">20000</span>
-          </div>
-        </li>
       </ul>
     </div>
   </div>
@@ -58,6 +47,7 @@
 <script>
 import { useAppStore } from "@/stores/appStore";
 import IconCopyBtn from '@/components/icons/IconCopyBtn.vue';
+import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 import { toast } from 'vue3-toastify';
 
 export default {
