@@ -18,6 +18,7 @@ export const useAppStore = defineStore("app", {
 
     globalRating: [],
     weeklyRating: [],
+    referrals: [],
 
     liveMatches: null,
     activeBets: null,

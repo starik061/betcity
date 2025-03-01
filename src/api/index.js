@@ -294,7 +294,8 @@ export async function generateRefLink() {
     headers = testAuthHeaders;
   }
 
-  const url = `https://moongivBot/wallet?startapp=ref${appStore?.gameUserInfo?.id}`;
+  // const url = `https://moongivBot/wallet?startapp=ref${appStore?.gameUserInfo?.id}`;
+  const url = `https://t.me/Crypto_freedom_news_bot/betcity?startapp=ref${appStore?.gameUserInfo?.id}`;
 
   try {
     const response = await fetch(`${BASE_URL}/links/shorten`, {
@@ -418,6 +419,41 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
     }
     if (ratingTypeUrl === "top-weekly") {
       appStore.weeklyRating = data;
+    }
+  } catch (error) {
+    console.error("Ошибка получения данных о топе игроков:", error);
+  }
+}
+
+// _____________________
+
+export async function getReferrals() {
+  // ratingTypeUrl может быть"top" или ""top-weekly
+
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/referrals`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+
+    if (Array.isArray(data)) {
+      appStore.referrals = data;
     }
   } catch (error) {
     console.error("Ошибка получения данных о топе игроков:", error);

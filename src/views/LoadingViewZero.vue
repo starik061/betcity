@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus, getRating } from "@/api/index.js";
+import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus, getRating, getReferrals } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -49,19 +49,20 @@ export default {
     const successAuth = await authUser.call(this);
     if (!successAuth) return
 
-    await getDailyRewardStatus();
-    await generateRefLink()
-    await getMatchesLive();
-    await getActiveBets();
-    await getRating("top", 100);
-    await getRating("top-weekly", 100);
-
     // Предзагрузка аватара, если доступен
     if (this.appStore.initDataUnsafe?.user?.photoUrl) {
       this.addPreloadLink(this.appStore.initDataUnsafe.user.photoUrl);
     }
     // Предзагрузка логотипов команд после получения данных о матчах
     this.preloadTeamLogos();
+
+    await getDailyRewardStatus();
+    await generateRefLink()
+    await getMatchesLive();
+    await getActiveBets();
+    await getRating("top", 100);
+    await getRating("top-weekly", 100);
+    await getReferrals();
 
     setTimeout(() => {
       let isFirstEnter = false;
@@ -73,7 +74,7 @@ export default {
       } else {
         this.$router.push("/main-view");
       }
-    }, 500);
+    }, 400);
 
   },
 
