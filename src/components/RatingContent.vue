@@ -15,42 +15,49 @@
     </div>
 
     <div class="btn-container">
-      <label class="rating-btn">
-        <input class="visually-hidden" type="radio" name="rating-type" checked>Общий</input>
-      </label>
-      <label class="rating-btn">
-        <input class="visually-hidden" type="radio" name="rating-type">Недельный</input>
-      </label>
+      <button class="rating-btn btn-style" :class="{ 'active': !activeWeeklyRating }"
+        @click="activeWeeklyRating = false">Общий</button>
+      <button class="rating-btn btn-style" :class="{ 'active': activeWeeklyRating }"
+        @click="activeWeeklyRating = true">Недельный</button>
+
     </div>
 
     <div class="rating-list-container">
       <h2 class="rating-list-header">Рейтинг</h2>
 
-      <ul class="rating-list">
-        <li class="rating-list-item">
-          <span class="rating-list-number">1</span>
-          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-          <span class="rating-list-username">Maxim</span>
+      <ul v-if="appStore.globalRating.length > 0 && !activeWeeklyRating" class="rating-list">
+        <li class="rating-list-item" v-for="(topRatingItem, topRatingItemIdx) in appStore.globalRating"
+          :key="topRatingItem + topRatingItemIdx">
+          <span class="rating-list-number">{{ topRatingItemIdx + 1 }}</span>
+          <img :src="topRatingItem?.pic || avatarPlaceholder" class="user-rating-info-img rating-list-img"
+            alt="user avatar">
+          <span class="rating-list-username">{{ topRatingItem?.name || "-" }}</span>
           <div class="score user-rating-score">
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">2000</span>
-          </div>
-        </li>
-
-        <li class="rating-list-item">
-          <span class="rating-list-number">2</span>
-          <img src="/img/avatar-placeholder.webp" class="user-rating-info-img rating-list-img" alt="user avatar">
-          <span class="rating-list-username">Maxim</span>
-          <div class="score user-rating-score">
-            <div class="score-coin-wrapper">
-              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-            </div>
-            <span class="score-text">2000</span>
+            <span class="score-text">{{ topRatingItem?.score || "-" }}</span>
           </div>
         </li>
       </ul>
+
+      <ul v-else-if="appStore.weeklyRating.length > 0 && activeWeeklyRating" class="rating-list">
+        <li class="rating-list-item" v-for="(topRatingItem, topRatingItemIdx) in appStore.weeklyRating"
+          :key="topRatingItem + topRatingItemIdx">
+          <span class="rating-list-number">{{ topRatingItemIdx + 1 }}</span>
+          <img :src="topRatingItem?.pic || avatarPlaceholder" class="user-rating-info-img rating-list-img"
+            alt="user avatar">
+          <span class="rating-list-username">{{ topRatingItem?.name || "-" }}</span>
+          <div class="score user-rating-score">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+            <span class="score-text">{{ topRatingItem?.score || "-" }}</span>
+          </div>
+        </li>
+      </ul>
+
+      <p v-else class="no-data-text">Данные отсутствуют</p>
     </div>
   </div>
 </template>
@@ -65,6 +72,7 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
+      activeWeeklyRating: false
     }
   },
 
@@ -157,8 +165,23 @@ export default {
   flex-grow: 1;
   flex-basis: 50%;
   border-radius: 8px;
-  background-color: var(--color-element-background);
+  background-color: var(--color-background);
   font-family: "Roboto";
   font-size: 15px;
+  color: var(--color-text-dark);
+  transition: all 0.1s ease;
+
+  &.active {
+    background-color: var(--color-element-border)
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: inset 0 6px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.no-data-text {
+  text-align: center;
 }
 </style>

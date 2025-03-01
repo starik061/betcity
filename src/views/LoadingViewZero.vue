@@ -34,7 +34,7 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus } from "@/api/index.js";
+import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus, getRating } from "@/api/index.js";
 export default {
   components: {},
   data() {
@@ -53,6 +53,9 @@ export default {
     await generateRefLink()
     await getMatchesLive();
     await getActiveBets();
+    await getRating("top", 100);
+    await getRating("top-weekly", 100);
+
     // Предзагрузка аватара, если доступен
     if (this.appStore.initDataUnsafe?.user?.photoUrl) {
       this.addPreloadLink(this.appStore.initDataUnsafe.user.photoUrl);

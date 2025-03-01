@@ -385,3 +385,41 @@ export async function claimDailyReward() {
     return fals5e;
   }
 }
+
+// _____________________
+
+export async function getRating(ratingTypeUrl = "top", limit = 10) {
+  // ratingTypeUrl может быть"top" или ""top-weekly
+
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/${ratingTypeUrl}?limit=${limit}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+
+    if (ratingTypeUrl === "top") {
+      appStore.globalRating = data;
+    }
+    if (ratingTypeUrl === "top-weekly") {
+      appStore.weeklyRating = data;
+    }
+  } catch (error) {
+    console.error("Ошибка получения данных о топе игроков:", error);
+  }
+}
