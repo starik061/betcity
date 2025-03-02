@@ -74,35 +74,33 @@
                 <input type="checkbox" class="visually-hidden" name="">
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                 <span class="accordion-content-settings-text">Точный исход</span>
-                <button type="button" class="accordion-settings-btn" @click="openModal('forecastDetails')">
-                  <IconAccordionSettingsButton />
-                </button>
               </label>
+
+              <div class="exact-score-container">
+                <p class="team-name">Арсенал</p>
+                <input type="number" name="" id="" placeholder="0">
+              </div>
+
+              <div class="exact-score-container">
+                <p class="team-name">Баку Тим</p>
+                <input type="number" name="" id="" placeholder="0">
+              </div>
             </li>
+
             <li class="accordion-content-settings-list-item">
               <label class="accordion-content-settings-label">
                 <input type="checkbox" class="visually-hidden" name="">
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                <span class="accordion-content-settings-text">Минута <br /> первого гола</span>
-                <button type="button" class="accordion-settings-btn" @click="openModal('forecastDetails')">
-                  <IconAccordionSettingsButton />
-                </button>
+                <span class="accordion-content-settings-text">Тотал больше</span>
               </label>
-            </li>
-            <li class="accordion-content-settings-list-item">
+
               <label class="accordion-content-settings-label">
                 <input type="checkbox" class="visually-hidden" name="">
                 <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                <span class="accordion-content-settings-text">Тотал больше 2.5</span>
+                <span class="accordion-content-settings-text">Тотал меньше</span>
               </label>
             </li>
-            <li class="accordion-content-settings-list-item">
-              <label class="accordion-content-settings-label">
-                <input type="checkbox" class="visually-hidden" name="">
-                <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                <span class="accordion-content-settings-text">Тотал меньше 2.5</span>
-              </label>
-            </li>
+
             <li class="accordion-content-settings-list-item">
               <label class="accordion-content-settings-label">
                 <input type="checkbox" class="visually-hidden" name="">
@@ -110,8 +108,9 @@
                 <span class="accordion-content-settings-text">Ставка с риском</span>
               </label>
             </li>
+
           </ul>
-          <div style="height: 10px;"></div>
+
         </div>
       </div>
     </li>
@@ -362,7 +361,7 @@ input:checked+.forecast-choice-btn {
 }
 
 .forecast-radio:checked~.accordion-content {
-  max-height: 128px;
+  max-height: 202px;
   transform: translateY(10px);
 }
 
@@ -372,24 +371,32 @@ input:checked+.forecast-choice-btn {
 
 .accordion-content-settings-list {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-
   flex-wrap: wrap;
-  gap: 14px;
+  font-size: 3.33vw;
 }
 
 .accordion-content-settings-list-item {
-  flex-basis: calc(50% - 10px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 100%;
   flex-grow: 0;
   flex-shrink: 0;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  border-bottom: 1px solid var(--color-element-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .accordion-content-settings-label {
   position: relative;
-  height: 30px;
+  height: 44px;
+  width: 50%;
   display: flex;
   flex-grow: 0;
   flex-shrink: 0;
@@ -397,13 +404,35 @@ input:checked+.forecast-choice-btn {
   align-items: center;
 }
 
-.accordion-settings-btn {
-  width: 30px;
-  height: 30px;
-  background-color: transparent !important;
-  border: none;
-  margin-left: auto;
-  padding: 0;
+.exact-score-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  gap: 2px;
+  font-family: "Styrene A";
+  font-size: 10px;
+  color: var(--color-text);
+  line-height: 12px;
+  margin-right: 4px;
+  margin-bottom: 14px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  & input[type="number"] {
+    width: 100%;
+    border: 1px solid var(--color-element-border);
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 8px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+  }
 }
 
 .accordion-checkbox-immitator {
@@ -412,7 +441,7 @@ input:checked+.forecast-choice-btn {
   height: 8px;
   flex-grow: 0;
   flex-shrink: 0;
-  margin-right: 4px;
+  margin-right: 5px;
 }
 
 .accordion-content-settings-text {
