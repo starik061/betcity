@@ -75,6 +75,7 @@ export default {
     await getReferrals();
     await octopusTapGameStatusCheck();
 
+    this.appStore.liveMatchesWithBets = this.calcMatchesWithBets(this.appStore.liveMatches, this.appStore.allBets);
     setTimeout(() => {
       let isFirstEnter = false;
       if (this.appStore?.gameUserInfo?.joinedAt === this.appStore?.gameUserInfo?.lastLogin) {
@@ -167,10 +168,44 @@ export default {
           this.addPreloadLink(match.awayTeam.logoUrl);
         }
       });
+    },
+
+    calcMatchesWithBets(liveMatches, allBets) {
+      return liveMatches.map(match => {
+        // Проверяем, что в матче есть поле results и оно массив
+        if (!match.results || !Array.isArray(match.results)) {
+          return match; // Если нет поля или оно не массив, просто возвращаем матч
+        }
+
+        const betsForMatch = [];
+
+        match.results.forEach(result => {
+          // Проверяем, что betId в ставке существует
+          if (!result.eventId) {
+            return; // Если нет eventId, пропускаем этот результат
+          }
+
+          // Ищем ставку, которая соответствует eventId
+          const matchedBet = allBets?.find(bet => bet.betId === result.eventId);
+
+          if (matchedBet && !betsForMatch.some(bet => bet.betId === matchedBet.betId)) {
+            betsForMatch.push(matchedBet);
+          }
+        });
+
+        // Если были найдены совпавшие ставки, добавляем их в матч
+        if (betsForMatch.length > 0) {
+          return {
+            ...match,
+            bets: betsForMatch
+          };
+        }
+
+        // Если совпадений нет, возвращаем матч без поля bets
+        return match;
+      });
     }
   }
-
-
 };
 </script>
 

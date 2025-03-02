@@ -20,7 +20,8 @@
 
 
     <!-- ! Forecast settings modal -->
-    <Modal :modalOpened="appStore.modalsState.forecastDetails" @close-modal="closeModal('forecastDetails')">
+    <Modal v-if="appStore.currentBetData" :modalOpened="appStore.modalsState.forecastDetails"
+      @close-modal="closeModal('forecastDetails')">
       <template #modal-content>
         <h2 class="forecast-header forecast-modal-header">Chelsey VS Bayern, 19:40</h2>
 

@@ -21,6 +21,7 @@ export const useAppStore = defineStore("app", {
 
     liveMatches: [],
     allBets: [],
+    liveMatchesWithBets: [],
 
     octopusTapGameStatus: false
   }),

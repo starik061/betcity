@@ -1,6 +1,6 @@
 <template>
-  <ul v-if="liveMatchesList?.length > 0" class="forecast-container">
-    <li v-for="(liveMatch, liveMatchIdx) in liveMatchesList" :key="liveMatch?.id">
+  <ul v-if="liveMatchesWithBets?.length > 0" class="forecast-container">
+    <li v-for="(liveMatch, liveMatchIdx) in liveMatchesWithBets" :key="liveMatch?.id">
       <h2 class="forecast-header">{{ `${liveMatch.homeTeam.name} VS ${liveMatch.awayTeam.name},
         ${formatMatchDate(liveMatch?.date)}` }}</h2>
 
@@ -44,15 +44,17 @@
         </li>
       </ul>
 
-      <button class="main-btn main-forecast-btn" type="button" @click="handleCreateBetClick(liveMatch)"> Подтвердить
+      <button v-if="!hasBets(liveMatch)" class="main-btn main-forecast-btn" type="button"
+        @click="handleCreateBetClick(liveMatchIdx)"> Подтвердить
         прогноз
       </button>
-      <!-- <button v-else class="main-btn main-forecast-btn" type="button" @click="handleChangeBetClick(liveMatch)">Изменить
-        прогноз</button> -->
+      <button v-else class="main-btn main-forecast-btn" type="button"
+        @click="handleChangeBetClick(liveMatchIdx)">Изменить
+        прогноз</button>
 
       <!-- !Аккордеон -->
-      <div class="accordion-forecast-amount-wrapper">
-        <div class="forecasts-amount-indicator">1</div>
+      <div v-if="hasBets(liveMatch)" class="accordion-forecast-amount-wrapper">
+        <div class="forecasts-amount-indicator">{{ liveMatch.bets.length }}</div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
             :id="'forecast-radio' + liveMatch?.id">
@@ -133,7 +135,7 @@ export default {
     return {
       appStore: useAppStore(),
       selectedForecast: {}, // Для отслеживания выбранных прогнозов для каждой игры
-      betData: {
+      currentBetData: {
         matchId: "",
         coefficients:
           // Формат объекта типа ставки
@@ -150,9 +152,9 @@ export default {
   },
 
   computed: {
-    liveMatchesList() {
-      if (this.appStore.liveMatches && Array.isArray(this.appStore.liveMatches) && this.appStore.liveMatches.length > 0) {
-        return this.appStore.liveMatches;
+    liveMatchesWithBets() {
+      if (this.appStore.liveMatchesWithBets && Array.isArray(this.appStore.liveMatchesWithBets)) {
+        return this.appStore.liveMatchesWithBets;
       }
       return []
     },
@@ -163,7 +165,7 @@ export default {
     ...mapActions(useAppStore, ['openModal', 'closeModal']),
 
     getTeamCoef(eventId, teamType) {
-      const liveMatch = this.liveMatchesList.find(match => { return match.id === eventId; });
+      const liveMatch = this.liveMatchesWithBets.find(match => { return match.id === eventId; });
       if (liveMatch) {
         switch (teamType) {
           case 'homeTeam':
@@ -200,20 +202,32 @@ export default {
       }
     },
 
-    handleCreateBetClick(liveMatch) {
-      this.betData.matchId = liveMatch.id
-      this.betData.coefficients = [{
-        key: "X",
-        id: liveMatch.results[0].coefficientId,
-        danger: false
-      }]
-      console.log(this.betData.matchId)
-      console.log(this.betData.coefficients)
-      createBet(this.betData.matchId, this.betData.coefficients)
+    handleCreateBetClick(liveMatchIdx) {
+      this.appStore.currentBetData = this.liveMatchesWithBets[liveMatchIdx].bets;
+      this.openModal("forecastDetails")
+
+      // this.currentBetData.matchId = liveMatch.id
+      // this.currentBetData.coefficients = [{
+      //   key: "X",
+      //   id: liveMatch.results[0].coefficientId,
+      //   danger: false
+      // }]
+      // console.log(this.currentBetData.matchId)
+      // console.log(this.currentBetData.coefficients)
+      // createBet(this.currentBetData.matchId, this.currentBetData.coefficients)
     },
 
-    handleChangeBetClick(liveMatch) {
-      changeBet(liveMatch.results[0]?.id, "Tb", 155,)
+    handleChangeBetClick(liveMatchIdx) {
+      this.appStore.currentBetData = this.liveMatchesWithBets[liveMatchIdx].bets;
+      this.openModal("forecastDetails")
+      // changeBet(liveMatch.results[0]?.id, "Tb", 155,)
+    },
+
+    hasBets(liveMatch) {
+      if (liveMatch.bets && Array.isArray(liveMatch.bets) && liveMatch.bets.length > 0) {
+        return true;
+      }
+      return false;
     }
   }
 }
