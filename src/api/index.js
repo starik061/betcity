@@ -148,37 +148,6 @@ export async function getMatchesLive() {
 
 // _____________________
 
-export async function getActiveBets() {
-  const appStore = useAppStore();
-  let headers;
-  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
-    headers = authHeaders();
-  } else {
-    headers = testAuthHeaders;
-  }
-  try {
-    const response = await fetch(`${BASE_URL}/bet`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...headers
-      }
-    });
-
-    // Проверяем статус ответа
-    if (response.status !== 201 && response.status !== 200) {
-      throw new Error(response.status);
-    }
-
-    const data = await response.json();
-    appStore.activeBets = data;
-  } catch (error) {
-    console.error("Ошибка авторизации:", error);
-  }
-}
-
-// _____________________
-
 export async function createBet(betID, coefficients) {
   const appStore = useAppStore();
   let headers;
@@ -231,6 +200,9 @@ export async function getAllBets() {
     if (response.status !== 201 && response.status !== 200) {
       throw new Error(response.status);
     }
+
+    const data = await response.json();
+    appStore.allBets = data;
   } catch (error) {
     console.error("Ошибка авторизации:", error);
   }

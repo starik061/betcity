@@ -16,8 +16,7 @@
 </template>
 
 <script>
-import { useAppStore } from "@/stores/appStore";
-import { authUser, getUserProfile, getMatchesLive, getActiveBets } from "@/api/index.js";
+
 export default {
   components: {},
   data() {

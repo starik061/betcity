@@ -38,7 +38,6 @@ import {
   authUser,
   generateRefLink,
   getMatchesLive,
-  getActiveBets,
   getDailyRewardStatus,
   getRating,
   getReferrals,
@@ -70,7 +69,6 @@ export default {
     await getDailyRewardStatus();
     await generateRefLink()
     await getMatchesLive();
-    // await getActiveBets();
     await getAllBets();
     await getRating("top", 100);
     await getRating("top-weekly", 100);
