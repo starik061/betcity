@@ -23,7 +23,7 @@ export const useAppStore = defineStore("app", {
     liveMatches: null,
     activeBets: null,
 
-    tapGameCounter: 0
+    octopusTapGameStatus: false
   }),
   actions: {
     init() {

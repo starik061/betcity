@@ -34,7 +34,17 @@
 
 <script>
 import { useAppStore } from "@/stores/appStore";
-import { authUser, generateRefLink, getMatchesLive, getActiveBets, getDailyRewardStatus, getRating, getReferrals } from "@/api/index.js";
+import {
+  authUser,
+  generateRefLink,
+  getMatchesLive,
+  getActiveBets,
+  getDailyRewardStatus,
+  getRating,
+  getReferrals,
+  octopusTapGameStatusCheck
+} from "@/api/index.js";
+
 export default {
   components: {},
   data() {
@@ -63,6 +73,7 @@ export default {
     await getRating("top", 100);
     await getRating("top-weekly", 100);
     await getReferrals();
+    await octopusTapGameStatusCheck();
 
     setTimeout(() => {
       let isFirstEnter = false;

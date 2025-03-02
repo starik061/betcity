@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="friends-header">Приглашай друзей и продлевай игру</h2>
-    <p class="friends-text">За каждого нового друга <b>+1 ход обоим</b></p>
+    <p class="friends-text">За каждого нового друга <b>+3 беткоин</b></p>
 
     <div class="ref-link-container">
       <div class="image-container">
@@ -65,9 +65,7 @@ export default {
         const link = document.querySelector(".ref-link-input").value;
         await navigator.clipboard.writeText(link);
 
-        toast.success("Ссылка скопирована!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("Ссылка скопирована!");
 
         // Если нужно использовать Telegram WebApp API:
         // if (window.Telegram?.WebApp) {

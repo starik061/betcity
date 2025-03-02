@@ -428,8 +428,6 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
 // _____________________
 
 export async function getReferrals() {
-  // ratingTypeUrl может быть"top" или ""top-weekly
-
   const appStore = useAppStore();
   let headers;
   if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
@@ -455,6 +453,67 @@ export async function getReferrals() {
     if (Array.isArray(data)) {
       appStore.referrals = data;
     }
+  } catch (error) {
+    console.error("Ошибка получения данных о топе игроков:", error);
+  }
+}
+
+// _____________________
+
+export async function octopusTapGameStatusCheck() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/game/reward-status`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+
+    appStore.octopusTapGameStatus = data?.hasClaimed;
+  } catch (error) {
+    console.error("Ошибка получения данных о топе игроков:", error);
+  }
+}
+
+// _____________________
+export async function claimOctopusTapReward() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/users/game/claim-reward`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+
+    appStore.gameUserInfo.balance += data?.reward;
   } catch (error) {
     console.error("Ошибка получения данных о топе игроков:", error);
   }

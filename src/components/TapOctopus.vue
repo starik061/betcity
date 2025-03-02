@@ -25,12 +25,18 @@
 <script>
 import { gsap } from "gsap";
 import { useAppStore } from "@/stores/appStore";
+import {
+  claimOctopusTapReward
+} from "@/api/index.js";
+import { toast } from 'vue3-toastify';
 
 export default {
   data() {
     return {
       resetKey: 0, // нужен чтоб после скрытия элемента не было багов с прошлыми анимациями на нем, таким образом это как бы новый элемент
+
       appStore: useAppStore(),
+
       shakeAnimation: null,
       countdownInterval: null,
       timeRemaining: 8,
@@ -42,7 +48,8 @@ export default {
     };
   },
   mounted() {
-    if (this.appStore.tapGameCounter < 3) {
+    if (this.appStore.octopusTapGameStatus) {
+      // Если пользователь не получил награду за тапалку в этот день то запускать осминога
       this.startGameShowing();
     }
   },
@@ -104,7 +111,7 @@ export default {
       }
       this.resetKey++;
 
-      if (this.appStore.tapGameCounter < 3) {
+      if (!this.appStore.octopusTapGameStatus) {
         this.startGameShowing();
       }
 
@@ -214,9 +221,11 @@ export default {
         this.gameOver = true;
         clearInterval(this.countdownInterval);
 
-        this.appStore.tapGameCounter++;
+        this.appStore.octopusTapGameStatus = true;
 
         this.successExplosion();  // Запуск феерии успеха
+        toast.success("Награда получена!");
+        claimOctopusTapReward()
       }
     },
 
@@ -228,6 +237,7 @@ export default {
         this.hideCounterContainer();
 
         if (this.clickCount < this.maxClicks) {
+          toast.error("Вы не успели. Попробуйте еще раз позже.");
           this.hideOctopus();
         }
       }, this.timeRemaining * 1000); // Таймер на 8 секунд
