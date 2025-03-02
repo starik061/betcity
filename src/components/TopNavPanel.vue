@@ -76,7 +76,7 @@
           </li>
         </ul>
 
-        <button class="main-btn btn-style notifications-btn" type="button"> Подробнее
+        <button class="main-btn btn-style notifications-btn" type="button" @click="handleMoreDetailsBtn"> Подробнее
         </button>
       </div>
 
@@ -143,6 +143,10 @@ export default {
     closeNotifications() {
       this.isNotificationsOpen = false;
     },
+
+    handleMoreDetailsBtn() {
+      this.$router.push("/profile");
+    }
   }
 }
 

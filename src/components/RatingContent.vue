@@ -101,7 +101,7 @@ export default {
       return this.activeWeeklyRating ? (this.gameUserInfo?.weeklyRank.toString() || "-") : (this.gameUserInfo.scoreRank.toString() || "-")
     },
     userBalance() {
-      return this.activeWeeklyRating ? (this.gameUserInfo?.weeklybalance?.toString() || "-") : (this.gameUserInfo?.balance?.toString() || "-")
+      return this.activeWeeklyRating ? (this.gameUserInfo?.weeklyScore?.toString() || "-") : (this.gameUserInfo?.score?.toString() || "-")
     },
   }
 }
