@@ -11,7 +11,7 @@
         <div class="score-coin-wrapper">
           <img class="score-coin" src="/img/coin-cean.png" alt="coins">
         </div>
-        <span class="score-text">{{ gameUserInfo?.balance || 0 }}</span>
+        <span class="score-text">{{ userBalance }}</span>
       </div>
     </div>
 
@@ -99,7 +99,10 @@ export default {
 
     userRank() {
       return this.activeWeeklyRating ? (this.gameUserInfo?.weeklyRank.toString() || "-") : (this.gameUserInfo.scoreRank.toString() || "-")
-    }
+    },
+    userBalance() {
+      return this.activeWeeklyRating ? (this.gameUserInfo?.weeklybalance?.toString() || "-") : (this.gameUserInfo?.balance?.toString() || "-")
+    },
   }
 }
 </script>
