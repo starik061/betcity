@@ -42,7 +42,8 @@ import {
   getDailyRewardStatus,
   getRating,
   getReferrals,
-  octopusTapGameStatusCheck
+  octopusTapGameStatusCheck,
+  getAllBets
 } from "@/api/index.js";
 
 export default {
@@ -69,7 +70,8 @@ export default {
     await getDailyRewardStatus();
     await generateRefLink()
     await getMatchesLive();
-    await getActiveBets();
+    // await getActiveBets();
+    await getAllBets();
     await getRating("top", 100);
     await getRating("top-weekly", 100);
     await getReferrals();
@@ -86,7 +88,6 @@ export default {
         this.$router.push("/main-view");
       }
     }, 400);
-
   },
 
   methods: {
