@@ -44,8 +44,7 @@
         </li>
       </ul>
 
-      <button v-if="!hasBets(liveMatch)" class="main-btn main-forecast-btn" type="button"
-        @click="handleCreateBetClick(liveMatchIdx)"> Подтвердить
+      <button v-if="!hasBets(liveMatch)" class="main-btn main-forecast-btn" type="button"> Подтвердить
         прогноз
       </button>
       <button v-else class="main-btn main-forecast-btn" type="button"
@@ -55,6 +54,70 @@
       <!-- !Аккордеон -->
       <div v-if="hasBets(liveMatch)" class="accordion-forecast-amount-wrapper">
         <div class="forecasts-amount-indicator">{{ liveMatch.bets.length }}</div>
+        <div class="accordion">
+          <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
+            :id="'forecast-radio' + liveMatch?.id">
+
+          <label :for="'forecast-radio' + liveMatch?.id" class="accordion-header">
+            <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
+            <span>Повышенные бонусы за победу</span>
+            <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
+                fill="white" />
+            </svg>
+          </label>
+
+          <div class="accordion-content">
+            <ul class="accordion-content-settings-list">
+              <li class="accordion-content-settings-list-item">
+                <label class="accordion-content-settings-label">
+                  <input type="checkbox" class="visually-hidden" name="">
+                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                  <span class="accordion-content-settings-text">Точный исход</span>
+                </label>
+
+                <div class="exact-score-container">
+                  <p class="team-name">{{ liveMatch.homeTeam.name }}</p>
+                  <input type="number" name="" id="" placeholder="0">
+                </div>
+
+                <div class="exact-score-container">
+                  <p class="team-name">{{ liveMatch.awayTeam.name }}</p>
+                  <input type="number" name="" id="" placeholder="0">
+                </div>
+              </li>
+
+              <li class="accordion-content-settings-list-item">
+                <label class="accordion-content-settings-label">
+                  <input type="checkbox" class="visually-hidden" name="">
+                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                  <span class="accordion-content-settings-text">Тотал больше</span>
+                </label>
+
+                <label class="accordion-content-settings-label">
+                  <input type="checkbox" class="visually-hidden" name="">
+                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                  <span class="accordion-content-settings-text">Тотал меньше</span>
+                </label>
+              </li>
+
+              <li class="accordion-content-settings-list-item">
+                <label class="accordion-content-settings-label">
+                  <input type="checkbox" class="visually-hidden" name="">
+                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
+                  <span class="accordion-content-settings-text">Ставка с риском</span>
+                </label>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--   !Аккордеон без ставок ранее-->
+      <div v-else class="accordion-forecast-amount-wrapper">
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
             :id="'forecast-radio' + liveMatch?.id">
@@ -422,6 +485,10 @@ input:checked+.forecast-choice-btn {
   justify-content: flex-start;
   flex-wrap: wrap;
   font-size: 3.33vw;
+
+  @media screen and (min-width: 450px) {
+    font-size: 16px;
+  }
 }
 
 .accordion-content-settings-list-item {
