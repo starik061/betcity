@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted() {
-    if (this.appStore.octopusTapGameStatus) {
+    if (!this.appStore.octopusTapGameStatus) {
       // Если пользователь не получил награду за тапалку в этот день то запускать осминога
       this.startGameShowing();
     }
