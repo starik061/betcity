@@ -49,12 +49,12 @@
       </button>
       <button v-else class="main-btn main-forecast-btn" type="button" @click="handleChangeBetClick(liveMatch)">Изменить
         прогноз</button>
+
       <!-- !Аккордеон -->
       <div class="accordion">
 
         <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
           :id="'forecast-radio' + liveMatch?.id">
-
 
         <label :for="'forecast-radio' + liveMatch?.id" class="accordion-header">
           <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
@@ -77,12 +77,12 @@
               </label>
 
               <div class="exact-score-container">
-                <p class="team-name">Арсенал</p>
+                <p class="team-name">{{ liveMatch.homeTeam.name }}</p>
                 <input type="number" name="" id="" placeholder="0">
               </div>
 
               <div class="exact-score-container">
-                <p class="team-name">Баку Тим</p>
+                <p class="team-name">{{ liveMatch.awayTeam.name }}</p>
                 <input type="number" name="" id="" placeholder="0">
               </div>
             </li>
@@ -345,7 +345,6 @@ input:checked+.forecast-choice-btn {
 
 .accordion-arrow {
   margin-left: auto;
-
 }
 
 .accordion-content {
@@ -364,10 +363,6 @@ input:checked+.forecast-choice-btn {
   max-height: 202px;
   transform: translateY(10px);
 }
-
-// .accordion:has(.accordion-header:hover) .accordion-content {
-//   max-height: 100px;
-// }
 
 .accordion-content-settings-list {
   display: flex;
@@ -433,6 +428,13 @@ input:checked+.forecast-choice-btn {
     white-space: nowrap;
     color: var(--color-text);
   }
+}
+
+.team-name {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .accordion-checkbox-immitator {
