@@ -276,7 +276,7 @@ export async function setPhoneNumber(phone) {
     if (response.status !== 201 && response.status !== 200) {
       throw new Error(response.status);
     }
-
+    console.log("true phone");
     return true;
   } catch (error) {
     console.error(error);

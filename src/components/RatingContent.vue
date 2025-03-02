@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="user-rating">
-      <span class="user-rating-number">4769</span>
+      <span class="rating-list-number rating-list-number-self" :class="{ 'rectangular': userRank?.length > 1 }">{{
+        userRank }}</span>
       <div class="user-rating-info-container">
         <img :src="avatarImage" class="user-rating-info-img" alt="user avatar">
         <p class="user-rating-info-name">{{ name }}<span class="user-rating-info-you">(вы)</span></p>
@@ -28,7 +29,8 @@
       <ul v-if="appStore.globalRating.length > 0 && !activeWeeklyRating" class="rating-list">
         <li class="rating-list-item" v-for="(topRatingItem, topRatingItemIdx) in appStore.globalRating"
           :key="topRatingItem + topRatingItemIdx">
-          <span class="rating-list-number">{{ topRatingItemIdx + 1 }}</span>
+          <span class="rating-list-number" :class="{ 'rectangular': (topRatingItemIdx + 1).toString.length > 1 }">{{
+            topRatingItemIdx + 1 }}</span>
           <img :src="topRatingItem?.pic || avatarPlaceholder" class="user-rating-info-img rating-list-img"
             alt="user avatar">
           <span class="rating-list-username">{{ topRatingItem?.name || "-" }}</span>
@@ -44,7 +46,8 @@
       <ul v-else-if="appStore.weeklyRating.length > 0 && activeWeeklyRating" class="rating-list">
         <li class="rating-list-item" v-for="(topRatingItem, topRatingItemIdx) in appStore.weeklyRating"
           :key="topRatingItem + topRatingItemIdx">
-          <span class="rating-list-number">{{ topRatingItemIdx + 1 }}</span>
+          <span class="rating-list-number" :class="{ 'rectangular': (topRatingItemIdx + 1).toString.length > 1 }">
+            {{ topRatingItemIdx + 1 }}</span>
           <img :src="topRatingItem?.pic || avatarPlaceholder" class="user-rating-info-img rating-list-img"
             alt="user avatar">
           <span class="rating-list-username">{{ topRatingItem?.name || "-" }}</span>
@@ -52,7 +55,7 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ topRatingItem?.score || "-" }}</span>
+            <span class="score-text">{{ topRatingItem?.weeklyScore || "-" }}</span>
           </div>
         </li>
       </ul>
@@ -77,30 +80,26 @@ export default {
   },
 
   computed: {
-    tgUser() {
-      return this.appStore.initDataUnsafe?.user;
-    },
-
     gameUserInfo() {
       return this.appStore.gameUserInfo;
     },
     avatarImage() {
-      if (this.tgUser?.photo_url) {
-        return this.tgUser.photo_url;
+      if (this.gameUserInfo?.pic) {
+        return this.gameUserInfo?.pic;
       }
       return avatarPlaceholder
     },
-
     name() {
-      if (this.tgUser) {
-        if (this.tgUser?.first_name || this.tgUser?.last_name) {
-          let username = this.tgUser.first_name + " " + this.tgUser.last_name;
-          // Ограничение строки до 15 символов с использованием slice
-          return username.slice(0, 15) + (username.length > 15 ? '...' : '');
-        }
+      if (this.gameUserInfo && this.gameUserInfo.name) {
+        // Ограничение строки до 17 символов с использованием slice
+        return this.gameUserInfo.name.slice(0, 17) + (this.gameUserInfo.name.length > 17 ? '...' : '');
       }
       return "Нет данных";
     },
+
+    userRank() {
+      return this.activeWeeklyRating ? (this.gameUserInfo?.weeklyRank.toString() || "-") : (this.gameUserInfo.scoreRank.toString() || "-")
+    }
   }
 }
 </script>
@@ -117,13 +116,9 @@ export default {
   border: 1px solid var(--color-element-border)
 }
 
-.user-rating-number {
+
+.rating-list-number-self {
   margin-right: 2.34%;
-  padding: 4px 6px;
-  font-size: 18px;
-  font-weight: bold;
-  background-color: var(--color-element-background-2);
-  border-radius: 20px;
 }
 
 .user-rating-info-container {
