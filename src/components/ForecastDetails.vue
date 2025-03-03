@@ -569,6 +569,7 @@ input:checked+.forecast-choice-btn {
   flex-grow: 0;
   flex-shrink: 0;
   flex-wrap: wrap;
+  line-height: 1;
 }
 
 .no-matches-text {
