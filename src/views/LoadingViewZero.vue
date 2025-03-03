@@ -75,7 +75,8 @@ export default {
     await getReferrals();
     await octopusTapGameStatusCheck();
 
-    this.appStore.liveMatchesWithBets = this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+    this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+
     setTimeout(() => {
       let isFirstEnter = false;
       if (this.appStore?.gameUserInfo?.joinedAt === this.appStore?.gameUserInfo?.lastLogin) {

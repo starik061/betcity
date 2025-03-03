@@ -174,7 +174,7 @@ export async function createBet(betID, data) {
       throw new Error(response.status);
     }
   } catch (error) {
-    console.error("Ошибка авторизации:", error);
+    console.error("Ошибка:", error);
   }
 }
 
@@ -204,7 +204,7 @@ export async function updateBet(betID, data) {
       throw new Error(response.status);
     }
   } catch (error) {
-    console.error("Ошибка авторизации:", error);
+    console.error("Ошибка:", error);
   }
 }
 

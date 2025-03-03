@@ -35,7 +35,6 @@
           <div class="forecast-coef">1.60</div>
         </label>
 
-
         <p class="forecast-modal-text">Повышенные бонусы за победу</p>
 
         <div class="forecast-modal-settings-container">
