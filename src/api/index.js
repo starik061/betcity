@@ -180,6 +180,36 @@ export async function createBet(betID, data) {
 
 // _____________________
 
+export async function updateBet(betID, data) {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify(data) // Преобразуем объект в строку
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.error("Ошибка авторизации:", error);
+  }
+}
+
+// _____________________
+
 export async function getAllBets() {
   const appStore = useAppStore();
   let headers;
@@ -205,43 +235,6 @@ export async function getAllBets() {
 
     const data = await response.json();
     appStore.allBets = data;
-  } catch (error) {
-    console.error("Ошибка авторизации:", error);
-  }
-}
-
-// _____________________
-
-export async function changeBet(betID, amount, coefficientKey) {
-  const appStore = useAppStore();
-  let headers;
-  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
-    headers = authHeaders();
-  } else {
-    headers = testAuthHeaders;
-  }
-
-  const requestBody = {
-    amount: 5, // Здесь используем переданные значения
-    coefficientKey: "Tb"
-  };
-
-  console.log("body", JSON.stringify(requestBody)); // Логируем, чтобы убедиться, что тело запроса правильное
-
-  try {
-    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        ...headers
-      },
-      body: JSON.stringify(requestBody) // Преобразуем объект в строку
-    });
-
-    // Проверяем статус ответа
-    if (response.status !== 201 && response.status !== 200) {
-      throw new Error(response.status);
-    }
   } catch (error) {
     console.error("Ошибка авторизации:", error);
   }

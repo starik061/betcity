@@ -45,19 +45,20 @@
         </li>
       </ul>
 
-      <button class="main-btn main-forecast-btn"
+      <button v-if="!hasBets(betDetail)" class="main-btn main-forecast-btn"
         :disabled="!betDetail.fact.isActive && !betDetail.exact.isActive && !betDetail.total.isActive" type="button"
-        @click="handleApproveForecastBtnClick(betDetail, betDetailIdx)">
+        @click="handleApproveForecastBtnClick(betDetail, betDetailIdx, false)">
         Подтвердить
         прогноз
       </button>
-      <!-- <button v-else class="main-btn main-forecast-btn" type="button"
-        @click="handleChangeBetClick(liveMatchIdx)">Изменить
-        прогноз</button> -->
+      <button v-else class="main-btn main-forecast-btn" type="button"
+        @click="handleApproveForecastBtnClick(betDetail, betDetailIdx, true)">Изменить
+        прогноз</button>
 
       <!-- !Аккордеон -->
       <div class="accordion-forecast-amount-wrapper">
-        <div class="forecasts-amount-indicator">1</div>
+        <div v-if="hasBets(betDetail)" class="forecasts-amount-indicator">{{ liveMatches[betDetailIdx]?.bets?.length }}
+        </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
             :id="'forecast-radio' + betDetail.matchID">
@@ -154,26 +155,78 @@ export default {
   },
 
   mounted() {
-    if (this.appStore.liveMatches && Array.isArray(this.appStore.liveMatches) && this.appStore.liveMatches.length > 0) {
-      this.appStore.liveMatches.map((liveMatch) => this.betsDetails.push({
-        matchID: liveMatch.id,
-        fact: {
-          isActive: false,
-          key: "",
-        },
-        total: {
-          isActive: false,
-          key: "",
-        },
-        exact: {
-          isActive: false,
-          key: "",
-          valueHome: 0,
-          valueAway: 0,
-        },
-        danger: false
-      }))
+
+
+    if (this.appStore.liveMatches &&
+      Array.isArray(this.appStore.liveMatches) &&
+      this.appStore.liveMatches.length > 0) {
+
+      this.appStore.liveMatches.forEach((liveMatch) => {
+        let dataObject = {
+          betID: "",
+          matchID: liveMatch.id,
+          fact: {
+            isActive: false,
+            key: "",
+          },
+          total: {
+            isActive: false,
+            key: "",
+          },
+          exact: {
+            isActive: false,
+            key: "",
+            valueHome: 0,
+            valueAway: 0,
+          },
+          danger: false
+        }
+
+        if (!liveMatch.bets || (Array.isArray(liveMatch.bets) && liveMatch.bets.length < 1)) {
+          this.betsDetails.push(dataObject);
+        }
+
+        else {
+          dataObject.danger = liveMatch.bets[0].danger;
+
+          const isFactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+            return betTypeObj.coefficientKey === "P1" || betTypeObj.coefficientKey === "P2" || betTypeObj.coefficientKey === "X"
+          })
+          if (isFactActiveIndex >= 0) {
+            dataObject.exact.isActive = true;
+            dataObject.exact.key = liveMatch.bets[0].betKeys[isFactActiveIndex].coefficientKey;
+          }
+
+
+          const isTotalActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+            return betTypeObj.coefficientKey === "Tb" || betTypeObj.coefficientKey === "Tm"
+          })
+
+          if (isTotalActiveIndex >= 0) {
+            dataObject.total.isActive = true;
+            dataObject.total.key = liveMatch.bets[0].betKeys[isTotalActiveIndex].coefficientKey;
+          }
+
+          const isExactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+            return betTypeObj.coefficientKey === betTypeObj.coefficientId
+          })
+
+          if (isExactActiveIndex >= 0) {
+            dataObject.exact.isActive = true;
+            dataObject.exact.key = liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.coefficientKey;
+            dataObject.exact.valueHome = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[0])
+            dataObject.exact.valueAway = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[1])
+          }
+
+          dataObject.betID = liveMatch?.bets[0].id
+
+          this.betsDetails.push(dataObject);
+        }
+
+      });
     }
+
+
   },
 
   computed: {
@@ -247,7 +300,7 @@ export default {
       this.betsDetails[index].exact[team] = value;
     },
 
-    handleApproveForecastBtnClick(betObject, index) {
+    handleApproveForecastBtnClick(betObject, index, hasBets) {
       this.appStore.betObject = {
         betObject: betObject,
 
@@ -255,36 +308,16 @@ export default {
         ${this.liveMatches[index].awayTeam.name},
         ${this.formatMatchDate(this.liveMatches[index]?.date)}`,
 
-        liveMatch: this.liveMatches[index]
+        liveMatch: this.liveMatches[index],
+
+        hasBets: hasBets
       }
 
       this.openModal("forecastDetails");
     },
 
-
-    handleCreateBetClick(liveMatchIdx) {
-      this.appStore.currentBetData = this.liveMatchesWithBets[liveMatchIdx].bets;
-      this.openModal("forecastDetails")
-
-      // this.currentBetData.matchId = liveMatch.id
-      // this.currentBetData.coefficients = [{
-      //   key: "X",
-      //   id: liveMatch.results[0].coefficientId,
-      //   danger: false
-      // }]
-      // console.log(this.currentBetData.matchId)
-      // console.log(this.currentBetData.coefficients)
-      // createBet(this.currentBetData.matchId, this.currentBetData.coefficients)
-    },
-
-    handleChangeBetClick(liveMatchIdx) {
-      this.appStore.currentBetData = this.liveMatchesWithBets[liveMatchIdx].bets;
-      this.openModal("forecastDetails")
-      // changeBet(liveMatch.results[0]?.id, "Tb", 155,)
-    },
-
-    hasBets(liveMatch) {
-      if (liveMatch.bets && Array.isArray(liveMatch.bets) && liveMatch.bets.length > 0) {
+    hasBets(betDetail) {
+      if (betDetail.exact.isActive || betDetail.total.isActive || betDetail.fact.isActive) {
         return true;
       }
       return false;

@@ -75,7 +75,7 @@ export default {
     await getReferrals();
     await octopusTapGameStatusCheck();
 
-    this.appStore.liveMatchesWithBets = this.calcMatchesWithBets(this.appStore.liveMatches, this.appStore.allBets);
+    this.appStore.liveMatchesWithBets = this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
     setTimeout(() => {
       let isFirstEnter = false;
       if (this.appStore?.gameUserInfo?.joinedAt === this.appStore?.gameUserInfo?.lastLogin) {
@@ -170,74 +170,20 @@ export default {
       });
     },
 
-    calcMatchesWithBets(liveMatches, allBets) {
-      return liveMatches.map(match => {
-        // Проверяем, что в матче есть поле results и оно массив
-        if (!match.results || !Array.isArray(match.results)) {
-          return match; // Если нет поля или оно не массив, просто возвращаем матч
-        }
+    addBetsToMatches(liveMatches, allBets) {
+      liveMatches.forEach(match => {
+        // Ищем все ставки, которые соответствуют текущему матчу
+        allBets.forEach(bet => {
+          if (bet.id === match.id) {
+            // Если у матча ещё нет свойства `bets`, создаём его
+            if (!match.bets) {
+              match.bets = [];
+            }
 
-        const betsForMatch = [];
-
-        match.results.forEach(result => {
-          // Проверяем, что betId в ставке существует
-          if (!result.eventId) {
-            return; // Если нет eventId, пропускаем этот результат
-          }
-
-          // Ищем ставку, которая соответствует eventId
-          const matchedBet = allBets?.find(bet => bet.betId === result.eventId);
-
-          if (matchedBet && !betsForMatch.some(bet => bet.betId === matchedBet.betId)) {
-            betsForMatch.push(matchedBet);
+            // Добавляем ставку в массив `bets` для этого матча
+            match.bets.push(bet);
           }
         });
-
-        // Если были найдены совпавшие ставки, добавляем их в матч
-        if (betsForMatch.length > 0) {
-          return {
-            ...match,
-            bets: betsForMatch,
-            betObject: {
-              fact: {
-                key: "",
-                danger: false,
-              },
-              total: {
-                key: "",
-                danger: false,
-              },
-              exact: {
-                key: "",
-                valueHome: 0,
-                valueAway: 0,
-                danger: false,
-              },
-            }
-          };
-        }
-
-        // Если совпадений нет, возвращаем матч без поля bets
-        return {
-          ...match,
-          betObject: {
-            matchID: match.id,
-            fact: {
-              key: "",
-              danger: false,
-            },
-            total: {
-              key: "",
-              danger: false,
-            },
-            exact: {
-              key: "",
-              valueHome: 0,
-              valueAway: 0,
-              danger: false,
-            },
-          }
-        };
       });
     }
   }
