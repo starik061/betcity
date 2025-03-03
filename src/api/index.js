@@ -148,7 +148,7 @@ export async function getMatchesLive() {
 
 // _____________________
 
-export async function createBet(betID, coefficients) {
+export async function createBet(betID, data) {
   const appStore = useAppStore();
   let headers;
   if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
@@ -157,6 +157,8 @@ export async function createBet(betID, coefficients) {
     headers = testAuthHeaders;
   }
 
+  console.log("data", data);
+
   try {
     const response = await fetch(`${BASE_URL}/bet/${betID}`, {
       method: "POST",
@@ -164,7 +166,7 @@ export async function createBet(betID, coefficients) {
         "Content-Type": "application/json",
         ...headers
       },
-      body: JSON.stringify({ coefficients }) // Преобразуем объект в строку
+      body: JSON.stringify(data) // Преобразуем объект в строку
     });
 
     // Проверяем статус ответа

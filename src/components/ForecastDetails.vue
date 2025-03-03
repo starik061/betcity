@@ -141,7 +141,7 @@ import IconBoxingGlove from '@/components/icons/IconBoxingGlove.vue';
 import IconAccordionSettingsButton from '@/components/icons/IconAccordionSettingsButton.vue';
 import { mapActions } from 'pinia';
 import { useAppStore } from '@/stores/appStore';
-import { createBet, changeBet } from "@/api/index.js";
+
 
 export default {
   components: { IconForecastDraw, IconBoxingGlove, IconAccordionSettingsButton },

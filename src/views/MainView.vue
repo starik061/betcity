@@ -26,7 +26,7 @@
         <h2 class="forecast-header forecast-modal-header">{{ betObject.event }}</h2>
 
 
-        <label class="forecast-modal-card">
+        <label class="forecast-modal-card" v-if="betObject.betObject.fact.isActive">
           <input class="visually-hidden" type="radio" name="game-forecast" checked disabled />
           <img v-if="betObject.betObject.fact.key === 'P1' || betObject.betObject.fact.key === 'P2'"
             class="forecast-img" :src="getBetTeamImg(betObject)" alt="team logo">
@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <button class="main-btn main-forecast-btn" type="button" @click="closeModal('forecastDetails')">Подтвердить
+        <button class="main-btn main-forecast-btn" type="button" @click="handleCreateBetClick">Подтвердить
           прогноз</button>
       </template>
     </Modal>
@@ -153,7 +153,7 @@ import { initBackButton } from "@/utils/initBackButton.js";
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
-import { claimDailyReward } from "@/api/index.js";
+import { claimDailyReward, createBet, changeBet } from "@/api/index.js";
 
 export default {
   components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal, IconForecastDraw },
@@ -227,7 +227,48 @@ export default {
         }
       }
       return "";
-    }
+    },
+
+    handleCreateBetClick() {
+
+      this.closeModal('forecastDetails')
+
+      let currentMatchID = this.betObject.betObject.matchID
+
+      let currentBetData = {
+        danger: false,
+        coefficients: []
+      }
+
+      if (this.betObject.betObject.danger) {
+        currentBetData.danger = true;
+      }
+
+      if (this.betObject.betObject.fact.isActive) {
+        currentBetData.coefficients.push({
+          key: this.betObject.betObject.fact.key,
+          id: this.betObject.liveMatch.results[0].coefficientId
+        })
+      }
+
+      if (this.betObject.betObject.exact.isActive) {
+        currentBetData.coefficients.push({
+          // key: this.betObject.betObject.exact.key,
+          key: this.betObject.liveMatch.results[2].coefficientId,
+          id: this.betObject.liveMatch.results[2].coefficientId,
+          value: `${this.betObject.betObject.exact.valueHome}:${this.betObject.betObject.exact.valueAway}`
+        })
+      }
+
+      if (this.betObject.betObject.total.isActive) {
+        currentBetData.coefficients.push({
+          key: this.betObject.betObject.total.key,
+          id: this.betObject.liveMatch.results[1].coefficientId,
+        })
+      }
+
+      createBet(currentMatchID, currentBetData)
+    },
   }
 };
 </script>
