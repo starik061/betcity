@@ -162,6 +162,7 @@ export default {
       this.appStore.liveMatches.length > 0) {
 
       this.appStore.liveMatches.forEach((liveMatch) => {
+        // Объект для формирования стурктуры данных, что можно было взаимодействовать с интерфейсом при отсутсвии ставок и при наличии одной
         let dataObject = {
           betID: "",
           matchID: liveMatch.id,
@@ -192,9 +193,10 @@ export default {
           const isFactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
             return betTypeObj.coefficientKey === "P1" || betTypeObj.coefficientKey === "P2" || betTypeObj.coefficientKey === "X"
           })
+          console.log("isFactActiveIndex", isFactActiveIndex)
           if (isFactActiveIndex >= 0) {
-            dataObject.exact.isActive = true;
-            dataObject.exact.key = liveMatch.bets[0].betKeys[isFactActiveIndex].coefficientKey;
+            dataObject.fact.isActive = true;
+            dataObject.fact.key = liveMatch.bets[0].betKeys[isFactActiveIndex].coefficientKey;
           }
 
 
