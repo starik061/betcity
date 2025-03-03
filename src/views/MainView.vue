@@ -156,6 +156,10 @@ import { useAppStore } from '@/stores/appStore';// Импортируем хра
 import { mapActions } from 'pinia';
 
 import { claimDailyReward, createBet, updateBet } from "@/api/index.js";
+import {
+  getMatchesLive,
+  getAllBets
+} from "@/api/index.js";
 
 export default {
   components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal, IconForecastDraw },
@@ -231,7 +235,24 @@ export default {
       return "";
     },
 
-    handleCreateBetClick() {
+    addBetsToMatches(liveMatches, allBets) {
+      liveMatches.forEach(match => {
+        // Ищем все ставки, которые соответствуют текущему матчу
+        allBets.forEach(bet => {
+          if (bet.id === match.id) {
+            // Если у матча ещё нет свойства `bets`, создаём его
+            if (!match.bets) {
+              match.bets = [];
+            }
+
+            // Добавляем ставку в массив `bets` для этого матча
+            match.bets.push(bet);
+          }
+        });
+      });
+    },
+
+    async handleCreateBetClick() {
 
       this.closeModal('forecastDetails')
 
@@ -269,10 +290,14 @@ export default {
         })
       }
 
-      createBet(currentMatchID, currentBetData)
+      await createBet(currentMatchID, currentBetData);
+
+      await getMatchesLive();
+      await getAllBets();
+      this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
     },
 
-    handleChangeBetClick() {
+    async handleChangeBetClick() {
 
       this.closeModal('forecastDetails')
 
@@ -310,7 +335,11 @@ export default {
         })
       }
 
-      updateBet(betID, currentBetData)
+      await updateBet(betID, currentBetData)
+
+      await getMatchesLive();
+      await getAllBets();
+      this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
     },
   }
 };
