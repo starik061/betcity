@@ -1,64 +1,68 @@
 <template>
-  <ul v-if="liveMatchesWithBets?.length > 0" class="forecast-container">
-    <li v-for="(liveMatch, liveMatchIdx) in liveMatchesWithBets" :key="liveMatch?.id">
-      <h2 class="forecast-header">{{ `${liveMatch.homeTeam.name} VS ${liveMatch.awayTeam.name},
-        ${formatMatchDate(liveMatch?.date)}` }}</h2>
+  <ul v-if="betsDetails?.length > 0" class="forecast-container">
+    <li v-for="(betDetail, betDetailIdx) in betsDetails" :key="betDetail.matchID">
+      <h2 class="forecast-header">{{ `${liveMatches[betDetailIdx].homeTeam.name} VS
+        ${liveMatches[betDetailIdx].awayTeam.name},
+        ${formatMatchDate(liveMatches[betDetailIdx]?.date)}` }}</h2>
 
       <ul class="forecast-list">
         <li class="forecast-list-item">
-          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 1"
-            :name="'game-forecast' + liveMatch?.id" value="P1" @click="toggleForecast(liveMatch?.id, 'P1')"
-            :checked="selectedForecast[liveMatch?.id] === 'P1'" />
-          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 1">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + betDetailIdx + 1"
+            :name="'game-forecast' + betDetailIdx" value="P1" :checked="betDetail.fact.key === 'P1'"
+            @click="toggleFact($event, betDetailIdx)" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + betDetailIdx + 1">
             <div class="forecast-radio-immitator"></div>
-            <img class="forecast-img" :src="liveMatch.homeTeam.logoUrl" alt="hometeam logo">
-            <p class="forecast-team"> {{ liveMatch.homeTeam.name }}</p>
-            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "homeTeam") }}</div>
+            <img class="forecast-img" :src="liveMatches[betDetailIdx].homeTeam.logoUrl" alt="hometeam logo">
+            <p class="forecast-team"> {{ liveMatches[betDetailIdx].homeTeam.name }}</p>
+            <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID, "homeTeam") }}</div>
           </label>
         </li>
 
         <li class="forecast-list-item">
-          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 2"
-            :name="'game-forecast' + liveMatch?.id" value="X" @click="toggleForecast(liveMatch?.id, 'X')"
-            :checked="selectedForecast[liveMatch?.id] === 'X'" />
-          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 2">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + betDetailIdx + 2"
+            :name="'game-forecast' + betDetailIdx" value="X" :checked="betDetail.fact.key === 'X'"
+            @click="toggleFact($event, betDetailIdx)" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + betDetailIdx + 2">
             <div class="forecast-radio-immitator"></div>
             <IconForecastDraw class="forecast-img" />
             <!-- <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo"> -->
             <p class="forecast-team"> Ничья</p>
-            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id) }}</div>
+            <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID) }}</div>
           </label>
         </li>
 
         <li class="forecast-list-item">
-          <input class="visually-hidden" type="radio" :id="'game-forecast' + liveMatch?.id + 3"
-            :name="'game-forecast' + liveMatch?.id" value="P2" @click="toggleForecast(liveMatch?.id, 'P2')"
-            :checked="selectedForecast[liveMatch?.id] === 'P2'" />
-          <label class="forecast-choice-btn" :for="'game-forecast' + liveMatch?.id + 3">
+          <input class="visually-hidden" type="radio" :id="'game-forecast' + betDetailIdx + 3"
+            :name="'game-forecast' + betDetailIdx" value="P2" :checked="betDetail.fact.key === 'P2'"
+            @click="toggleFact($event, betDetailIdx)" />
+          <label class="forecast-choice-btn" :for="'game-forecast' + betDetailIdx + 3">
             <div class="forecast-radio-immitator"></div>
 
-            <img class="forecast-img" :src="liveMatch.awayTeam.logoUrl" alt="awayteam logo">
-            <p class="forecast-team">{{ liveMatch.awayTeam.name }}</p>
-            <div class="forecast-coef">{{ this.getTeamCoef(liveMatch?.id, "awayTeam") }}</div>
+            <img class="forecast-img" :src="liveMatches[betDetailIdx].awayTeam.logoUrl" alt="awayteam logo">
+            <p class="forecast-team">{{ liveMatches[betDetailIdx].awayTeam.name }}</p>
+            <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID, "awayTeam") }}</div>
           </label>
         </li>
       </ul>
 
-      <button v-if="!hasBets(liveMatch)" class="main-btn main-forecast-btn" type="button"> Подтвердить
+      <button class="main-btn main-forecast-btn"
+        :disabled="!betDetail.fact.isActive && !betDetail.exact.isActive && !betDetail.total.isActive" type="button"
+        @click="handleApproveForecastBtnClick(betDetail, betDetailIdx)">
+        Подтвердить
         прогноз
       </button>
-      <button v-else class="main-btn main-forecast-btn" type="button"
+      <!-- <button v-else class="main-btn main-forecast-btn" type="button"
         @click="handleChangeBetClick(liveMatchIdx)">Изменить
-        прогноз</button>
+        прогноз</button> -->
 
       <!-- !Аккордеон -->
-      <div v-if="hasBets(liveMatch)" class="accordion-forecast-amount-wrapper">
-        <div class="forecasts-amount-indicator">{{ liveMatch.bets.length }}</div>
+      <div class="accordion-forecast-amount-wrapper">
+        <div class="forecasts-amount-indicator">1</div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
-            :id="'forecast-radio' + liveMatch?.id">
+            :id="'forecast-radio' + betDetail.matchID">
 
-          <label :for="'forecast-radio' + liveMatch?.id" class="accordion-header">
+          <label :for="'forecast-radio' + betDetail.matchID" class="accordion-header">
             <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
             <span>Повышенные бонусы за победу</span>
             <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -72,40 +76,50 @@
           <div class="accordion-content">
             <ul class="accordion-content-settings-list">
               <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
+                <input type="checkbox" class="visually-hidden" :id="'exact-checkbox' + betDetailIdx"
+                  v-model="betsDetails[betDetailIdx].exact.isActive">
+                <label class="accordion-content-settings-label" :for="'exact-checkbox' + betDetailIdx">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Точный исход</span>
                 </label>
 
-                <div class="exact-score-container">
-                  <p class="team-name">{{ liveMatch.homeTeam.name }}</p>
-                  <input type="number" name="" id="" placeholder="0">
+                <div class="exact-score-container" :class="{ 'disabled': !betDetail.exact.isActive }">
+                  <p class="team-name">{{ liveMatches[betDetailIdx].homeTeam.name }}</p>
+                  <input type="number" placeholder="0" v-model.number="betDetail.exact.valueHome"
+                    @input="handleScoreInput($event, 'valueHome', betDetailIdx)" :disabled="!betDetail.exact.isActive">
                 </div>
 
-                <div class="exact-score-container">
-                  <p class="team-name">{{ liveMatch.awayTeam.name }}</p>
-                  <input type="number" name="" id="" placeholder="0">
+                <div class="exact-score-container" :class="{ 'disabled': !betDetail.exact.isActive }">
+                  <p class="team-name">{{ liveMatches[betDetailIdx].awayTeam.name }}</p>
+                  <input type="number" placeholder="0" v-model.number="betDetail.exact.valueAway"
+                    @input="handleScoreInput($event, 'valueAway', betDetailIdx)" :disabled="!betDetail.exact.isActive">
                 </div>
               </li>
 
               <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
+                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 1" value="Tb"
+                  :checked="betDetail.total.key === 'Tb'" @click="toggleTotal($event, betDetailIdx)">
+                <label class="accordion-content-settings-label"
+                  :class="{ 'no-active': betDetail.total.key !== 'Tb' && betDetail.total.key !== '' }"
+                  :for="'total-checkbox' + betDetailIdx + 1">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Тотал больше</span>
                 </label>
 
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
+                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 2" value="Tm"
+                  :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)">
+                <label class="accordion-content-settings-label"
+                  :class="{ 'no-active': betDetail.total.key !== 'Tm' && betDetail.total.key !== '' }"
+                  :for="'total-checkbox' + betDetailIdx + 2">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Тотал меньше</span>
                 </label>
               </li>
 
               <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
+                <input type="checkbox" class="visually-hidden danger-checkbox" :id="'danger-checkbox' + betDetailIdx"
+                  v-model="betDetail.danger" :checked="betDetail.danger === true">
+                <label class="accordion-content-settings-label" :for="'danger-checkbox' + betDetailIdx">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Ставка с риском</span>
                 </label>
@@ -116,69 +130,6 @@
         </div>
       </div>
 
-      <!--   !Аккордеон без ставок ранее-->
-      <div v-else class="accordion-forecast-amount-wrapper">
-        <div class="accordion">
-          <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
-            :id="'forecast-radio' + liveMatch?.id">
-
-          <label :for="'forecast-radio' + liveMatch?.id" class="accordion-header">
-            <IconBoxingGlove :starColor="'#0070F3'" :width="'30'" :height="'30'" />
-            <span>Повышенные бонусы за победу</span>
-            <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
-                fill="white" />
-            </svg>
-          </label>
-
-          <div class="accordion-content">
-            <ul class="accordion-content-settings-list">
-              <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
-                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Точный исход</span>
-                </label>
-
-                <div class="exact-score-container">
-                  <p class="team-name">{{ liveMatch.homeTeam.name }}</p>
-                  <input type="number" name="" id="" placeholder="0">
-                </div>
-
-                <div class="exact-score-container">
-                  <p class="team-name">{{ liveMatch.awayTeam.name }}</p>
-                  <input type="number" name="" id="" placeholder="0">
-                </div>
-              </li>
-
-              <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
-                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Тотал больше</span>
-                </label>
-
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
-                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Тотал меньше</span>
-                </label>
-              </li>
-
-              <li class="accordion-content-settings-list-item">
-                <label class="accordion-content-settings-label">
-                  <input type="checkbox" class="visually-hidden" name="">
-                  <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Ставка с риском</span>
-                </label>
-              </li>
-
-            </ul>
-          </div>
-        </div>
-      </div>
     </li>
   </ul>
   <p v-else class="no-matches-text">Доступные для прогнозов матчи отсутствуют.</p>
@@ -198,26 +149,37 @@ export default {
     return {
       appStore: useAppStore(),
       selectedForecast: {}, // Для отслеживания выбранных прогнозов для каждой игры
-      currentBetData: {
-        matchId: "",
-        coefficients:
-          // Формат объекта типа ставки
-          // {
-          //   key: "",
-          //   id: "",
-          //   danger: false
-          // }
-          [
+      betsDetails: [], // массив для привязки полей аккордеона к переменным
+    }
+  },
 
-          ]
-      }
+  mounted() {
+    if (this.appStore.liveMatches && Array.isArray(this.appStore.liveMatches) && this.appStore.liveMatches.length > 0) {
+      this.appStore.liveMatches.map((liveMatch) => this.betsDetails.push({
+        matchID: liveMatch.id,
+        fact: {
+          isActive: false,
+          key: "",
+        },
+        total: {
+          isActive: false,
+          key: "",
+        },
+        exact: {
+          isActive: false,
+          key: "",
+          valueHome: 0,
+          valueAway: 0,
+        },
+        danger: false
+      }))
     }
   },
 
   computed: {
-    liveMatchesWithBets() {
-      if (this.appStore.liveMatchesWithBets && Array.isArray(this.appStore.liveMatchesWithBets)) {
-        return this.appStore.liveMatchesWithBets;
+    liveMatches() {
+      if (this.appStore.liveMatches && Array.isArray(this.appStore.liveMatches)) {
+        return this.appStore.liveMatches;
       }
       return []
     },
@@ -228,7 +190,7 @@ export default {
     ...mapActions(useAppStore, ['openModal', 'closeModal']),
 
     getTeamCoef(eventId, teamType) {
-      const liveMatch = this.liveMatchesWithBets.find(match => { return match.id === eventId; });
+      const liveMatch = this.liveMatches.find(match => { return match.id === eventId; });
       if (liveMatch) {
         switch (teamType) {
           case 'homeTeam':
@@ -252,18 +214,53 @@ export default {
       return `${hours}:${minutes}`;
     },
 
-    toggleForecast(matchId, value) {
-      // Проверяем, если в данных указано определённое значение, очищаем выбор
-      console.log("value", value)
-      console.log("this.selectedForecast[matchId]", this.selectedForecast[matchId])
-      if (this.selectedForecast[matchId] === value) {
-        // Если выбран тот же прогноз, сбрасываем его
-        delete this.selectedForecast[matchId];
-      } else {
-        // Устанавливаем новый прогноз для этого матча
-        this.selectedForecast[matchId] = value;
+    toggleFact(event, index) {
+      if (this.betsDetails[index].fact.key === event.target.value) {
+        this.betsDetails[index].fact.isActive = false;
+        this.betsDetails[index].fact.key = "";
+      }
+      else {
+        this.betsDetails[index].fact.isActive = true;
+        this.betsDetails[index].fact.key = event.target.value;
       }
     },
+
+    toggleTotal(event, index) {
+      if (this.betsDetails[index].total.key === event.target.value) {
+        this.betsDetails[index].total.isActive = false;
+        this.betsDetails[index].total.key = "";
+      }
+      else {
+        this.betsDetails[index].total.isActive = true;
+        this.betsDetails[index].total.key = event.target.value;
+      }
+    },
+
+    handleScoreInput(event, team, index) {
+      console.log(event.target.value);
+      let value = parseInt(event.target.value, 10);
+
+      if (isNaN(value)) value = 0;
+      if (value < 0) value = 0;
+      if (value > 1000) value = 1000;
+
+      this.betsDetails[index].exact[team] = value;
+    },
+
+    handleApproveForecastBtnClick(betObject, index) {
+      this.appStore.betObject = {
+        betObject: betObject,
+
+        event: `${this.liveMatches[index].homeTeam.name} VS
+        ${this.liveMatches[index].awayTeam.name},
+        ${this.formatMatchDate(this.liveMatches[index]?.date)}`,
+
+        liveMatch: this.liveMatches[index]
+      }
+
+      this.openModal("forecastDetails");
+    },
+
 
     handleCreateBetClick(liveMatchIdx) {
       this.appStore.currentBetData = this.liveMatchesWithBets[liveMatchIdx].bets;
@@ -370,6 +367,12 @@ input:checked+.forecast-choice-btn {
   }
 }
 
+input:checked+label .accordion-checkbox-immitator {
+  border-color: var(--color-main-blue);
+  background-color: var(--color-main-blue);
+}
+
+
 .forecast-radio-immitator {
   position: absolute;
   top: 8px;
@@ -415,6 +418,12 @@ input:checked+.forecast-choice-btn {
   width: 100%;
   margin-bottom: 12px;
   padding: 12.5px;
+}
+
+.main-forecast-btn:disabled {
+  background: var(--color-background);
+  color: var(--color-element-border);
+  outline: 1px solid var(--color-element-border);
 }
 
 .accordion-forecast-amount-wrapper {
@@ -504,6 +513,7 @@ input:checked+.forecast-choice-btn {
 
   &:last-child {
     border-bottom: none;
+
   }
 }
 
@@ -516,6 +526,11 @@ input:checked+.forecast-choice-btn {
   flex-shrink: 0;
   justify-content: flex-start;
   align-items: center;
+
+  &.no-active {
+    color: var(--color-element-border);
+
+  }
 }
 
 .exact-score-container {
@@ -531,6 +546,15 @@ input:checked+.forecast-choice-btn {
   line-height: 12px;
   margin-right: 4px;
   margin-bottom: 14px;
+
+  &.disabled {
+    color: var(--color-element-border);
+
+    & input[type="number"] {
+      color: var(--color-element-border);
+    }
+  }
+
 
   &:last-child {
     margin-right: 0;

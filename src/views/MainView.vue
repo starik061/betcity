@@ -20,16 +20,18 @@
 
 
     <!-- ! Forecast settings modal -->
-    <Modal v-if="appStore.currentBetData" :modalOpened="appStore.modalsState.forecastDetails"
+    <Modal v-if="betObject" :modalOpened="appStore.modalsState.forecastDetails"
       @close-modal="closeModal('forecastDetails')">
       <template #modal-content>
-        <h2 class="forecast-header forecast-modal-header">Chelsey VS Bayern, 19:40</h2>
+        <h2 class="forecast-header forecast-modal-header">{{ betObject.event }}</h2>
 
 
         <label class="forecast-modal-card">
-          <input class="visually-hidden" type="radio" name="game-forecast" value="win1" />
-          <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo">
-          <p class="forecast-team"> Chelsey</p>
+          <input class="visually-hidden" type="radio" name="game-forecast" checked disabled />
+          <img v-if="betObject.betObject.fact.key === 'P1' || betObject.betObject.fact.key === 'P2'"
+            class="forecast-img" :src="getBetTeamImg(betObject)" alt="team logo">
+          <IconForecastDraw v-else class="forecast-img" />
+          <p class="forecast-team"> {{ getBetTeamName(betObject) }}</p>
           <div class="forecast-coef">1.60</div>
         </label>
 
@@ -37,20 +39,23 @@
         <p class="forecast-modal-text">Повышенные бонусы за победу</p>
 
         <div class="forecast-modal-settings-container">
-          <div class="accuracy-forecast-line-wrapper">
+          <div v-if="betObject.betObject.exact.isActive" class="accuracy-forecast-line-wrapper">
             <span class="forecast-type-text">Точный исход</span>
             <span class="flex-centered">
-              <span class="team-name">Chelsey</span>
-              <span class="team-score">2</span></span>
+              <span class="team-name">{{ betObject.liveMatch.homeTeam.name }}</span>
+              <span class="team-score">{{ betObject.betObject.exact.valueHome }}</span></span>
             <span class="flex-centered">
-              <span class="team-name">Bayern</span>
-              <span class="team-score">0</span>
+              <span class="team-name">{{ betObject.liveMatch.awayTeam.name }}</span>
+              <span class="team-score">{{ betObject.betObject.exact.valueAway }}</span>
             </span>
           </div>
 
-          <div class="accuracy-forecast-line-wrapper">
-            <span class="forecast-type-text">Минута первого гола</span>
-            <span class="team-score">2</span>
+          <div v-if="betObject.betObject.total.isActive" class="accuracy-forecast-line-wrapper">
+            <span v-if="betObject.betObject.total.key === 'Tb'" class="forecast-type-text">Тотал больше</span>
+            <span v-else class="forecast-type-text">Тотал меньше</span>
+          </div>
+          <div v-if="betObject.betObject.danger" class="accuracy-forecast-line-wrapper">
+            <span class="forecast-type-text">Ставка с риском</span>
           </div>
         </div>
 
@@ -139,6 +144,7 @@
 import TopNavPanel from '@/components/TopNavPanel.vue';
 import BottomNavPanel from '@/components/BottomNavPanel.vue';
 import ForecastDetails from "@/components/ForecastDetails.vue";
+import IconForecastDraw from "@/components/icons/IconForecastDraw.vue";
 import TapOctopus from "@/components/TapOctopus.vue";
 import Modal from '@/components/Modal.vue';
 
@@ -150,14 +156,21 @@ import { mapActions } from 'pinia';
 import { claimDailyReward } from "@/api/index.js";
 
 export default {
-  components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal },
+  components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal, IconForecastDraw },
 
   data() {
     return {
       appStore: useAppStore(),
     }
   },
-
+  computed: {
+    betObject() {
+      if (this.appStore && this.appStore.betObject) {
+        return this.appStore.betObject;
+      }
+      return null;
+    }
+  },
   mounted() {
     initBackButton.call(this);
     if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); }
@@ -172,6 +185,48 @@ export default {
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
       }
+    },
+
+    getBetTeamName(betObject) {
+      if (betObject.betObject && betObject.betObject.fact && betObject.betObject.fact.isActive) {
+        switch (betObject.betObject.fact.key) {
+          case "P1": {
+            return betObject.liveMatch.homeTeam.name
+            break;
+          }
+
+          case "P2": {
+            return betObject.liveMatch.awayTeam.name
+            break;
+          }
+
+          default: {
+            return "Ничья";
+          }
+        }
+      }
+      return "";
+    },
+
+    getBetTeamImg(betObject) {
+      if (betObject.betObject && betObject.betObject.fact && betObject.betObject.fact.isActive) {
+        switch (betObject.betObject.fact.key) {
+          case "P1": {
+            return betObject.liveMatch.homeTeam.logoUrl
+            break;
+          }
+
+          case "P2": {
+            return betObject.liveMatch.awayTeam.logoUrl
+            break;
+          }
+
+          default: {
+            return "Ничья";
+          }
+        }
+      }
+      return "";
     }
   }
 };
@@ -203,6 +258,7 @@ export default {
 
 .forecast-modal-header {
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .forecast-modal-card {
@@ -221,6 +277,11 @@ export default {
 .forecast-modal-text {
   margin-bottom: 20px;
   text-align: center;
+}
+
+.forecast-img {
+  width: 60px;
+  height: 60px;
 }
 
 .forecast-modal-settings-container {

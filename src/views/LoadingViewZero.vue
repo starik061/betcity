@@ -197,12 +197,47 @@ export default {
         if (betsForMatch.length > 0) {
           return {
             ...match,
-            bets: betsForMatch
+            bets: betsForMatch,
+            betObject: {
+              fact: {
+                key: "",
+                danger: false,
+              },
+              total: {
+                key: "",
+                danger: false,
+              },
+              exact: {
+                key: "",
+                valueHome: 0,
+                valueAway: 0,
+                danger: false,
+              },
+            }
           };
         }
 
         // Если совпадений нет, возвращаем матч без поля bets
-        return match;
+        return {
+          ...match,
+          betObject: {
+            matchID: match.id,
+            fact: {
+              key: "",
+              danger: false,
+            },
+            total: {
+              key: "",
+              danger: false,
+            },
+            exact: {
+              key: "",
+              valueHome: 0,
+              valueAway: 0,
+              danger: false,
+            },
+          }
+        };
       });
     }
   }
