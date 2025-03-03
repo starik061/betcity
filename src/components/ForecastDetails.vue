@@ -45,7 +45,7 @@
         </li>
       </ul>
 
-      <button v-if="!hasBets(betDetail)" class="main-btn main-forecast-btn"
+      <button v-if="!hasBets(betDetailIdx)" class="main-btn main-forecast-btn"
         :disabled="!betDetail.fact.isActive && !betDetail.exact.isActive && !betDetail.total.isActive" type="button"
         @click="handleApproveForecastBtnClick(betDetail, betDetailIdx, false)">
         Подтвердить
@@ -57,7 +57,8 @@
 
       <!-- !Аккордеон -->
       <div class="accordion-forecast-amount-wrapper">
-        <div v-if="hasBets(betDetail)" class="forecasts-amount-indicator">{{ liveMatches[betDetailIdx]?.bets?.length }}
+        <div v-if="hasBets(betDetailIdx)" class="forecasts-amount-indicator">{{ liveMatches[betDetailIdx]?.bets?.length
+        }}
         </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
@@ -78,7 +79,8 @@
             <ul class="accordion-content-settings-list">
               <li class="accordion-content-settings-list-item">
                 <input type="checkbox" class="visually-hidden" :id="'exact-checkbox' + betDetailIdx"
-                  v-model="betsDetails[betDetailIdx].exact.isActive">
+                  v-model="betsDetails[betDetailIdx].exact.isActive" :disabled="hasBets(betDetailIdx) &&
+                    betDetail.exact.isActive === true">
                 <label class="accordion-content-settings-label" :for="'exact-checkbox' + betDetailIdx">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Точный исход</span>
@@ -99,7 +101,8 @@
 
               <li class="accordion-content-settings-list-item">
                 <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 1" value="Tb"
-                  :checked="betDetail.total.key === 'Tb'" @click="toggleTotal($event, betDetailIdx)">
+                  :checked="betDetail.total.key === 'Tb'" @click="toggleTotal($event, betDetailIdx)"
+                  :disabled="hasBets(betDetailIdx) && betDetail.total.key === 'Tb'">
                 <label class="accordion-content-settings-label"
                   :class="{ 'no-active': betDetail.total.key !== 'Tb' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 1">
@@ -108,7 +111,8 @@
                 </label>
 
                 <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 2" value="Tm"
-                  :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)">
+                  :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)"
+                  :disabled="hasBets(betDetailIdx) && betDetail.total.key === 'Tm'">
                 <label class="accordion-content-settings-label"
                   :class="{ 'no-active': betDetail.total.key !== 'Tm' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 2">
@@ -193,7 +197,7 @@ export default {
           const isFactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
             return betTypeObj.coefficientKey === "P1" || betTypeObj.coefficientKey === "P2" || betTypeObj.coefficientKey === "X"
           })
-          console.log("isFactActiveIndex", isFactActiveIndex)
+
           if (isFactActiveIndex >= 0) {
             dataObject.fact.isActive = true;
             dataObject.fact.key = liveMatch.bets[0].betKeys[isFactActiveIndex].coefficientKey;
@@ -270,25 +274,37 @@ export default {
     },
 
     toggleFact(event, index) {
-      if (this.betsDetails[index].fact.key === event.target.value) {
-        this.betsDetails[index].fact.isActive = false;
-        this.betsDetails[index].fact.key = "";
-      }
-      else {
+      if (!this.hasBets(index)) {
+        if (this.betsDetails[index].fact.key === event.target.value) {
+          this.betsDetails[index].fact.isActive = false;
+          this.betsDetails[index].fact.key = "";
+        }
+        else {
+          this.betsDetails[index].fact.isActive = true;
+          this.betsDetails[index].fact.key = event.target.value;
+        }
+      } else {
         this.betsDetails[index].fact.isActive = true;
         this.betsDetails[index].fact.key = event.target.value;
       }
+
     },
 
     toggleTotal(event, index) {
-      if (this.betsDetails[index].total.key === event.target.value) {
-        this.betsDetails[index].total.isActive = false;
-        this.betsDetails[index].total.key = "";
-      }
-      else {
+      if (!this.hasBets(index)) {
+        if (this.betsDetails[index].total.key === event.target.value) {
+          this.betsDetails[index].total.isActive = false;
+          this.betsDetails[index].total.key = "";
+        }
+        else {
+          this.betsDetails[index].total.isActive = true;
+          this.betsDetails[index].total.key = event.target.value;
+        }
+      } else {
         this.betsDetails[index].total.isActive = true;
         this.betsDetails[index].total.key = event.target.value;
       }
+
     },
 
     handleScoreInput(event, team, index) {
@@ -318,8 +334,8 @@ export default {
       this.openModal("forecastDetails");
     },
 
-    hasBets(betDetail) {
-      if (betDetail.exact.isActive || betDetail.total.isActive || betDetail.fact.isActive) {
+    hasBets(betDetailIdx) {
+      if (this.liveMatches[betDetailIdx].bets && Array.isArray(this.liveMatches[betDetailIdx].bets) && this.liveMatches[betDetailIdx].bets.length > 0) {
         return true;
       }
       return false;
