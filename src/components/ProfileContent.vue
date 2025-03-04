@@ -43,6 +43,24 @@
 
     <h2 class="rating-list-header">История прогнозов</h2>
 
+    <div class="btn-container">
+      <button class="history-type-btn" :class="{ 'active': isHistoryTypeActive }">
+        <span>
+          Активные
+        </span>
+        <span class="forecast-amount">1</span>
+      </button>
+      <button class="history-type-btn" :class="{ 'active': !isHistoryTypeActive }">
+        <span>
+          Завершенные
+        </span>
+        <span class="forecast-amount">1</span>
+      </button>
+      <!-- <button class="rating-btn btn-style" :class="{ 'active': activeWeeklyRating }"
+        @click="activeWeeklyRating = true">Недельный</button> -->
+
+    </div>
+
     <ul class="forecast-history-list">
       <li class="forecast-history-list-item">
         <div class="forecast-history-list-item-wrapper">
@@ -92,6 +110,8 @@ export default {
 
       isPhoneValid: false,
       phoneValidErrorMessage: false,
+
+      isHistoryTypeActive: true,
     }
   },
 
@@ -426,5 +446,52 @@ export default {
   top: 50%;
   left: -22px;
   transform: translateY(-50%) rotate(0deg);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 4px;
+  gap: 4px;
+  background-color: var(--color-element-border);
+  border-radius: 11px;
+}
+
+.history-type-btn {
+  flex-basis: calc(50% - 4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-text);
+  border-radius: 8px;
+
+  &.active {
+    background-color: var(--color-element-background);
+  }
+}
+
+.forecast-amount {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: #313A45;
+
+  &.rectangular {
+    width: auto;
+    padding-left: 5px;
+    padding-left: 5px;
+    border-radius: 10px;
+
+  }
 }
 </style>
