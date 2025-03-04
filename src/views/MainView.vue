@@ -149,7 +149,7 @@ import ForecastDetails from "@/components/ForecastDetails.vue";
 import IconForecastDraw from "@/components/icons/IconForecastDraw.vue";
 import TapOctopus from "@/components/TapOctopus.vue";
 import Modal from '@/components/Modal.vue';
-
+import { toast } from 'vue3-toastify';
 import { initBackButton } from "@/utils/initBackButton.js";
 
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
@@ -253,93 +253,105 @@ export default {
     },
 
     async handleCreateBetClick() {
+      try {
+        this.closeModal('forecastDetails')
 
-      this.closeModal('forecastDetails')
+        let currentMatchID = this.betObject.betObject.matchID
 
-      let currentMatchID = this.betObject.betObject.matchID
+        let currentBetData = {
+          danger: false,
+          coefficients: []
+        }
 
-      let currentBetData = {
-        danger: false,
-        coefficients: []
+        if (this.betObject.betObject.danger) {
+          currentBetData.danger = true;
+        }
+
+        if (this.betObject.betObject.fact.isActive) {
+          currentBetData.coefficients.push({
+            key: this.betObject.betObject.fact.key,
+            id: this.betObject.liveMatch.results[0].coefficientId
+          })
+        }
+
+        if (this.betObject.betObject.exact.isActive) {
+          currentBetData.coefficients.push({
+            // key: this.betObject.betObject.exact.key,
+            key: this.betObject.liveMatch.results[2].coefficientId,
+            id: this.betObject.liveMatch.results[2].coefficientId,
+            value: `${this.betObject.betObject.exact.valueHome}:${this.betObject.betObject.exact.valueAway}`
+          })
+        }
+
+        if (this.betObject.betObject.total.isActive) {
+          currentBetData.coefficients.push({
+            key: this.betObject.betObject.total.key,
+            id: this.betObject.liveMatch.results[1].coefficientId,
+          })
+        }
+
+
+        await createBet(currentMatchID, currentBetData);
+
+        await getMatchesLive();
+        await getAllBets();
+        toast.success("Прогноз успешно подтвержден");
+        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
       }
-
-      if (this.betObject.betObject.danger) {
-        currentBetData.danger = true;
+      catch (error) {
+        toast.error("Ошибка! Не удалось подтвердить прогноз");
       }
-
-      if (this.betObject.betObject.fact.isActive) {
-        currentBetData.coefficients.push({
-          key: this.betObject.betObject.fact.key,
-          id: this.betObject.liveMatch.results[0].coefficientId
-        })
-      }
-
-      if (this.betObject.betObject.exact.isActive) {
-        currentBetData.coefficients.push({
-          // key: this.betObject.betObject.exact.key,
-          key: this.betObject.liveMatch.results[2].coefficientId,
-          id: this.betObject.liveMatch.results[2].coefficientId,
-          value: `${this.betObject.betObject.exact.valueHome}:${this.betObject.betObject.exact.valueAway}`
-        })
-      }
-
-      if (this.betObject.betObject.total.isActive) {
-        currentBetData.coefficients.push({
-          key: this.betObject.betObject.total.key,
-          id: this.betObject.liveMatch.results[1].coefficientId,
-        })
-      }
-
-      await createBet(currentMatchID, currentBetData);
-
-      await getMatchesLive();
-      await getAllBets();
-      this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
     },
 
     async handleChangeBetClick() {
+      try {
+        this.closeModal('forecastDetails')
 
-      this.closeModal('forecastDetails')
+        let betID = this.betObject.betObject.betID
 
-      let betID = this.betObject.betObject.betID
+        let currentBetData = {
+          danger: false,
+          coefficients: []
+        }
 
-      let currentBetData = {
-        danger: false,
-        coefficients: []
+        if (this.betObject.betObject.danger) {
+          currentBetData.danger = true;
+        }
+
+        if (this.betObject.betObject.fact.isActive) {
+          currentBetData.coefficients.push({
+            key: this.betObject.betObject.fact.key,
+            id: this.betObject.liveMatch.results[0].coefficientId
+          })
+        }
+
+        if (this.betObject.betObject.exact.isActive) {
+          currentBetData.coefficients.push({
+            // key: this.betObject.betObject.exact.key,
+            key: this.betObject.liveMatch.results[2].coefficientId,
+            id: this.betObject.liveMatch.results[2].coefficientId,
+            value: `${this.betObject.betObject.exact.valueHome}:${this.betObject.betObject.exact.valueAway}`
+          })
+        }
+
+        if (this.betObject.betObject.total.isActive) {
+          currentBetData.coefficients.push({
+            key: this.betObject.betObject.total.key,
+            id: this.betObject.liveMatch.results[1].coefficientId,
+          })
+        }
+
+        await updateBet(betID, currentBetData)
+
+        await getMatchesLive();
+        await getAllBets();
+        toast.success("Прогноз успешно изменен");
+        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+
       }
-
-      if (this.betObject.betObject.danger) {
-        currentBetData.danger = true;
+      catch (error) {
+        toast.error("Ошибка! Не удалось изменить прогноз");
       }
-
-      if (this.betObject.betObject.fact.isActive) {
-        currentBetData.coefficients.push({
-          key: this.betObject.betObject.fact.key,
-          id: this.betObject.liveMatch.results[0].coefficientId
-        })
-      }
-
-      if (this.betObject.betObject.exact.isActive) {
-        currentBetData.coefficients.push({
-          // key: this.betObject.betObject.exact.key,
-          key: this.betObject.liveMatch.results[2].coefficientId,
-          id: this.betObject.liveMatch.results[2].coefficientId,
-          value: `${this.betObject.betObject.exact.valueHome}:${this.betObject.betObject.exact.valueAway}`
-        })
-      }
-
-      if (this.betObject.betObject.total.isActive) {
-        currentBetData.coefficients.push({
-          key: this.betObject.betObject.total.key,
-          id: this.betObject.liveMatch.results[1].coefficientId,
-        })
-      }
-
-      await updateBet(betID, currentBetData)
-
-      await getMatchesLive();
-      await getAllBets();
-      this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
     },
   }
 };
