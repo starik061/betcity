@@ -57,7 +57,8 @@
 
       <!-- !Аккордеон -->
       <div class="accordion-forecast-amount-wrapper">
-        <div v-if="hasBets(betDetailIdx)" class="forecasts-amount-indicator">{{ liveMatches[betDetailIdx]?.bets?.length
+        <div v-if="hasAdditionalBetSettingsActive(betDetailIdx)" class="forecasts-amount-indicator">{{
+          hasAdditionalBetSettingsActive(betDetailIdx)
         }}
         </div>
         <div class="accordion">
@@ -338,6 +339,22 @@ export default {
         return true;
       }
       return false;
+    },
+
+    hasAdditionalBetSettingsActive(index) {
+      let settingsCount = 0
+
+      if (this.betsDetails[index].total.isActive) {
+        settingsCount++;
+      }
+      if (this.betsDetails[index].exact.isActive) {
+        settingsCount++;
+      }
+      if (this.betsDetails[index].danger) {
+        settingsCount++;
+      }
+
+      return settingsCount;
     }
   }
 }
