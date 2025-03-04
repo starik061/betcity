@@ -96,10 +96,6 @@ export default {
   },
 
   computed: {
-    tgUser() {
-      return this.appStore.initDataUnsafe?.user;
-    },
-
     gameUserInfo() {
       return this.appStore.gameUserInfo;
     },
@@ -119,24 +115,24 @@ export default {
     },
 
     userName() {
-      if (this.tgUser?.username) {
+      if (this.appStore.initDataUnsafe?.user?.username) {
         // Ограничение строки до 15 символов с использованием slice
-        return "@" + this.tgUser?.username.slice(0, 15) + (this.tgUser?.username > 15 ? '...' : '');
+        return "@" + this.appStore.initDataUnsafe?.user?.username.slice(0, 15) + (this.appStore.initDataUnsafe?.user?.username > 15 ? '...' : '');
       }
       return "Нет данных";
     },
 
     userRank() {
-      return this.gameUserInfo.scoreRank.toString() || "-";
+      return this.appStore.gameUserInfo.scoreRank.toString() || "-";
     },
 
     phoneNumber() {
       return this.phoneNumberMasked.replace(/[^\d]/g, '').replace(/^/, '+');
     },
     userPhoneInProfile() {
-      if (this.gameUserInfo && this.gameUserInfo.phone) {
+      if (this.appStore.gameUserInfo && this.appStore.gameUserInfo.phone) {
         // Убираем все нецифровые символы из строки
-        const digits = this.gameUserInfo.phone.replace(/\D/g, '');
+        const digits = this.appStore.gameUserInfo.phone.replace(/\D/g, '');
 
         // Начинаем с плюса
         let formattedNumber = '+';
