@@ -7,7 +7,7 @@
         <img class="avatar" :src="avatarImage" />
         <div class="username-place-container">
           <p class="username">{{ name }} <span class="tg-username">{{ userName }}</span></p>
-          <span class="rating-place">5000</span>
+          <span class="rating-place" :class="{ 'rectangular': userRank?.length > 1 }">{{ userRank }}</span>
         </div>
 
       </div>
@@ -44,25 +44,6 @@
     <h2 class="rating-list-header">История прогнозов</h2>
 
     <ul class="forecast-history-list">
-      <li class="forecast-history-list-item">
-        <div class="forecast-history-list-item-wrapper">
-          <div class="forecast-history-info-container">
-            <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
-            <p class="forecast-history-date">прогноз от 01.02.2025</p>
-          </div>
-
-          <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
-
-          <div class="score forecast-history-score">
-            <div class="score-coin-wrapper">
-              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-            </div>
-            <span class="score-text">+2</span>
-          </div>
-        </div>
-
-      </li>
-
       <li class="forecast-history-list-item">
         <div class="forecast-history-list-item-wrapper">
           <div class="forecast-history-info-container">
@@ -123,19 +104,16 @@ export default {
       return this.appStore.gameUserInfo;
     },
     avatarImage() {
-      if (this.tgUser?.photo_url) {
-        return this.tgUser.photo_url;
+      if (this.gameUserInfo?.pic) {
+        return this.gameUserInfo?.pic;
       }
       return avatarPlaceholder
     },
 
     name() {
-      if (this.tgUser) {
-        if (this.tgUser?.first_name || this.tgUser?.last_name) {
-          let username = this.tgUser.first_name + " " + this.tgUser.last_name;
-          // Ограничение строки до 15 символов с использованием slice
-          return username.slice(0, 15) + (username.length > 15 ? '...' : '');
-        }
+      if (this.gameUserInfo && this.gameUserInfo.name) {
+        // Ограничение строки до 17 символов с использованием slice
+        return this.gameUserInfo.name.slice(0, 17) + (this.gameUserInfo.name.length > 17 ? '...' : '');
       }
       return "Нет данных";
     },
@@ -146,6 +124,10 @@ export default {
         return "@" + this.tgUser?.username.slice(0, 15) + (this.tgUser?.username > 15 ? '...' : '');
       }
       return "Нет данных";
+    },
+
+    userRank() {
+      return this.gameUserInfo.scoreRank.toString() || "-";
     },
 
     phoneNumber() {
@@ -264,11 +246,22 @@ export default {
 }
 
 .rating-place {
-  padding: 2px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 12px;
   font-family: "Styrene A";
   font-size: 8px;
   background-color: var(--color-element-background-2);
   border-radius: 20px;
+
+  &.rectangular {
+    width: auto;
+    padding: 0 8px;
+    border-radius: 6px;
+
+  }
 }
 
 .score-change-period {

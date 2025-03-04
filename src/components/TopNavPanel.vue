@@ -121,16 +121,12 @@ export default {
   },
 
   computed: {
-    tgUser() {
-      return this.appStore.initDataUnsafe?.user;
-    },
-
     gameUserInfo() {
       return this.appStore.gameUserInfo;
     },
     avatarImage() {
-      if (this.tgUser?.photo_url) {
-        return this.tgUser.photo_url;
+      if (this.gameUserInfo?.pic) {
+        return this.gameUserInfo?.pic;
       }
       return avatarPlaceholder
     }
