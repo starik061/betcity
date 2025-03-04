@@ -190,6 +190,8 @@ export default {
       this.closeModal('dailyReward')
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
+        this.appStore.dailyRewardStatus.hasClaimed = true;
+
       }
     },
 

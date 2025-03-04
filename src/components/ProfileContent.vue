@@ -158,6 +158,10 @@ export default {
 
       }
       return false
+    },
+
+    allBets() {
+      return this.appStore.allBets;
     }
   },
 
