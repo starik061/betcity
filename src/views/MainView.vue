@@ -191,7 +191,9 @@ export default {
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
         this.appStore.dailyRewardStatus.hasClaimed = true;
-
+        getRating("top", 100);
+        getRating("top-weekly", 100);
+        toast.success("Ежедневная награда получена");
       }
     },
 
