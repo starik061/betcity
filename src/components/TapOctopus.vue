@@ -186,7 +186,7 @@ export default {
       this.startCountdown();
     },
 
-    incrementClickCount() {
+    async incrementClickCount() {
       this.clickCount++;
 
       gsap.to(this.$refs.octopusImg, {
@@ -226,7 +226,7 @@ export default {
 
         this.successExplosion();  // Запуск феерии успеха
         toast.success("Награда получена!");
-        claimOctopusTapReward();
+        await claimOctopusTapReward();
         getRating("top", 100);
         getRating("top-weekly", 100);
       }
