@@ -98,7 +98,7 @@ export default {
     },
 
     userRank() {
-      return this.activeWeeklyRating ? (this.gameUserInfo?.weeklyRank.toString() || "-") : (this.gameUserInfo.scoreRank.toString() || "-")
+      return this.activeWeeklyRating ? (this.appStore.gameUserInfo?.weeklyRank.toString() || "-") : (this.appStore.gameUserInfo?.scoreRank.toString() || "-")
     },
     userBalance() {
       return this.activeWeeklyRating ? (this.appStore.gameUserInfo?.weeklyScore?.toString() || "-") : (this.appStore.gameUserInfo?.score?.toString() || "-")
