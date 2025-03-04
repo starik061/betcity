@@ -59,13 +59,6 @@ export default {
     const successAuth = await authUser.call(this);
     if (!successAuth) return
 
-    // Предзагрузка аватара, если доступен
-    if (this.appStore.initDataUnsafe?.user?.photoUrl) {
-      this.addPreloadLink(this.appStore.initDataUnsafe.user.photoUrl);
-    }
-    // Предзагрузка логотипов команд после получения данных о матчах
-    this.preloadTeamLogos();
-
     await getDailyRewardStatus();
     await generateRefLink()
     await getMatchesLive();
