@@ -41,6 +41,8 @@
         </li>
 
       </ul>
+
+      <p v-else class="no-friends-text">Список ваших приглашенных друзей пуст.</p>
     </div>
   </div>
 </template>
@@ -206,5 +208,12 @@ export default {
     left: 8%;
     transform: rotate(-45deg);
   }
+}
+
+.no-friends-text {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-size: 13px;
+  text-align: center;
 }
 </style>
