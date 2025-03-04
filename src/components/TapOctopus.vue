@@ -26,7 +26,8 @@
 import { gsap } from "gsap";
 import { useAppStore } from "@/stores/appStore";
 import {
-  claimOctopusTapReward
+  claimOctopusTapReward,
+  getRating
 } from "@/api/index.js";
 import { toast } from 'vue3-toastify';
 
@@ -225,7 +226,9 @@ export default {
 
         this.successExplosion();  // Запуск феерии успеха
         toast.success("Награда получена!");
-        claimOctopusTapReward()
+        claimOctopusTapReward();
+        getRating("top", 100);
+        getRating("top-weekly", 100);
       }
     },
 

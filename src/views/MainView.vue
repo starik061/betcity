@@ -155,7 +155,7 @@ import { initBackButton } from "@/utils/initBackButton.js";
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
-import { claimDailyReward, createBet, updateBet } from "@/api/index.js";
+import { claimDailyReward, createBet, updateBet, getRating } from "@/api/index.js";
 import {
   getMatchesLive,
   getAllBets
