@@ -308,7 +308,6 @@ export default {
     },
 
     handleScoreInput(event, team, index) {
-      console.log(event.target.value);
       let value = parseInt(event.target.value, 10);
 
       if (isNaN(value)) value = 0;
@@ -474,7 +473,7 @@ input:checked+label .accordion-checkbox-immitator {
 .main-forecast-btn:disabled {
   background: var(--color-background);
   color: var(--color-element-border);
-  outline: 1px solid var(--color-element-border);
+  // outline: 1px solid var(--color-element-border);
 }
 
 .accordion-forecast-amount-wrapper {

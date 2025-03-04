@@ -10,7 +10,8 @@
       <img src="/img/octopus-pavel.png" alt="octopus pavel - mascot of betcity" class="avatar-img">
     </div>
 
-    <h2 class="header">Упс!!! <br> Что-то пошло не так...</h2>
+    <h2 v-if="isTelegram" class="header">Упс!!! <br> Что-то пошло не так...</h2>
+    <h2 v-else class="header">Приложение доступно только в Telegram!</h2>
 
   </div>
 </template>
@@ -24,6 +25,15 @@ export default {
 
     }
   },
+
+  computed: {
+    isTelegram() {
+      if (window.Telegram.WebApp && window.Telegram.WebApp.initData) {
+        return true;
+      }
+      return false;
+    }
+  }
 }
 
 </script>

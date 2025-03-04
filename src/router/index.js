@@ -66,12 +66,6 @@ const router = createRouter({
     },
 
     {
-      path: "/unsupported-platform",
-      name: "unsupported-platform",
-      component: UnsupportedPlatform
-    },
-
-    {
       path: "/:pathMatch(.*)*",
       name: "error",
       component: UnsupportedPlatform

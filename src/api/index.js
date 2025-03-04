@@ -157,8 +157,6 @@ export async function createBet(betID, data) {
     headers = testAuthHeaders;
   }
 
-  console.log("data", data);
-
   try {
     const response = await fetch(`${BASE_URL}/bet/${betID}`, {
       method: "POST",
@@ -265,7 +263,6 @@ export async function setPhoneNumber(phone) {
     if (response.status !== 201 && response.status !== 200) {
       throw new Error(response.status);
     }
-    console.log("true phone");
     return true;
   } catch (error) {
     console.error(error);

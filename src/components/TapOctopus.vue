@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     startGameShowing() {
-      const delay = Math.random() * 5 + 0; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
+      const delay = Math.random() * 5 + 20; // 5-10 секунд стоит для тестов -исправить потом вторую 5 на 20
       gsap.delayedCall(delay, this.showOctopus);
     },
 
