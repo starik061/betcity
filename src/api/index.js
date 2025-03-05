@@ -112,7 +112,7 @@ export async function getUserProfile() {
       console.error("Ответ пустой или не является JSON");
     }
   } catch (error) {
-    console.error("Ошибка авторизации:", error);
+    console.error("Ошибка загрузки данных профиля:", error);
   }
 }
 // _____________________
@@ -142,7 +142,7 @@ export async function getMatchesLive() {
     const data = await response.json();
     appStore.liveMatches = data;
   } catch (error) {
-    console.error("Ошибка авторизации:", error);
+    console.error("Ошибка загрузки активных матчей:", error);
   }
 }
 
@@ -172,7 +172,7 @@ export async function createBet(betID, data) {
       throw new Error(response.status);
     }
   } catch (error) {
-    console.error("Ошибка:", error);
+    console.error("Ошибка создания прогноза", error);
   }
 }
 
@@ -202,13 +202,13 @@ export async function updateBet(betID, data) {
       throw new Error(response.status);
     }
   } catch (error) {
-    console.error("Ошибка:", error);
+    console.error("Ошибка обновления прогноза", error);
   }
 }
 
 // _____________________
 
-export async function getAllBets() {
+export async function getAllBets(betstype) {
   const appStore = useAppStore();
   let headers;
   if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
@@ -217,8 +217,27 @@ export async function getAllBets() {
     headers = testAuthHeaders;
   }
 
+  // betstype случаи:
+  //.  - если не задан, то выдает все
+  // "active" - только активные
+  // "completed" - только завершенные
+  let urlEnd;
+  switch (betstype) {
+    case "active": {
+      urlEnd = "?status=active";
+      break;
+    }
+    case "completed": {
+      urlEnd = "?status=completed";
+      break;
+    }
+    default: {
+      urlEnd = "";
+    }
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/bet`, {
+    const response = await fetch(`${BASE_URL}/bet${urlEnd}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -232,9 +251,22 @@ export async function getAllBets() {
     }
 
     const data = await response.json();
-    appStore.allBets = data;
+
+    switch (betstype) {
+      case "active": {
+        appStore.activeBets = data;
+        break;
+      }
+      case "completed": {
+        appStore.completedBets = data;
+        break;
+      }
+      default: {
+        appStore.allBets = data;
+      }
+    }
   } catch (error) {
-    console.error("Ошибка авторизации:", error);
+    console.error("Ошибка загрузки прогнозов:", error);
   }
 }
 

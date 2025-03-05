@@ -20,7 +20,9 @@ export const useAppStore = defineStore("app", {
     referrals: [],
 
     liveMatches: [],
-    allBets: [],
+    allBets: [], // возможно излишнее свойство
+    activeBets: [],
+    completedBets: [],
 
     betObject: null,
 
