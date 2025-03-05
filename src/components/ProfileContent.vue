@@ -88,7 +88,23 @@
             <span class="score-text">{{ getBetAmount(activeBet) }}</span>
           </div>
         </div>
-        <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
+        <div class="additionals-container">
+          <div v-if="getExactIndex(activeBet)" class="forecast-history-list-item-additional">Точный исход: {{
+            activeBet?.event?.homeTeam?.name }} {{ getTeamValue(activeBet, getExactIndex(activeBet), "home")
+            }}:
+            {{
+              activeBet?.event?.awayTeam?.name }} {{ getTeamValue(activeBet, getExactIndex(activeBet), "away") }}
+
+          </div>
+          <div v-if="getTotalInfo(activeBet)?.index && getTotalInfo(activeBet)?.coef === 'Tb'"
+            class="forecast-history-list-item-additional">Тотал больше
+
+          </div>
+          <div v-if="getTotalInfo(activeBet)?.index && getTotalInfo(activeBet)?.coef === 'Tm'"
+            class="forecast-history-list-item-additional">Тотал меньше </div>
+          <div v-if="activeBet?.danger" class="forecast-history-list-item-additional">Ставка с риском
+          </div>
+        </div>
       </li>
 
     </ul>
@@ -118,10 +134,49 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(completedBet) }}</span>
+            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
           </div>
         </div>
-        <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
+
+        <div class="additionals-container">
+          <div v-if="getExactIndex(completedBet)" class="forecast-history-list-item-additional">Точный исход: {{
+            completedBet?.event?.homeTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "home")
+            }}:
+            {{
+              completedBet?.event?.awayTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "away") }}
+            <span :class="{
+              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
+            }">{{
+              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward)
+            }}</span>
+          </div>
+          <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
+            class="forecast-history-list-item-additional">Тотал больше
+            <span :class="{
+              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
+            }">{{
+              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
+            }}</span>
+          </div>
+          <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
+            class="forecast-history-list-item-additional">Тотал меньше <span :class="{
+              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
+            }">{{
+              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
+            }}</span></div>
+          <div v-if="completedBet?.danger" class="forecast-history-list-item-additional">Ставка с риском <span :class="{
+            'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
+            'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
+            'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
+          }">+1</span>
+          </div>
+        </div>
       </li>
 
     </ul>
@@ -223,6 +278,9 @@ export default {
     },
     completedBets() {
       return Array.isArray(this.appStore.completedBets) ? this.appStore.completedBets : [];
+    },
+    completedBetRewards() {
+      return Array.isArray(this.appStore.completedBetRewards) ? this.appStore.completedBetRewards : [];
     }
   },
 
@@ -281,14 +339,29 @@ export default {
     },
 
     getBetAmount(bet) {
-      if (!bet || (!bet.amount && bet?.amount != 0)) { return "-"; }
+      if (!bet || (!bet.balanceDelta && bet?.balanceDelta != 0)) { return "-"; }
 
-      if (Number(bet.amount) > 0) {
-        return "+" + bet.amount
+      if (Number(bet.balanceDelta) > 0) {
+        return "+" + bet.balanceDelta
       }
 
       if (Number(bet.amount) === 0) {
-        return bet.amount
+        return bet.balanceDelta
+      }
+
+      return "-";
+    },
+
+    getBetExtraAmount(number) {
+      console.log(number)
+      if (!number && number !== 0) { return "-"; }
+
+      if (Number(number) > 0) {
+        return "+" + number
+      }
+
+      if (Number(number) === 0) {
+        return number
       }
 
       return "-";
@@ -311,8 +384,30 @@ export default {
           this.phoneValidErrorMessage = true;
         }
       }
-    }
+    },
 
+    getExactIndex(bet) {
+      const index = bet?.betKeys?.findIndex(betKey => {
+        return betKey.coefficientId === betKey.coefficientKey
+      });
+      return index !== -1 ? index : false;
+    },
+
+    getTotalInfo(bet) {
+      const index = bet?.betKeys?.findIndex(betKey => {
+        return betKey.coefficientKey === "Tb" || betKey.coefficientKey === "Tm"
+      });
+
+      return index !== -1 ? { index, coef: bet?.betKeys[index].coefficientKey } : { index: false };
+    },
+
+    getTeamValue(bet, index, teamType) {
+      if (bet.betKeys[index].value) {
+        const valueArray = bet.betKeys[index].value.split(":");
+        return teamType === "home" ? valueArray[0] : valueArray[1];
+      }
+      return "-"
+    }
 
   }
 }
@@ -526,16 +621,30 @@ export default {
   flex-shrink: 0;
 }
 
-.forecast-history-list-item-additional {
+.additionals-container {
   margin-top: 8px;
   padding-top: 6px;
   border-top: 1px solid var(--color-element-border);
+}
+
+.forecast-history-list-item-additional {
   font-family: "Styrene A";
   font-size: 8px;
   text-align: end;
+  margin-bottom: 2px;
 
   & span {
-    color: var(--color-element-lemongreen)
+    &.plus {
+      color: var(--color-element-lemongreen);
+    }
+
+    &.minus {
+      color: var(--color-element-background-rose);
+    }
+
+    &.zero {
+      color: var(--color-element-border);
+    }
   }
 }
 

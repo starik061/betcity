@@ -155,11 +155,11 @@ import { initBackButton } from "@/utils/initBackButton.js";
 import { useAppStore } from '@/stores/appStore';// Импортируем хранилище
 import { mapActions } from 'pinia';
 
-import { claimDailyReward, createBet, updateBet, getRating } from "@/api/index.js";
 import {
-  getMatchesLive,
+  claimDailyReward, createBet, updateBet, getRating, getCompletedBetRewards, getMatchesLive,
   getAllBets
 } from "@/api/index.js";
+
 
 export default {
   components: { TopNavPanel, BottomNavPanel, ForecastDetails, TapOctopus, Modal, IconForecastDraw },
@@ -299,8 +299,11 @@ export default {
 
         await getMatchesLive();
         await getAllBets();
+        await getAllBets("active");
+        await getAllBets("completed");
+        await getCompletedBetRewards();
         toast.success("Прогноз успешно подтвержден");
-        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
       }
       catch (error) {
         toast.error("Ошибка! Не удалось подтвердить прогноз");
@@ -349,8 +352,11 @@ export default {
 
         await getMatchesLive();
         await getAllBets();
+        await getAllBets("active");
+        await getAllBets("completed");
+        await getCompletedBetRewards();
         toast.success("Прогноз успешно изменен");
-        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+        this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
 
       }
       catch (error) {

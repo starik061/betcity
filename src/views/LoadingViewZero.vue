@@ -42,7 +42,8 @@ import {
   getRating,
   getReferrals,
   octopusTapGameStatusCheck,
-  getAllBets
+  getAllBets,
+  getCompletedBetRewards
 } from "@/api/index.js";
 
 export default {
@@ -65,6 +66,7 @@ export default {
     await getAllBets();
     await getAllBets("active");
     await getAllBets("completed");
+    await getCompletedBetRewards();
     await getRating("top", 100);
     await getRating("top-weekly", 100);
     await getReferrals();

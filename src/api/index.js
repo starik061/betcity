@@ -283,6 +283,39 @@ export async function getAllBets(betstype) {
     console.error("Ошибка загрузки прогнозов:", error);
   }
 }
+
+// _____________________
+
+export async function getCompletedBetRewards() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/completed`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+
+    const data = await response.json();
+    appStore.completedBetRewards = data;
+  } catch (error) {
+    console.error("Ошибка загрузки прогнозов:", error);
+  }
+}
+
 // _____________________
 
 export async function getUnreadCompletedBets() {
