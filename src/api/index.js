@@ -236,6 +236,20 @@ export async function getAllBets(betstype) {
     }
   }
 
+  // switch (betstype) {
+  //   case "active": {
+  //     urlEnd = "/active";
+  //     break;
+  //   }
+  //   case "completed": {
+  //     urlEnd = "/completed";
+  //     break;
+  //   }
+  //   default: {
+  //     urlEnd = "";
+  //   }
+  // }
+
   try {
     const response = await fetch(`${BASE_URL}/bet${urlEnd}`, {
       method: "GET",
@@ -269,7 +283,38 @@ export async function getAllBets(betstype) {
     console.error("Ошибка загрузки прогнозов:", error);
   }
 }
+// _____________________
 
+export async function getUnreadCompletedBets() {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/unread`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
+      body: JSON.stringify({ phone })
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+
+    const data = await response.json();
+    appStore.dailyRewardStatus = data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 // _____________________
 
 export async function setPhoneNumber(phone) {

@@ -44,32 +44,35 @@
     <h2 class="rating-list-header">История прогнозов</h2>
 
     <div class="btn-container">
-      <button class="history-type-btn" :class="{ 'active': isHistoryTypeActive }">
+      <button class="history-type-btn" :class="{ 'active': isHistoryTypeActive }" @click="isHistoryTypeActive = true">
         <span>
           Активные
         </span>
-        <span class="forecast-amount">1</span>
+        <span class="forecast-amount">{{ activeBets.length }}</span>
       </button>
-      <button class="history-type-btn" :class="{ 'active': !isHistoryTypeActive }">
+      <button class="history-type-btn" :class="{ 'active': !isHistoryTypeActive }" @click="isHistoryTypeActive = false">
         <span>
           Завершенные
         </span>
-        <span class="forecast-amount">1</span>
+        <span class="forecast-amount">{{ completedBets.length }}</span>
       </button>
-      <!-- <button class="rating-btn btn-style" :class="{ 'active': activeWeeklyRating }"
-        @click="activeWeeklyRating = true">Недельный</button> -->
+
 
     </div>
 
-    <ul class="forecast-history-list">
-      <li class="forecast-history-list-item">
+    <ul v-if="isHistoryTypeActive && activeBets.length > 0" class="forecast-history-list">
+      <li v-for="(activeBet, activeBetIdx) in activeBets" class="forecast-history-list-item"
+        :key="activeBet + activeBetIdx">
         <div class="forecast-history-list-item-wrapper">
           <div class="forecast-history-info-container">
-            <p class="forecast-history-header">Chelsey VS Bayern, 19:40</p>
-            <p class="forecast-history-date">прогноз от 01.02.2025</p>
+            <p class="forecast-history-header">{{ `${activeBet?.event?.homeTeam?.name} VS
+              ${activeBet?.event?.awayTeam?.name}, ${formatMatchDate(activeBet?.date)}` }}</p>
+            <p class="forecast-history-date">прогноз от {{ formatMatchDay(activeBet?.date) }}</p>
           </div>
 
-          <img src="/img/game-team-logo.png" alt="forecast winner" class="forecast-history-img">
+          <img v-if="getTeamLogo(activeBet)" :src="getTeamLogo(activeBet)" alt="forecast winner"
+            class="forecast-history-img">
+          <IconForecastDraw v-else class="forecast-history-img" />
 
           <div class="score forecast-history-score">
             <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -82,13 +85,48 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">+2</span>
+            <span class="score-text">{{ getBetAmount(activeBet) }}</span>
           </div>
         </div>
         <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
       </li>
 
     </ul>
+
+    <ul v-else-if="!isHistoryTypeActive && completedBets.length > 0" class="forecast-history-list">
+      <li v-for="(completedBet, completedBetIdx) in completedBets" class="forecast-history-list-item"
+        :key="completedBet + completedBetIdx">
+        <div class="forecast-history-list-item-wrapper">
+          <div class="forecast-history-info-container">
+            <p class="forecast-history-header">{{ `${completedBet?.event?.homeTeam?.name} VS
+              ${completedBet?.event?.awayTeam?.name}, ${formatMatchDate(completedBet.date)}` }}</p>
+            <p class="forecast-history-date">прогноз от {{ formatMatchDay(completedBet?.date) }}</p>
+          </div>
+
+          <img v-if="getTeamLogo(completedBet)" :src="getTeamLogo(completedBet)" alt="forecast winner"
+            class="forecast-history-img">
+          <IconForecastDraw v-else class="forecast-history-img" />
+
+          <div class="score forecast-history-score">
+            <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
+                fill="white" />
+            </svg>
+
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+            <span class="score-text">{{ getBetAmount(completedBet) }}</span>
+          </div>
+        </div>
+        <div class="forecast-history-list-item-additional">Тотал меньше <span>+1</span></div>
+      </li>
+
+    </ul>
+
+    <p v-else class="no-bets-text">Ставки отсутствуют</p>
   </div>
 </template>
 
@@ -99,9 +137,10 @@ import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 import { setPhoneNumber } from "@/api/index.js";
 import { toast } from 'vue3-toastify';
 import { MaskInput } from 'vue-3-mask';
+import IconForecastDraw from '@/components/icons/IconForecastDraw.vue';
 
 export default {
-  components: { IconPhoneApproved, MaskInput },
+  components: { IconPhoneApproved, MaskInput, IconForecastDraw },
 
   data() {
     return {
@@ -177,11 +216,38 @@ export default {
     },
 
     allBets() {
-      return this.appStore.allBets;
+      return Array.isArray(this.appStore.allBets) ? this.appStore.allBets : [];
+    },
+    activeBets() {
+      return Array.isArray(this.appStore.activeBets) ? this.appStore.activeBets : [];
+    },
+    completedBets() {
+      return Array.isArray(this.appStore.completedBets) ? this.appStore.completedBets : [];
     }
   },
 
   methods: {
+    formatMatchDate(date) {
+      if (!date) return "--:--"; // Если даты нет, возвращаем заглушку
+
+      const matchDate = new Date(date);
+      const hours = matchDate.getHours().toString().padStart(2, "0");
+      const minutes = matchDate.getMinutes().toString().padStart(2, "0");
+
+      return `${hours}:${minutes}`;
+    },
+
+    formatMatchDay(isoString) {
+      if (!isoString) return "";
+
+      const date = new Date(isoString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+
+      return `${day}.${month}.${year}`;
+    },
+
     onFocus() {
       this.phoneValidErrorMessage = false;
     },
@@ -194,6 +260,38 @@ export default {
 
       this.isPhoneValid = true;
       return true;
+    },
+
+    getTeamLogo(bet) {
+      if (!bet || !bet.betKeys || !bet.event) return null;
+
+      for (const key of bet.betKeys) {
+        if (key.coefficientKey === "P1") {
+          return bet.event.homeTeam.logoUrl;
+        }
+        if (key.coefficientKey === "P2") {
+          return bet.event.awayTeam.logoUrl;
+        }
+        if (key.coefficientKey === "X") {
+          return bet.event.draw || null;
+        }
+      }
+
+      return null;
+    },
+
+    getBetAmount(bet) {
+      if (!bet || (!bet.amount && bet?.amount != 0)) { return "-"; }
+
+      if (Number(bet.amount) > 0) {
+        return "+" + bet.amount
+      }
+
+      if (Number(bet.amount) === 0) {
+        return bet.amount
+      }
+
+      return "-";
     },
 
     async handlePhoneBtnClick() {
@@ -455,6 +553,7 @@ export default {
   width: 100%;
   padding: 4px;
   gap: 4px;
+  margin-bottom: 20px;
   background-color: var(--color-element-border);
   border-radius: 11px;
 }
@@ -465,8 +564,9 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 8px 0;
+  gap: 6px;
   font-size: 15px;
-  line-height: 22px;
+  line-height: 1;
   color: var(--color-text);
   border-radius: 8px;
 
@@ -493,5 +593,10 @@ export default {
     border-radius: 10px;
 
   }
+}
+
+.no-bets-text {
+  margin-top: 60px;
+  text-align: center;
 }
 </style>
