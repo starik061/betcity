@@ -1,6 +1,6 @@
 import { useAppStore } from "@/stores/appStore"; // Импортируем хранилище
 
-const BASE_URL = "https://app.betcity.tech";
+const BASE_URL = "https://app.betcity.tech/api";
 
 const authHeaders = () => {
   const { initDataUnsafe } = window.Telegram.WebApp;
