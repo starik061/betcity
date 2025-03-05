@@ -63,12 +63,14 @@ export default {
     await generateRefLink()
     await getMatchesLive();
     await getAllBets();
+    await getAllBets("active");
+    await getAllBets("completed");
     await getRating("top", 100);
     await getRating("top-weekly", 100);
     await getReferrals();
     await octopusTapGameStatusCheck();
 
-    this.addBetsToMatches(this.appStore.liveMatches, this.appStore.allBets);
+    this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
 
     setTimeout(() => {
       let isFirstEnter = false;
@@ -164,10 +166,10 @@ export default {
       });
     },
 
-    addBetsToMatches(liveMatches, allBets) {
+    addBetsToMatches(liveMatches, activeBets) {
       liveMatches.forEach(match => {
         // Ищем все ставки, которые соответствуют текущему матчу
-        allBets.forEach(bet => {
+        activeBets.forEach(bet => {
           if (bet.id === match.id) {
             // Если у матча ещё нет свойства `bets`, создаём его
             if (!match.bets) {
