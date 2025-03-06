@@ -64,7 +64,7 @@
       <div class="accordion-forecast-amount-wrapper">
         <div v-if="hasAdditionalBetSettingsActive(betDetailIdx)" class="forecasts-amount-indicator">{{
           hasAdditionalBetSettingsActive(betDetailIdx)
-        }}
+          }}
         </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
@@ -685,8 +685,8 @@ input:checked+label .accordion-checkbox-immitator {
   justify-content: center;
   align-items: flex-start;
   background-color: #fff;
-  font-size: 10px;
   color: black;
+  font-size: 10px;
   font-weight: normal;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -694,6 +694,7 @@ input:checked+label .accordion-checkbox-immitator {
 
   & .percents {
     color: var(--color-main-orange);
+    font-size: 13px;
     font-weight: bold;
   }
 }
