@@ -81,19 +81,17 @@ export default {
   },
 
   computed: {
-    gameUserInfo() {
-      return this.appStore.gameUserInfo;
-    },
+
     avatarImage() {
-      if (this.gameUserInfo?.pic) {
-        return this.gameUserInfo?.pic;
+      if (this.localUserInfo?.pic) {
+        return this.localUserInfo?.pic;
       }
       return avatarPlaceholder
     },
     name() {
-      if (this.gameUserInfo && this.gameUserInfo.name) {
+      if (this.localUserInfo && this.localUserInfo.name) {
         // Ограничение строки до 17 символов с использованием slice
-        return this.gameUserInfo.name.slice(0, 17) + (this.gameUserInfo.name.length > 17 ? '...' : '');
+        return this.localUserInfo.name.slice(0, 17) + (this.localUserInfo.name.length > 17 ? '...' : '');
       }
       return "Нет данных";
     },
@@ -111,7 +109,7 @@ export default {
   },
 
   watch: {
-    'appStore.gameUserInfo': {
+    'this.appStore.gameUserInfo': {
       handler(newValue) {
         this.localUserInfo = newValue;
       },
