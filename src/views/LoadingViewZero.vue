@@ -60,19 +60,21 @@ export default {
 
     const successAuth = await authUser.call(this);
     if (!successAuth) return
-
-    await getDailyRewardStatus();
-    await generateRefLink()
     await getMatchesLive();
     await getAllBets();
-    await getAllBets("active");
-    await getAllBets("completed");
-    await getCompletedBetRewards();
-    await getRating("top", 100);
-    await getRating("top-weekly", 100);
-    await getReferrals();
-    await octopusTapGameStatusCheck();
-    await getUnreadCompletedBets();
+
+    await Promise.allSettled([
+      getDailyRewardStatus(),
+      generateRefLink(),
+      getAllBets("active"),
+      getAllBets("completed"),
+      getCompletedBetRewards(),
+      getRating("top", 100),
+      getRating("top-weekly", 100),
+      getReferrals(),
+      octopusTapGameStatusCheck(),
+      getUnreadCompletedBets()
+    ]);
 
     this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
 
@@ -86,7 +88,7 @@ export default {
       } else {
         this.$router.push("/main-view");
       }
-    }, 400);
+    }, 1);
   },
 
   methods: {
