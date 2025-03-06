@@ -470,6 +470,7 @@ export default {
 
 
 .gift-btn-style:active {
-  transform: scale(0.98);
+  transition: transform 0.15s ease;
+  transform: scale(0.95);
 }
 </style>
