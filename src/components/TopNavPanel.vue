@@ -20,8 +20,6 @@
         </button>
       </div>
 
-
-
       <div class="notifications-modal" :class="{ show: this.isNotificationsOpen }">
         <button type="button" class="close-btn" @click="closeNotifications">
           <IconCloseBtn />
