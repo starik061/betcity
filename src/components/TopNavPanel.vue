@@ -203,7 +203,7 @@ export default {
 <style lang="scss" scoped>
 .top-panel-container {
   // padding-top: calc(var(--tg-content-safe-area-inset-top) + 23px);
-  padding-top: 52px;
+  padding-top: 72px;
 
   // &.unusual-platform {
   // padding-top: 43px;
