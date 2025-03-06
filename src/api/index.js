@@ -11,7 +11,7 @@ const authHeaders = () => {
     "tg-web-app-hash": initDataUnsafe.hash
   };
 };
-const { initDataUnsafe } = window.Telegram.WebApp;
+
 const testAuthHeaders = {
   "tg-web-app-auth-date": 1740752119,
   "tg-web-app-query-id": 1,
@@ -38,7 +38,7 @@ export async function authUser() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -91,7 +91,7 @@ export async function getUserProfile() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -136,7 +136,7 @@ export async function getMatchesLive() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -176,7 +176,7 @@ export async function createBet(betID, data) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -214,7 +214,7 @@ export async function updateBet(betID, data) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -252,7 +252,7 @@ export async function getAllBets(betstype) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -338,7 +338,7 @@ export async function getCompletedBetRewards() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -378,7 +378,7 @@ export async function getUnreadCompletedBets() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -418,7 +418,7 @@ export async function markBetAsRead(betID) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -455,7 +455,7 @@ export async function setPhoneNumber(phone) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -494,7 +494,7 @@ export async function generateRefLink() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -544,7 +544,7 @@ export async function getDailyRewardStatus() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -584,7 +584,7 @@ export async function claimDailyReward() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -626,7 +626,7 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -671,7 +671,7 @@ export async function getReferrals() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -713,7 +713,7 @@ export async function octopusTapGameStatusCheck() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
@@ -752,7 +752,7 @@ export async function claimOctopusTapReward() {
   // Определяем, какие заголовки использовать
   let headers;
 
-  if (import.meta.env.VITE_NODE_ENV === "production") {
+  if (import.meta.env.MODE === "production") {
     // В продакшене всегда используем authHeaders()
     headers = authHeaders();
   } else {
