@@ -125,10 +125,14 @@
 
         <div class="congrat-modal-forecast-container">
           <div class="congrat-modal-forecast-text-container">
-            <p class="congrat-modal-forecast-header">Chelsey VS Bayern, 19:40</p>
+            <p class="congrat-modal-forecast-header">{{ `${showedUnreadBet?.event?.homeTeam?.name} VS
+              ${showedUnreadBet?.event?.awayTeam?.name},
+              ${formatMatchDate(showedUnreadBet?.event?.date)}` }}</p>
             <p class="congrat-modal-forecast-date">прогноз от {{ formatMatchDay(showedUnreadBet?.bet.date) }}</p>
           </div>
-          <img class="congrat-modal-team-img" src="/img/game-team-logo.png" alt="">
+          <img v-if="getTeamLogo(showedUnreadBet) && getTeamLogo(showedUnreadBet) !== 'draw'"
+            :src="getTeamLogo(showedUnreadBet)" alt="team logo" class="notification-bet-image">
+          <IconForecastDraw v-else class="notification-bet-image" />
 
           <div class="score">
             <div class="score-coin-wrapper">
@@ -221,6 +225,25 @@ export default {
         }
       }
       return "";
+    },
+
+    getTeamLogo(bet) {
+      if (!bet || !bet.bet.betKeys || !bet.event) return null;
+
+      for (const key of bet.bet.betKeys) {
+
+        if (key?.coefficient?.coefficientKey === "P1") {
+          return bet.event.homeTeam.logoUrl;
+        }
+        if (key?.coefficient?.coefficientKey === "P2") {
+          return bet.event.awayTeam.logoUrl;
+        }
+        if (key?.coefficient?.coefficientKey === "X") {
+          return "draw";
+        }
+      }
+
+      return null;
     },
 
     getBetTeamImg(betObject) {
@@ -378,6 +401,16 @@ export default {
       const year = date.getFullYear();
 
       return `${day}.${month}.${year}`;
+    },
+
+    formatMatchDate(date) {
+      if (!date) return "--:--"; // Если даты нет, возвращаем заглушку
+
+      const matchDate = new Date(date);
+      const hours = matchDate.getHours().toString().padStart(2, "0");
+      const minutes = matchDate.getMinutes().toString().padStart(2, "0");
+
+      return `${hours}:${minutes}`;
     },
 
     getBetAmount(bet) {
@@ -826,5 +859,12 @@ export default {
     filter: blur(35px);
     opacity: 0.15;
   }
+}
+
+.notification-bet-image {
+  width: 30px;
+  height: 30px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 </style>

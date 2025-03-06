@@ -33,11 +33,6 @@
             <span class="system-notifications-row-text">Вышло обновление</span>
             <span class="system-notifications-row-date">01.02.2025</span>
           </li>
-
-          <li class="system-notifications-row">
-            <span class="system-notifications-row-text">Вышло обновление</span>
-            <span class="system-notifications-row-date">03.02.2025</span>
-          </li>
         </ul>
 
         <div v-if="areSystemNotifications" class="divider"></div>
@@ -46,7 +41,10 @@
           <li v-for="(unReadBet, unReadBetIdx) in unreadCompletedBets" class="forecast-notifications-row"
             :key="unReadBet + unReadBetIdx" @click="handleForecastNotificationClick(unReadBet)">
             <span class="system-notifications-row-date">матч от {{ formatMatchDay(unReadBet?.bet.date) }}</span>
-            <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
+            <img v-if="getTeamLogo(unReadBet) && getTeamLogo(unReadBet) !== 'draw'" :src="getTeamLogo(unReadBet)"
+              alt="team logo" class="notification-bet-image">
+            <IconForecastDraw v-else class="notification-bet-image" />
+
             <div class="score">
               <div class="score-coin-wrapper">
                 <img class="score-coin" src="/img/coin-cean.png" alt="coins">
@@ -87,13 +85,14 @@
 <script>
 import IconNotificationBell from '@/components/icons/IconNotificationBell.vue';
 import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
+import IconForecastDraw from '@/components/icons/IconForecastDraw.vue';
 import IconCloseBtn from '@/components/icons/IconCloseBtn.vue';
 import { useAppStore } from '@/stores/appStore';
 import { mapActions } from 'pinia';
 import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 
 export default {
-  components: { IconNotificationBell, IconGiftArrow, IconCloseBtn },
+  components: { IconNotificationBell, IconGiftArrow, IconCloseBtn, IconForecastDraw },
   data() {
     return {
       appStore: useAppStore(),
@@ -167,6 +166,26 @@ export default {
       }
 
       return "-";
+    },
+
+    getTeamLogo(bet) {
+
+      if (!bet || !bet.bet.betKeys || !bet.event) return null;
+
+      for (const key of bet.bet.betKeys) {
+
+        if (key?.coefficient?.coefficientKey === "P1") {
+          return bet.event.homeTeam.logoUrl;
+        }
+        if (key?.coefficient?.coefficientKey === "P2") {
+          return bet.event.awayTeam.logoUrl;
+        }
+        if (key?.coefficient?.coefficientKey === "X") {
+          return "draw";
+        }
+      }
+
+      return null;
     },
 
     handleForecastNotificationClick(bet) {
@@ -437,5 +456,12 @@ export default {
   width: 100%;
   text-align: center;
   padding: 60px 10%;
+}
+
+.notification-bet-image {
+  width: 30px;
+  height: 30px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 </style>
