@@ -15,6 +15,11 @@
             <img class="forecast-img" :src="liveMatches[betDetailIdx].homeTeam.logoUrl" alt="hometeam logo">
             <p class="forecast-team"> {{ liveMatches[betDetailIdx].homeTeam.name }}</p>
             <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID, "homeTeam") }}</div>
+
+            <div v-if="betDetail.betDistribution" class="choice-percentage">
+              <span class="percents">{{ betDetail.betDistribution?.homeWin }}</span>
+              <span>выбрали</span>
+            </div>
           </label>
         </li>
 
@@ -29,8 +34,8 @@
             <p class="forecast-team"> Ничья</p>
             <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID) }}</div>
 
-            <div class="choice-percentage">
-              <span class="percents">+70%</span>
+            <div v-if="betDetail.betDistribution" class="choice-percentage">
+              <span class="percents">{{ betDetail.betDistribution?.draw }}</span>
               <span>выбрали</span>
             </div>
           </label>
@@ -46,6 +51,11 @@
             <img class="forecast-img" :src="liveMatches[betDetailIdx].awayTeam.logoUrl" alt="awayteam logo">
             <p class="forecast-team">{{ liveMatches[betDetailIdx].awayTeam.name }}</p>
             <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID, "awayTeam") }}</div>
+
+            <div v-if="betDetail.betDistribution" class="choice-percentage">
+              <span class="percents">{{ betDetail.betDistribution?.awayWin }}</span>
+              <span>выбрали</span>
+            </div>
           </label>
         </li>
       </ul>
@@ -64,7 +74,7 @@
       <div class="accordion-forecast-amount-wrapper">
         <div v-if="hasAdditionalBetSettingsActive(betDetailIdx)" class="forecasts-amount-indicator">{{
           hasAdditionalBetSettingsActive(betDetailIdx)
-          }}
+        }}
         </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
@@ -174,6 +184,7 @@ export default {
       this.appStore.liveMatches.forEach((liveMatch) => {
         // Объект для формирования стурктуры данных, что можно было взаимодействовать с интерфейсом при отсутсвии ставок и при наличии одной
         let dataObject = {
+          betDistribution: null,
           betID: "",
           matchID: liveMatch.id,
           fact: {
@@ -228,6 +239,10 @@ export default {
             dataObject.exact.key = liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.coefficientKey;
             dataObject.exact.valueHome = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[0])
             dataObject.exact.valueAway = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[1])
+          }
+
+          if (liveMatch.betDistribution) {
+            dataObject.betDistribution = liveMatch.betDistribution;
           }
 
           dataObject.betID = liveMatch?.bets[0].id
