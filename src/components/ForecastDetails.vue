@@ -28,6 +28,11 @@
             <!-- <img class="forecast-img" src="/img/game-team-logo.png" alt="team logo"> -->
             <p class="forecast-team"> Ничья</p>
             <div class="forecast-coef">{{ this.getTeamCoef(betDetail.matchID) }}</div>
+
+            <div class="choice-percentage">
+              <span class="percents">+70%</span>
+              <span>выбрали</span>
+            </div>
           </label>
         </li>
 
@@ -108,7 +113,7 @@
                   :class="{ 'no-active': betDetail.total.key !== 'Tb' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 1">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Тотал больше</span>
+                  <span class="accordion-content-settings-text">Тотал больше 2.5</span>
                 </label>
 
                 <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 2" value="Tm"
@@ -118,7 +123,7 @@
                   :class="{ 'no-active': betDetail.total.key !== 'Tm' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 2">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
-                  <span class="accordion-content-settings-text">Тотал меньше</span>
+                  <span class="accordion-content-settings-text">Тотал меньше 2.5</span>
                 </label>
               </li>
 
@@ -667,5 +672,29 @@ input:checked+label .accordion-checkbox-immitator {
   margin-top: 60px;
   font-size: 13px;
   text-align: center;
+}
+
+.choice-percentage {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  padding: 1.5px 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  font-size: 10px;
+  color: black;
+  font-weight: normal;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 1;
+
+  & .percents {
+    color: var(--color-main-orange);
+    font-weight: bold;
+  }
 }
 </style>
