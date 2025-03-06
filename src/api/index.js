@@ -49,7 +49,7 @@ export async function authUser() {
       headers = testAuthHeaders;
     }
   }
-  console.log("headers", headers);
+
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
@@ -204,6 +204,7 @@ export async function createBet(betID, data) {
     }
   } catch (error) {
     console.error("Ошибка создания прогноза", error);
+    throw error; // Прокидываем ошибку дальше
   }
 }
 
@@ -242,6 +243,7 @@ export async function updateBet(betID, data) {
     }
   } catch (error) {
     console.error("Ошибка обновления прогноза", error);
+    throw error; // Прокидываем ошибку дальше
   }
 }
 

@@ -150,7 +150,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getExactIndex(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше
@@ -160,7 +160,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше <span :class="{
@@ -169,7 +169,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span></div>
+              }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional">Ставка с риском <span :class="{
             'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
             'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.betKeys[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
@@ -353,7 +353,6 @@ export default {
     },
 
     getBetExtraAmount(number) {
-      console.log(number)
       if (!number && number !== 0) { return "-"; }
 
       if (Number(number) > 0) {
