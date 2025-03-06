@@ -1,6 +1,6 @@
 import { useAppStore } from "@/stores/appStore"; // Импортируем хранилище
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const authHeaders = () => {
   const { initDataUnsafe } = window.Telegram.WebApp;
@@ -51,7 +51,7 @@ export async function authUser() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/login`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export async function getUserProfile() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/profile`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -149,7 +149,7 @@ export async function getMatchesLive() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/matches`, {
+    const response = await fetch(`${VITE_BASE_URL}/matches`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -189,7 +189,7 @@ export async function createBet(betID, data) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet/${betID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -228,7 +228,7 @@ export async function updateBet(betID, data) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet/${betID}`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet/${betID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -300,7 +300,7 @@ export async function getAllBets(betstype) {
   // }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet${urlEnd}`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet${urlEnd}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -353,7 +353,7 @@ export async function getCompletedBetRewards() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet/completed`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet/completed`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -393,7 +393,7 @@ export async function getUnreadCompletedBets() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet/unread`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet/unread`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -433,7 +433,7 @@ export async function markBetAsRead(betID) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/bet/unread/${betID}`, {
+    const response = await fetch(`${VITE_BASE_URL}/bet/unread/${betID}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -470,7 +470,7 @@ export async function setPhoneNumber(phone) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/phone`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/phone`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -512,7 +512,7 @@ export async function generateRefLink() {
   const url = `https://t.me/Crypto_freedom_news_bot/betcity?startapp=ref${appStore?.gameUserInfo?.id}`;
 
   try {
-    const response = await fetch(`${BASE_URL}/links/shorten`, {
+    const response = await fetch(`${VITE_BASE_URL}/links/shorten`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -559,7 +559,7 @@ export async function getDailyRewardStatus() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/daily/reward-status`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/daily/reward-status`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -599,7 +599,7 @@ export async function claimDailyReward() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/daily/claim-reward`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/daily/claim-reward`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -641,7 +641,7 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/${ratingTypeUrl}?limit=${limit}`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/${ratingTypeUrl}?limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -686,7 +686,7 @@ export async function getReferrals() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/referrals`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/referrals`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -728,7 +728,7 @@ export async function octopusTapGameStatusCheck() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/game/reward-status`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-status`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -767,7 +767,7 @@ export async function claimOctopusTapReward() {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/users/game/claim-reward`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/claim-reward`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
