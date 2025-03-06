@@ -14,7 +14,8 @@
         </div>
       </div>
       <div class="right-side">
-        <button class="score notifications" @click="openNotifications">
+        <button class="score notifications" :class="{ 'unread': areForecastNotifications || areSystemNotifications }"
+          @click="openNotifications">
           <IconNotificationBell />
         </button>
       </div>
@@ -27,7 +28,7 @@
         </button>
         <h2 class="notifications-modal-header">Уведомления</h2>
 
-        <ul class="system-notifications">
+        <ul v-if="areSystemNotifications" class="system-notifications">
           <li class="system-notifications-row">
             <span class="system-notifications-row-text">Вышло обновление</span>
             <span class="system-notifications-row-date">01.02.2025</span>
@@ -39,49 +40,28 @@
           </li>
         </ul>
 
-        <div class="divider"></div>
+        <div v-if="areSystemNotifications" class="divider"></div>
 
-        <ul class="forecast-notifications">
-          <li class="forecast-notifications-row">
-            <span class="system-notifications-row-date">матч от 01.02.2025</span>
+        <ul v-if="areForecastNotifications" class="forecast-notifications">
+          <li v-for="(unReadBet, unReadBetIdx) in unreadCompletedBets" class="forecast-notifications-row"
+            :key="unReadBet + unReadBetIdx" @click="handleForecastNotificationClick(unReadBet)">
+            <span class="system-notifications-row-date">матч от {{ formatMatchDay(unReadBet?.bet.date) }}</span>
             <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
             <div class="score">
               <div class="score-coin-wrapper">
                 <img class="score-coin" src="/img/coin-cean.png" alt="coins">
               </div>
-              <span class="score-text">+1</span>
-            </div>
-          </li>
-
-          <li class="forecast-notifications-row">
-            <span class="system-notifications-row-date">матч от 01.02.2025</span>
-            <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
-            <div class="score">
-              <div class="score-coin-wrapper">
-                <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-              </div>
-              <span class="score-text">+1</span>
-            </div>
-          </li>
-
-          <li class="forecast-notifications-row">
-            <span class="system-notifications-row-date">матч от 01.02.2025</span>
-            <img class="forecast-notifications-img" src="/img/game-team-logo.png" alt="">
-            <div class="score">
-              <div class="score-coin-wrapper">
-                <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-              </div>
-              <span class="score-text">+1</span>
+              <span class="score-text">{{ getBetAmount(unReadBet) }}</span>
             </div>
           </li>
         </ul>
 
+        <p v-if="!areForecastNotifications && !areSystemNotifications" class="no-notifications-text">У вас нет
+          непрочитанных уведомлений</p>
+
         <button class="main-btn btn-style notifications-btn" type="button" @click="handleMoreDetailsBtn"> Подробнее
         </button>
       </div>
-
-
-
 
     </nav>
 
@@ -109,6 +89,7 @@ import IconNotificationBell from '@/components/icons/IconNotificationBell.vue';
 import IconGiftArrow from '@/components/icons/IconGiftArrow.vue';
 import IconCloseBtn from '@/components/icons/IconCloseBtn.vue';
 import { useAppStore } from '@/stores/appStore';
+import { mapActions } from 'pinia';
 import avatarPlaceholder from '@/assets/img/avatar-placeholder.webp';
 
 export default {
@@ -129,10 +110,29 @@ export default {
         return this.gameUserInfo?.pic;
       }
       return avatarPlaceholder
+    },
+
+    areSystemNotifications() {
+      // Здесь нужно написать условие для показа этого вида уведомлений когда продумается функционал
+      return false
+    },
+    areForecastNotifications() {
+      if (this.appStore.unreadCompletedBets && Array.isArray(this.appStore.unreadCompletedBets)) {
+        return this.appStore.unreadCompletedBets.length > 0
+      }
+      return false;
+    },
+    unreadCompletedBets() {
+      if (this.appStore.unreadCompletedBets && Array.isArray(this.appStore.unreadCompletedBets)) {
+        return this.appStore.unreadCompletedBets
+      }
+      return []
     }
   },
 
   methods: {
+    ...mapActions(useAppStore, ['openModal', 'closeModal']),
+
     openNotifications() {
       this.isNotificationsOpen = true;
     },
@@ -142,6 +142,36 @@ export default {
 
     handleMoreDetailsBtn() {
       this.$router.push("/profile");
+    },
+
+    formatMatchDay(isoString) {
+      if (!isoString) return "";
+
+      const date = new Date(isoString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+
+      return `${day}.${month}.${year}`;
+    },
+
+    getBetAmount(bet) {
+      if (!bet || (!bet.balanceDelta && bet?.balanceDelta != 0)) { return "-"; }
+
+      if (Number(bet.balanceDelta) > 0) {
+        return "+" + bet.balanceDelta
+      }
+
+      if (Number(bet.amount) === 0) {
+        return bet.balanceDelta
+      }
+
+      return "-";
+    },
+
+    handleForecastNotificationClick(bet) {
+      this.appStore.showedUnreadBet = bet;
+      this.openModal("congratulations")
     }
   }
 }
@@ -195,6 +225,7 @@ export default {
     position: relative;
 
     &::after {
+      display: none;
       content: '';
       position: absolute;
       top: 2%;
@@ -204,6 +235,12 @@ export default {
       height: 6px;
       background-color: var(--color-element-background-rose);
       border-radius: 50%;
+    }
+  }
+
+  &.notifications.unread {
+    &::after {
+      display: block;
     }
   }
 }
@@ -393,5 +430,12 @@ export default {
 .notifications-btn {
   width: 100%;
   margin-bottom: 0;
+}
+
+.no-notifications-text {
+  font-size: 11px;
+  width: 100%;
+  text-align: center;
+  padding: 60px 10%;
 }
 </style>

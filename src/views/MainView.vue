@@ -95,7 +95,8 @@
     </Modal>
 
     <!-- ! Congratulations modal -->
-    <Modal :modalOpened="appStore.modalsState.congratulations" @close-modal="closeModal('congratulations')">
+    <Modal v-if="showedUnreadBet" :modalOpened="appStore.modalsState.congratulations"
+      @close-modal="handleCloseCongratModal(showedUnreadBet.id)">
       <template #modal-content>
         <strong class="daily-reward-modal-header">Поздравляем!</strong>
         <p class="congrat-modal-text">Твой прогноз выиграл!</p>
@@ -125,7 +126,7 @@
         <div class="congrat-modal-forecast-container">
           <div class="congrat-modal-forecast-text-container">
             <p class="congrat-modal-forecast-header">Chelsey VS Bayern, 19:40</p>
-            <p class="congrat-modal-forecast-date">прогноз от 01.02.2025</p>
+            <p class="congrat-modal-forecast-date">прогноз от {{ formatMatchDay(showedUnreadBet?.bet.date) }}</p>
           </div>
           <img class="congrat-modal-team-img" src="/img/game-team-logo.png" alt="">
 
@@ -133,7 +134,7 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">+1</span>
+            <span class="score-text">{{ getBetAmount(showedUnreadBet) }}</span>
           </div>
         </div>
       </template>
@@ -157,7 +158,7 @@ import { mapActions } from 'pinia';
 
 import {
   claimDailyReward, createBet, updateBet, getRating, getCompletedBetRewards, getMatchesLive,
-  getAllBets
+  getAllBets, markBetAsRead, getUnreadCompletedBets
 } from "@/api/index.js";
 
 
@@ -175,6 +176,10 @@ export default {
         return this.appStore.betObject;
       }
       return null;
+    },
+
+    showedUnreadBet() {
+      return this.appStore.showedUnreadBet;
     }
   },
   mounted() {
@@ -299,9 +304,9 @@ export default {
 
         await getMatchesLive();
         await getAllBets();
-        await getAllBets("active");
-        await getAllBets("completed");
-        await getCompletedBetRewards();
+        getAllBets("active");
+        getAllBets("completed");
+        getCompletedBetRewards();
         toast.success("Прогноз успешно подтвержден");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
       }
@@ -352,9 +357,9 @@ export default {
 
         await getMatchesLive();
         await getAllBets();
-        await getAllBets("active");
-        await getAllBets("completed");
-        await getCompletedBetRewards();
+        getAllBets("active");
+        getAllBets("completed");
+        getCompletedBetRewards();
         toast.success("Прогноз успешно изменен");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
 
@@ -363,6 +368,37 @@ export default {
         toast.error("Ошибка! Не удалось изменить прогноз");
       }
     },
+
+    formatMatchDay(isoString) {
+      if (!isoString) return "";
+
+      const date = new Date(isoString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+
+      return `${day}.${month}.${year}`;
+    },
+
+    getBetAmount(bet) {
+      if (!bet || (!bet.balanceDelta && bet?.balanceDelta != 0)) { return "-"; }
+
+      if (Number(bet.balanceDelta) > 0) {
+        return "+" + bet.balanceDelta
+      }
+
+      if (Number(bet.amount) === 0) {
+        return bet.balanceDelta
+      }
+
+      return "-";
+    },
+
+    async handleCloseCongratModal(id) {
+      await markBetAsRead(id);
+      await getUnreadCompletedBets();
+      this.closeModal('congratulations');
+    }
   }
 };
 </script>

@@ -43,7 +43,8 @@ import {
   getReferrals,
   octopusTapGameStatusCheck,
   getAllBets,
-  getCompletedBetRewards
+  getCompletedBetRewards,
+  getUnreadCompletedBets
 } from "@/api/index.js";
 
 export default {
@@ -71,6 +72,7 @@ export default {
     await getRating("top-weekly", 100);
     await getReferrals();
     await octopusTapGameStatusCheck();
+    await getUnreadCompletedBets();
 
     this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
 

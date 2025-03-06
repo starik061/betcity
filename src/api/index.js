@@ -329,12 +329,11 @@ export async function getUnreadCompletedBets() {
 
   try {
     const response = await fetch(`${BASE_URL}/bet/unread`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         ...headers
-      },
-      body: JSON.stringify({ phone })
+      }
     });
 
     // Проверяем статус ответа
@@ -343,11 +342,41 @@ export async function getUnreadCompletedBets() {
     }
 
     const data = await response.json();
-    appStore.dailyRewardStatus = data;
+    appStore.unreadCompletedBets = data;
   } catch (error) {
     console.error(error);
   }
 }
+
+// _____________________
+
+export async function markBetAsRead(betID) {
+  const appStore = useAppStore();
+  let headers;
+  if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+    headers = authHeaders();
+  } else {
+    headers = testAuthHeaders;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/bet/unread/${betID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // _____________________
 
 export async function setPhoneNumber(phone) {
