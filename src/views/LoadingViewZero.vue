@@ -176,7 +176,7 @@ export default {
       liveMatches.forEach(match => {
         // Ищем все ставки, которые соответствуют текущему матчу
         activeBets.forEach(bet => {
-          if (bet.id === match.id) {
+          if (bet.eventId === match.id) {
             // Если у матча ещё нет свойства `bets`, создаём его
             if (!match.bets) {
               match.bets = [];
