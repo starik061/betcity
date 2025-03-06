@@ -75,7 +75,8 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
-      activeWeeklyRating: false
+      activeWeeklyRating: false,
+      localUserInfo: this.appStore.gameUserInfo
     }
   },
 
@@ -98,12 +99,25 @@ export default {
     },
 
     userRank() {
-      return this.activeWeeklyRating ? (this.appStore.gameUserInfo?.weeklyRank.toString() || "-") : (this.appStore.gameUserInfo?.scoreRank.toString() || "-")
+      return this.activeWeeklyRating
+        ? (this.localUserInfo?.weeklyRank?.toString() || "-")
+        : (this.localUserInfo?.scoreRank?.toString() || "-");
     },
     userBalance() {
-      return this.activeWeeklyRating ? (this.appStore.gameUserInfo?.weeklyScore?.toString() || "-") : (this.appStore.gameUserInfo?.score?.toString() || "-")
-    },
-  }
+      return this.activeWeeklyRating
+        ? (this.localUserInfo?.weeklyScore?.toString() || "-")
+        : (this.localUserInfo?.score?.toString() || "-");
+    }
+  },
+
+  watch: {
+    'appStore.gameUserInfo': {
+      handler(newValue) {
+        this.localUserInfo = newValue;
+      },
+      deep: true
+    }
+  },
 }
 </script>
 
