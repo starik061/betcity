@@ -59,7 +59,7 @@
       подсвечен</p>
 
     <div class="ref-link-container rules-container text">
-      <h2 class="rules-header">Как зарабатывать беткоины</h2>
+      <h2 class="rules-header">Как зарабатывать беткоины?</h2>
 
       <div class="rules-text-big margin">
         <span>За каждый <span style="color:#F7B23B">правильный</span> прогноз начисляем</span>
@@ -67,17 +67,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">+2</span>
-        </div>
-      </div>
-
-      <div class="rules-text-big">
-        <span>За каждый <span style=" color:#E43659">неправильный</span> прогноз минусуем</span>
-        <div class="score">
-          <div class="score-coin-wrapper">
-            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
-          </div>
-          <span class="score-text">+2</span>
+          <span class="score-text">+3</span>
         </div>
       </div>
 
@@ -93,7 +83,7 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">+3</span>
+          <span class="score-text">+8</span>
         </div>
       </div>
 
@@ -103,22 +93,26 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">+3</span>
+          <span class="score-text">+5</span>
         </div>
       </div>
 
-      <div class="rules-text-small margin">
+      <!-- <div class="rules-text-small margin">
         <span>3. Написать минуту первого гола. Угадал?</span>
         <div class="score">
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">+5</span>
+          <span class="score-text">+10</span>
         </div>
+      </div> -->
+
+      <div class="rules-text-small margin">
+        <span>3. Сделать ставку с риском.</span>
       </div>
 
-      <div class="rules-text-small ">
-        <span>4. Сделать ставку с риском.</span>
+      <div class="rules-text-small margin">
+        <span>- За правильный прогноз</span>
         <div class="score">
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
@@ -126,6 +120,29 @@
           <span class="score-text">x2</span>
         </div>
       </div>
+
+      <div class="rules-text-small ">
+        <span>- За неправильный прогноз</span>
+        <div class="score">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
+          <span class="score-text">-3</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rules-text-small margin">
+        <span>Ежедневный вход а приложение</span>
+        <div class="score">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
+          <span class="score-text">+1</span>
+        </div>
+      </div>
+      <p class="change-choice-text change-choice-text">* Начисляется автоматически за каждый день входа</p>
 
       <div class="divider"></div>
 
@@ -157,9 +174,22 @@
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
           </div>
+          <span class="score-text">+3</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rules-text-small margin">
+        <span>Игра "Три в ряд"</span>
+        <div class="score">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
           <span class="score-text">+1</span>
         </div>
       </div>
+      <p class="change-choice-text change-choice-text">* Начисляется раз в день, макс. 1 беткоин за день</p>
 
       <div class="divider"></div>
 
@@ -173,6 +203,17 @@
         <div class="octopus-shadow">
           <img src="/img/tap-octopus-rules.png" class="octopus-rules-img" alt="octopus for tap">
         </div>
+      </div>
+
+      <div class="octopus-section-additional-text-container">
+        <div class="score">
+          <div class="score-coin-wrapper">
+            <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+          </div>
+          <span class="score-text">+1</span>
+        </div>
+        <p class="change-choice-text change-choice-text" style="margin-bottom: 0;">* Макс. 1 беткоин за день</p>
+
       </div>
     </div>
 
@@ -191,7 +232,7 @@
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
           </div>
-          <span class="score-text">
+          <span class="score-text" style="padding-left: 3px;">
             <IconRulesPrizesArrow />
           </span>
         </div>
@@ -209,40 +250,119 @@
       <ul class="game-rules-list game-rules-prizes-list">
 
         <li class="game-rules-list-item game-rules-prizes-list-item">
-          <div class="game-rules-list-number">1</div>
+          <div class="game-rules-list-number" style="background-color:#F7B23B">1</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Холодильник</p>
+          <p class="game-rules-list-text">10.000 &#8381</p>
         </li>
 
         <li class="game-rules-list-item game-rules-prizes-list-item">
           <div class="game-rules-list-number">2</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Стиральная машина</p>
+          <p class="game-rules-list-text">8.000 &#8381</p>
         </li>
 
         <li class="game-rules-list-item game-rules-prizes-list-item">
           <div class="game-rules-list-number">3</div>
           <p class="game-rules-list-text-2">Место</p>
-          <p class="game-rules-list-text">Автомобиль</p>
+          <p class="game-rules-list-text">3.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">4</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">3.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">5</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">3.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">6</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">2.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">7</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">1.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">8</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">1.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">9</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">1.000 &#8381</p>
+        </li>
+
+        <li class="game-rules-list-item game-rules-prizes-list-item">
+          <div class="game-rules-list-number">10</div>
+          <p class="game-rules-list-text-2">Место</p>
+          <p class="game-rules-list-text">1.000 &#8381</p>
         </li>
       </ul>
 
       <div class="rules-text-small margin">
-        <span>Остальные участники рейтинга разыгрывают XX фрибетов по ХХХ рублей. Бонусы будут распределены случайным
-          образом среди игроков.</span>
+        <span>Бонусы будут распределены случайным образом среди игроков>.</span>
       </div>
 
       <p class="change-choice-text change-choice-text">* Сохранить место в рейтинге и получить приз смогут только
-        учавтники, зарегистрированные в БЕТСИТИ и указавшие номер телефона в личном кабинете.</p>
+        участники, зарегистрированные в БЕТСИТИ и указавшие номер телефона в личном кабинете.</p>
+    </div>
 
-      <div class="divider"></div>
+    <div class="ref-link-container rules-container text">
+      <h2 class="rules-header smaller-margin">Как я узнаю, что выиграл?</h2>
 
-      <div class="read-full-rules-link-wrapper">
-        <a href="#" class="read-full-rules-link">Читать полные правила</a>
+      <div class="rules-text-big bigger-margin">
+        Проверь, что в твоем личном кабинете mini-app «Прогнозист Павел» указан номер телефона, по которому ты
+        зарегистрирован в БЕТСИТИ.
+      </div>
+
+      <div class="rules-text-big bigger-margin">
+        Если мы не сможем получить необходимую информацию в течение семи дней с момента окончания розыгрыша, игрок
+        будет исключен из списка призеров.
       </div>
     </div>
 
+    <div class="ref-link-container rules-container text">
+      <h2 class="rules-header smaller-margin">Как начислят призы?</h2>
 
+      <div class="rules-text-big bigger-margin">
+        Обычно на проверки и начисление призов у букмекера уходит не более пяти рабочих дней. Мы дополнительно
+        проинформируем призеров по мере получения от букмекера подтверждения начислений призов.
+      </div>
+    </div>
+
+    <div class="ref-link-container rules-container text">
+      <h2 class="rules-header smaller-margin">Полные условия конкурса. <br>Правила</h2>
+
+      <div class="rules-text-small margin">
+        <span>1. Быть гражданином России старше 18 лет на момент участия в конкурсе.</span>
+      </div>
+
+      <div class="rules-text-small margin">
+        <span>2. Сделать прогнозы на исходы матчей в течение тура. Тур = неделя с понедельника 0:00 по воскресение
+          23:59. Каждую неделю начинается новый тур. Победители тура определяются в течение следующей недели (следующего
+          тура). </span>
+      </div>
+      <div class="rules-text-small margin">
+        <span>3. Победители определяются по месту в рейтинге.</span>
+      </div>
+      <div class="rules-text-small margin">
+        <span>4. Участвовать в конкурсе можно только с одной учетной записи. Попытки получить преимущество над
+          остальными участниками конкурса за счет обхода правил, уязвимостей системы, иных злоупотреблений или
+          потенциально нечестных действий, могут привести к аннулированию прогноза и дисквалификации участника(ов)
+          конкурса.</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -434,7 +554,8 @@ export default {
   padding: 0 5%;
   margin-bottom: 16px;
   justify-content: space-between;
-
+  row-gap: 16px;
+  flex-wrap: wrap;
 }
 
 .rules-frame-text {
@@ -442,7 +563,7 @@ export default {
 }
 
 .game-rules-list-text {
-  margin-top: 10px;
+  // margin-top: 10px;
   font-size: 12px;
 }
 
@@ -452,8 +573,9 @@ export default {
 }
 
 .game-rules-prizes-list-item {
-  width: 20%;
+  width: 33%;
   flex-grow: 0;
+  flex: unset;
 }
 
 .read-full-rules-link-wrapper {
@@ -579,5 +701,12 @@ export default {
     z-index: -1;
     transform: rotate(-45deg);
   }
+}
+
+.octopus-section-additional-text-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
 }
 </style>
