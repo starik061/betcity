@@ -64,7 +64,7 @@
     </nav>
 
     <div class="gift-element">
-      <div class="gift-element-base-content-wrapper">
+      <div class="gift-element-base-content-wrapper gift-btn-style" @click="openBonusLink">
         <div class="gift-circle-top-container">
           <div class="gift-circle-top"></div>
         </div>
@@ -74,8 +74,9 @@
           <img class="gift-image" src="/img/top-nav-gift.png" alt="gift" width="53px" height="53px">
         </div>
 
-        <span>100 000&#8381 В ПОДАРОК</span>
+        <span>2 000&#8381 В ПОДАРОК</span>
         <IconGiftArrow />
+
       </div>
     </div>
 
@@ -191,6 +192,10 @@ export default {
     handleForecastNotificationClick(bet) {
       this.appStore.showedUnreadBet = bet;
       this.openModal("congratulations")
+    },
+
+    openBonusLink() {
+      window.Telegram.WebApp.openLink("https://promote.betcity.ru/2000freebet_reg/?widget_id=freebet2000_bonus2k&refcode=gift_button&icm=1214&utm_source=1214&utm_medium=cpm&utm_campaign=freebet2000_bonus2k_gift_button&utm_content=gift_button_bonus2k");
     }
   }
 }
@@ -463,5 +468,10 @@ export default {
   height: 30px;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+
+.gift-btn-style:active {
+  transform: scale(0.98);
 }
 </style>
