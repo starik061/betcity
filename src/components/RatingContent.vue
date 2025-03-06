@@ -76,12 +76,14 @@ export default {
     return {
       appStore: useAppStore(),
       activeWeeklyRating: false,
-      localUserInfo: this.appStore.gameUserInfo
+      localUserInfo: null
     }
   },
 
+  mounted() {
+    this.localUserInfo = this.appStore.gameUserInfo;
+  },
   computed: {
-
     avatarImage() {
       if (this.localUserInfo?.pic) {
         return this.localUserInfo?.pic;
