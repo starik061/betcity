@@ -228,9 +228,9 @@ export default {
     },
 
     getTeamLogo(bet) {
-      if (!bet || !bet.bet.betKeys || !bet.event) return null;
+      if (!bet || !bet.bet.BetCoefficientKey || !bet.event) return null;
 
-      for (const key of bet.bet.betKeys) {
+      for (const key of bet.bet.BetCoefficientKey) {
 
         if (key?.coefficient?.coefficientKey === "P1") {
           return bet.event.homeTeam.logoUrl;

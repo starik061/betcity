@@ -211,34 +211,34 @@ export default {
         else {
           dataObject.danger = liveMatch.bets[0].danger;
 
-          const isFactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+          const isFactActiveIndex = liveMatch.bets[0].BetCoefficientKey.findIndex(betTypeObj => {
             return betTypeObj.coefficientKey === "P1" || betTypeObj.coefficientKey === "P2" || betTypeObj.coefficientKey === "X"
           })
 
           if (isFactActiveIndex >= 0) {
             dataObject.fact.isActive = true;
-            dataObject.fact.key = liveMatch.bets[0].betKeys[isFactActiveIndex].coefficientKey;
+            dataObject.fact.key = liveMatch.bets[0].BetCoefficientKey[isFactActiveIndex].coefficientKey;
           }
 
 
-          const isTotalActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+          const isTotalActiveIndex = liveMatch.bets[0].BetCoefficientKey.findIndex(betTypeObj => {
             return betTypeObj.coefficientKey === "Tb" || betTypeObj.coefficientKey === "Tm"
           })
 
           if (isTotalActiveIndex >= 0) {
             dataObject.total.isActive = true;
-            dataObject.total.key = liveMatch.bets[0].betKeys[isTotalActiveIndex].coefficientKey;
+            dataObject.total.key = liveMatch.bets[0].BetCoefficientKey[isTotalActiveIndex].coefficientKey;
           }
 
-          const isExactActiveIndex = liveMatch.bets[0].betKeys.findIndex(betTypeObj => {
+          const isExactActiveIndex = liveMatch.bets[0].BetCoefficientKey.findIndex(betTypeObj => {
             return betTypeObj.coefficientKey === betTypeObj.coefficientId
           })
 
           if (isExactActiveIndex >= 0) {
             dataObject.exact.isActive = true;
-            dataObject.exact.key = liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.coefficientKey;
-            dataObject.exact.valueHome = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[0])
-            dataObject.exact.valueAway = Number(liveMatch?.bets[0]?.betKeys[isExactActiveIndex]?.value?.split(":")[1])
+            dataObject.exact.key = liveMatch?.bets[0]?.BetCoefficientKey[isExactActiveIndex]?.coefficientKey;
+            dataObject.exact.valueHome = Number(liveMatch?.bets[0]?.BetCoefficientKey[isExactActiveIndex]?.value?.split(":")[0])
+            dataObject.exact.valueAway = Number(liveMatch?.bets[0]?.BetCoefficientKey[isExactActiveIndex]?.value?.split(":")[1])
           }
 
           if (liveMatch.betDistribution) {
