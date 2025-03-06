@@ -15,10 +15,10 @@
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
-          <router-link to="/game" class="bottom-nav-panel-link btn-style">
+          <button class="bottom-nav-panel-link btn-style game-btn" @click="openGameMiniApp">
             <IconBottomNavGame />
             <p class="bottom-nav-panel-text">Game</p>
-          </router-link>
+          </button>
         </li>
         <li class="bottom-nav-panel-list-item">
           <router-link to="/rating" class="bottom-nav-panel-link btn-style">
@@ -52,6 +52,9 @@ export default {
   methods: {
     handleHomeClick() {
       this.$router.push('/main-view');
+    },
+    openGameMiniApp() {
+      window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
     }
   }
 }
@@ -179,5 +182,17 @@ export default {
   -webkit-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
   -moz-box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
   box-shadow: 0px 0px 38px 18px rgba(0, 112, 243, 0.64);
+}
+
+.game-btn {
+
+  color: var(--color-text);
+  padding: 0;
+
+  & .bottom-nav-panel-text {
+    position: relative;
+    top: 1px;
+    ;
+  }
 }
 </style>
