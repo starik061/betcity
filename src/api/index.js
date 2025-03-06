@@ -4,15 +4,14 @@ const BASE_URL = "https://app.betcity.tech/api";
 
 const authHeaders = () => {
   const { initDataUnsafe } = window.Telegram.WebApp;
-
   return {
     "tg-web-app-auth-date": initDataUnsafe.auth_date,
-    "tg-web-app-query-id": initDataUnsafe.query_id || "",
+    "tg-web-app-query-id": initDataUnsafe?.query_id || 1,
     "tg-web-app-user": encodeURIComponent(JSON.stringify(initDataUnsafe.user)),
     "tg-web-app-hash": initDataUnsafe.hash
   };
 };
-
+const { initDataUnsafe } = window.Telegram.WebApp;
 const testAuthHeaders = {
   "tg-web-app-auth-date": 1740752119,
   "tg-web-app-query-id": 1,
@@ -30,12 +29,9 @@ export async function authUser() {
     // Если нет, проверяем URL
     const params = new URLSearchParams(window.location.search);
     const startApp = params.get("startapp");
-    const startAttach = params.get("startattach");
 
     if (startApp) {
       startParam = startApp;
-    } else if (startAttach) {
-      startParam = startAttach;
     }
   }
 
@@ -53,7 +49,7 @@ export async function authUser() {
       headers = testAuthHeaders;
     }
   }
-
+  console.log("headers", headers);
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
