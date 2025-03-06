@@ -73,6 +73,21 @@
   font-weight: normal;
 }
 
+/* Метод 1: Предотвращение эффекта "отскока" при скролле с помощью CSS */
+html {
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 html {
   overflow-y: scroll; // Нужно чтоб всегда была полоса прокрутки. Потомуц что если ее нет и открывается аккордеон, и прокрутка появляется, то контент сдвигается влево
   overflow-x: hidden;
