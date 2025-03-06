@@ -386,6 +386,7 @@ export default {
         if (isPhoneAccepted) {
           await getUserProfile();
           toast.success("Номер телефона подтвержден");
+          this.$forceUpdate();
         }
         else {
           toast.error("Проверьте правильность введенного номера. Он должен содержать от 10 до 20 цифр");

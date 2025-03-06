@@ -12,7 +12,7 @@
 
       <TopNavPanel class="top-panel-nav" />
 
-      <ForecastDetails />
+      <ForecastDetails ref="forecastDetails" />
 
       <BottomNavPanel class="bottom-panel-nav" />
     </div>
@@ -325,13 +325,17 @@ export default {
 
         await createBet(currentMatchID, currentBetData);
 
-        await getMatchesLive();
-        await getAllBets();
-        getAllBets("active");
-        getAllBets("completed");
-        getCompletedBetRewards();
+        await Promise.allSettled([
+          getMatchesLive(),
+          getAllBets(),
+          getAllBets("active"),
+          getAllBets("completed"),
+          getCompletedBetRewards()
+        ]);
+
         toast.success("Прогноз успешно подтвержден");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
+        this.$refs.forecastDetails.$forceUpdate();
       }
       catch (error) {
         toast.error("Ошибка! Не удалось подтвердить прогноз");
@@ -378,14 +382,17 @@ export default {
 
         await updateBet(betID, currentBetData)
 
-        await getMatchesLive();
-        await getAllBets();
-        getAllBets("active");
-        getAllBets("completed");
-        getCompletedBetRewards();
+        await Promise.allSettled([
+          getMatchesLive(),
+          getAllBets(),
+          getAllBets("active"),
+          getAllBets("completed"),
+          getCompletedBetRewards()
+        ]);
+
         toast.success("Прогноз успешно изменен");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
-
+        this.$refs.forecastDetails.$forceUpdate();
       }
       catch (error) {
         toast.error("Ошибка! Не удалось изменить прогноз");

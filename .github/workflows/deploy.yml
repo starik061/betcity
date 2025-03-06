@@ -17,7 +17,7 @@ jobs:
           npm run build
         
         env:
-          VITE_FIREBASE_CONFIG: ${{ secrets.VITE_FIREBASE_CONFIG }}
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
           
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
