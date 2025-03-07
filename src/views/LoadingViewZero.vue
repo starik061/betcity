@@ -92,53 +92,6 @@ export default {
   },
 
   methods: {
-    // async loadEssentialData() {
-    //   try {
-    // Подгрузка данных о пользователе
-    // const userData = this.telegram.initDataUnsafe.user || null;
-
-    // Имитация запроса данных с API
-    // const response = await fetch("/api/user-data");
-    // const userInfo = await response.json();
-
-    // Можно сохранить в Vuex / Pinia
-    // this.$store.commit("setUserData", userInfo);
-
-    // Дополнительная подгрузка ресурсов
-    //     await this.preloadImages(["/img/friends-octopus.png",
-    //       "/img/loading-four-cap.png",
-    //       "/img/loading-four-gift.png",
-    //       "/img/loading-one-octopus.png",
-    //       "/img/loading-three-content-img.png",
-    //       "/img/loading-two-octopus.png",
-    //       "/img/octopus-pavel.png",
-    //       "/img/rules-octopus.png",
-    //       "/img/todo.png",
-    //       "/img/top-nav-gift.png"]);
-    //   } catch (error) {
-    //     console.error("Ошибка загрузки:", error);
-    //   }
-    // },
-    // async preloadImages(images) {
-    //   return Promise.all(
-    //     images.map(src => {
-    //       return new Promise(resolve => {
-    //         const img = new Image();
-    //         img.src = src;
-    //         img.onload = () => {
-    //           document.body.appendChild(img); // Фиксируем в DOM
-    //             img.style.display = "none"; // Прячем картинку
-    //             resolve(src);
-    //           };
-    //           img.onerror = () => {
-    //             console.warn(`Ошибка загрузки: ${src}`);
-    //             resolve(null);
-    //           };
-    //         });
-    //       })
-    //     );
-    //   }
-
     addPreloadLink(imageUrl) {
       if (!imageUrl) return;
 
@@ -160,12 +113,10 @@ export default {
 
       // Для каждого матча предзагружаем логотипы домашней и гостевой команд
       matchesToPreload.forEach(match => {
-        // Предзагрузка логотипа домашней команды
         if (match?.homeTeam?.logoUrl) {
           this.addPreloadLink(match.homeTeam.logoUrl);
         }
 
-        // Предзагрузка логотипа гостевой команды
         if (match?.awayTeam?.logoUrl) {
           this.addPreloadLink(match.awayTeam.logoUrl);
         }
@@ -202,7 +153,6 @@ export default {
   align-items: center;
   padding-top: 11%;
   padding-bottom: 80px;
-
 }
 
 .avatar-octopus-container {
@@ -236,7 +186,6 @@ export default {
 .image-container {
   position: relative;
   width: 70%;
-
 }
 
 .call-players-text {
