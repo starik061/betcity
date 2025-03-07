@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="slide" mode="out-in">
+    <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
   </router-view>
@@ -46,29 +46,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Простая и плавная анимация перехода */
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s ease;
+/* Альтернативный вариант с вертикальным смещением */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s ease, transform 0.1s ease;
 }
 
-.slide-enter {
-  transform: translateX(20px);
+.fade-enter-from {
   opacity: 0;
+  transform: translateY(10px);
 }
 
-.slide-enter-to {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.slide-leave {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.slide-leave-to {
-  transform: translateX(-20px);
+.fade-leave-to {
   opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
