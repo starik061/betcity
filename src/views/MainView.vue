@@ -50,8 +50,8 @@
           </div>
 
           <div v-if="betObject.betObject.total.isActive" class="accuracy-forecast-line-wrapper">
-            <span v-if="betObject.betObject.total.key === 'Tb'" class="forecast-type-text">Тотал больше</span>
-            <span v-else class="forecast-type-text">Тотал меньше</span>
+            <span v-if="betObject.betObject.total.key === 'Tb'" class="forecast-type-text">Тотал больше 2.5</span>
+            <span v-else class="forecast-type-text">Тотал меньше 2.5</span>
           </div>
           <div v-if="betObject.betObject.danger" class="accuracy-forecast-line-wrapper">
             <span class="forecast-type-text">Ставка с риском</span>

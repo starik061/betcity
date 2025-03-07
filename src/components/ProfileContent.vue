@@ -106,11 +106,9 @@
 
           </div>
           <div v-if="getTotalInfo(activeBet)?.index && getTotalInfo(activeBet)?.coef === 'Tb'"
-            class="forecast-history-list-item-additional">Тотал больше
-
-          </div>
+            class="forecast-history-list-item-additional">Тотал больше 2.5 </div>
           <div v-if="getTotalInfo(activeBet)?.index && getTotalInfo(activeBet)?.coef === 'Tm'"
-            class="forecast-history-list-item-additional">Тотал меньше </div>
+            class="forecast-history-list-item-additional">Тотал меньше 2.5 </div>
           <div v-if="activeBet?.danger" class="forecast-history-list-item-additional">Ставка с риском
           </div>
         </div>
@@ -170,7 +168,7 @@
             }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
-            class="forecast-history-list-item-additional">Тотал больше
+            class="forecast-history-list-item-additional">Тотал больше 2.5
             <span :class="{
               'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
               'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
@@ -180,7 +178,7 @@
             }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
-            class="forecast-history-list-item-additional">Тотал меньше <span :class="{
+            class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
               'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
               'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
