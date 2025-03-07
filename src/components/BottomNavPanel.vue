@@ -45,6 +45,7 @@ import IconBottomNavGame from '@/components/icons/IconBottomNavGame.vue';
 import IconBottomNavFriends from '@/components/icons/IconBottomNavFriends.vue';
 import IconBottomNavRating from '@/components/icons/IconBottomNavRating.vue';
 import IconLogoButton from '@/components/icons/IconLogoButton.vue';
+import { claimExternalGameReward } from "@/api/index.js";
 
 export default {
   components: { IconLogoButton, IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
@@ -53,7 +54,8 @@ export default {
     handleHomeClick() {
       this.$router.push('/main-view');
     },
-    openGameMiniApp() {
+    async openGameMiniApp() {
+      await claimExternalGameReward();
       window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
     }
   }

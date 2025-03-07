@@ -508,7 +508,6 @@ export async function generateRefLink() {
     }
   }
 
-  // const url = `https://moongivBot/wallet?startapp=ref${appStore?.gameUserInfo?.id}`;
   const url = `https://t.me/Crypto_freedom_news_bot/betcity?startapp=ref${appStore?.gameUserInfo?.id}`;
 
   try {
@@ -728,7 +727,7 @@ export async function octopusTapGameStatusCheck() {
   }
 
   try {
-    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-status`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/octopus/reward-status`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -750,6 +749,45 @@ export async function octopusTapGameStatusCheck() {
 
 // _____________________
 export async function claimOctopusTapReward() {
+  const appStore = useAppStore();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
+
+  try {
+    const response = await fetch(`${VITE_BASE_URL}/users/octopus/claim-reward`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+
+    appStore.gameUserInfo.balance += data?.reward;
+  } catch (error) {
+    console.error("Ошибка получения данных о топе игроков:", error);
+  }
+}
+
+// _____________________
+export async function claimExternalGameReward() {
   const appStore = useAppStore();
   // Определяем, какие заголовки использовать
   let headers;

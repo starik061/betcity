@@ -46,29 +46,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Анимация смены экрана справа налево */
+/* Простая и плавная анимация перехода */
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.15s ease-in-out, opacity 0.1s;
+  transition: all 0.3s ease;
 }
 
 .slide-enter {
-  transform: translateX(100%);
+  transform: translateX(20px);
   opacity: 0;
 }
 
 .slide-enter-to {
-  transform: none;
+  transform: translateX(0);
   opacity: 1;
 }
 
 .slide-leave {
-  transform: none;
+  transform: translateX(0);
   opacity: 1;
 }
 
 .slide-leave-to {
-  transform: translateX(-100%);
+  transform: translateX(-20px);
   opacity: 0;
 }
 </style>
