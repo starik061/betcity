@@ -12,7 +12,7 @@
 
       <TopNavPanel class="top-panel-nav" />
 
-      <ForecastDetails ref="forecastDetails" />
+      <ForecastDetails ref="forecastDetails" :key="rerenderKey" />
 
       <BottomNavPanel class="bottom-panel-nav" />
     </div>
@@ -172,6 +172,7 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
+      rerenderKey: 0
     }
   },
   computed: {
@@ -271,7 +272,7 @@ export default {
       liveMatches.forEach(match => {
         // Ищем все ставки, которые соответствуют текущему матчу
         allBets.forEach(bet => {
-          if (bet.id === match.id) {
+          if (bet.eventId === match.id) {
             // Если у матча ещё нет свойства `bets`, создаём его
             if (!match.bets) {
               match.bets = [];
@@ -335,7 +336,8 @@ export default {
 
         toast.success("Прогноз успешно подтвержден");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
-        this.$refs.forecastDetails.$forceUpdate();
+        // this.$refs.forecastDetails.$forceUpdate();
+        this.rerenderKey++;
       }
       catch (error) {
         toast.error("Ошибка! Не удалось подтвердить прогноз");
@@ -392,7 +394,8 @@ export default {
 
         toast.success("Прогноз успешно изменен");
         this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);
-        this.$refs.forecastDetails.$forceUpdate();
+        // this.$refs.forecastDetails.$forceUpdate();
+        this.rerenderKey++;
       }
       catch (error) {
         toast.error("Ошибка! Не удалось изменить прогноз");
