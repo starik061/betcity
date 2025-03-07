@@ -150,7 +150,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше
@@ -160,7 +160,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше <span :class="{
@@ -169,7 +169,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span></div>
+            }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional">Ставка с риском <span :class="{
             'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
             'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
@@ -311,10 +311,18 @@ export default {
 
       return `${day}.${month}.${year}`;
     },
-    getWeekAmount() {
-      // нужно доделать логиук после того как будут тестовые завершенные ставки
 
-      return "0"
+    getWeekAmount() {
+      if (Array.isArray(this.completedBetRewards)) {
+        let temp = this.completedBetRewards.reduce((total, bet) => {
+          console.log(bet.balanceDelta)
+          return total + bet.balanceDelta;
+        }, 0);
+
+        this.weekAmount = temp.toString();
+      }
+
+      this.weekAmount = "0"
     },
 
     onFocus() {
@@ -644,9 +652,22 @@ export default {
 }
 
 .additionals-container {
-  margin-top: 8px;
-  padding-top: 6px;
-  border-top: 1px solid var(--color-element-border);
+  border-top: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: clip-path 0.3s ease, padding-top 0.3s ease, margin-top 0.3s ease;
+
+  clip-path: inset(0 0 100% 0);
+  /* Начальное состояние: контейнер скрыт */
+
+  &.expanded {
+    border-top: 1px solid var(--color-element-border);
+    max-height: 500px;
+    margin-top: 8px;
+    padding-top: 6px;
+    clip-path: inset(0 0 0 0);
+    /* Показываем контейнер плавно */
+  }
 }
 
 .forecast-history-list-item-additional {
@@ -675,7 +696,14 @@ export default {
   top: 50%;
   left: -22px;
   transform: translateY(-50%) rotate(0deg);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+
+  &.rotated {
+    transform: translateY(-50%) rotate(180deg);
+  }
 }
+
 
 .btn-container {
   display: flex;
@@ -731,25 +759,7 @@ export default {
   text-align: center;
 }
 
-.additionals-container {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.additionals-container.expanded {
-  max-height: 500px;
-}
-
 .forecast-history-score {
   cursor: pointer;
-}
-
-.forecast-history-score-arrow {
-  transition: transform 0.3s ease;
-}
-
-.forecast-history-score-arrow.rotated {
-  transform: rotate(180deg);
 }
 </style>
