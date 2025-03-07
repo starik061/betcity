@@ -117,6 +117,8 @@ router.afterEach((to, from) => {
       window.Telegram.WebApp.BackButton.show();
     }
   }
+
+  window.scrollTo(0, 0);
 });
 
 export default router;
