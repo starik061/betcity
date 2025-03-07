@@ -165,7 +165,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше 2.5
@@ -175,7 +175,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
@@ -184,7 +184,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span></div>
+            }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional">Ставка с риском <span :class="{
             'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
             'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
@@ -498,17 +498,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   font-family: "Styrene A";
   font-size: 8px;
+  line-height: 1;
   background-color: var(--color-element-background-2);
   border-radius: 20px;
 
   &.rectangular {
     width: auto;
     padding: 0 8px;
-    border-radius: 6px;
+    border-radius: 7px;
   }
 }
 
