@@ -44,13 +44,13 @@
     <h2 class="rating-list-header">История прогнозов</h2>
 
     <div class="btn-container">
-      <button class="history-type-btn" :class="{ 'active': isHistoryTypeActive }" @click="isHistoryTypeActive = true">
+      <button class="history-type-btn" :class="{ 'active': isHistoryTypeActive }" @click="toggleHistoryType(true)">
         <span>
           Активные
         </span>
         <span class="forecast-amount">{{ activeBets.length }}</span>
       </button>
-      <button class="history-type-btn" :class="{ 'active': !isHistoryTypeActive }" @click="isHistoryTypeActive = false">
+      <button class="history-type-btn" :class="{ 'active': !isHistoryTypeActive }" @click="toggleHistoryType(false)">
         <span>
           Завершенные
         </span>
@@ -74,9 +74,10 @@
             class="forecast-history-img">
           <IconForecastDraw v-else class="forecast-history-img" />
 
-          <div class="score forecast-history-score">
-            <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+          <div v-if="getExactIndex(activeBet) || getTotalInfo(activeBet)?.index || activeBet?.danger"
+            class="score forecast-history-score" @click="toggleDetails(activeBetIdx)">
+            <svg class="forecast-history-score-arrow" :class="{ 'rotated': isExpanded(activeBetIdx) }" width="16"
+              height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
                 fill="white" />
@@ -85,10 +86,18 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(activeBet) }}</span>
+            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+          </div>
+
+          <div v-else class="score forecast-history-score">
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+            <span class="score-text">{{ getBetAmount(activeBet[activeBetIdx]) }}</span>
           </div>
         </div>
-        <div class="additionals-container">
+
+        <div class="additionals-container" :class="{ 'expanded': isExpanded(activeBetIdx) }">
           <div v-if="getExactIndex(activeBet)" class="forecast-history-list-item-additional">Точный исход: {{
             activeBet?.event?.homeTeam?.name }} {{ getTeamValue(activeBet, getExactIndex(activeBet), "home")
             }}:
@@ -123,7 +132,8 @@
             class="forecast-history-img">
           <IconForecastDraw v-else class="forecast-history-img" />
 
-          <div class="score forecast-history-score" @click="toggleDetails(completedBetIdx)">
+          <div v-if="getExactIndex(completedBet) || getTotalInfo(completedBet)?.index || completedBet?.danger"
+            class="score forecast-history-score" @click="toggleDetails(completedBetIdx)">
             <svg class="forecast-history-score-arrow" :class="{ 'rotated': isExpanded(completedBetIdx) }" width="16"
               height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -131,6 +141,13 @@
                 fill="white" />
             </svg>
 
+            <div class="score-coin-wrapper">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+          </div>
+
+          <div v-else class="score forecast-history-score">
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
@@ -338,6 +355,10 @@ export default {
       this.isPhoneValid = true;
       return true;
     },
+    toggleHistoryType(boolean) {
+      this.isHistoryTypeActive = boolean;
+      this.expandedItemsArray = []; // Очищаем массив раскрытых элементов
+    },
 
     getTeamLogo(bet) {
       if (!bet || !bet.BetCoefficientKey || !bet.event) return null;
@@ -364,7 +385,7 @@ export default {
         return "+" + bet.balanceDelta
       }
 
-      if (Number(bet.amount) === 0) {
+      if (Number(bet.balanceDelta) === 0) {
         return bet.balanceDelta
       }
 
@@ -655,7 +676,7 @@ export default {
   border-top: none;
   max-height: 0;
   overflow: hidden;
-  transition: clip-path 0.3s ease, padding-top 0.3s ease, margin-top 0.3s ease;
+  transition: clip-path 0.3s ease, padding-top 0.3s ease, margin-top 0.3s ease, max-height 0.2s ease;
 
   clip-path: inset(0 0 100% 0);
   /* Начальное состояние: контейнер скрыт */
