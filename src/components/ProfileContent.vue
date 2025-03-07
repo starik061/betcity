@@ -123,9 +123,9 @@
             class="forecast-history-img">
           <IconForecastDraw v-else class="forecast-history-img" />
 
-          <div class="score forecast-history-score">
-            <svg class="forecast-history-score-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+          <div class="score forecast-history-score" @click="toggleDetails(completedBetIdx)">
+            <svg class="forecast-history-score-arrow" :class="{ 'rotated': isExpanded(completedBetIdx) }" width="16"
+              height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M2.25105 5.21967C2.58579 4.92678 3.1285 4.92678 3.46323 5.21967L8 9.18934L12.5368 5.21967C12.8715 4.92678 13.4142 4.92678 13.7489 5.21967C14.0837 5.51256 14.0837 5.98744 13.7489 6.28033L8.60609 10.7803C8.27136 11.0732 7.72864 11.0732 7.39391 10.7803L2.25105 6.28033C1.91632 5.98744 1.91632 5.51256 2.25105 5.21967Z"
                 fill="white" />
@@ -138,7 +138,7 @@
           </div>
         </div>
 
-        <div class="additionals-container">
+        <div class="additionals-container" :class="{ 'expanded': isExpanded(completedBetIdx) }">
           <div v-if="getExactIndex(completedBet)" class="forecast-history-list-item-additional">Точный исход: {{
             completedBet?.event?.homeTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "home")
             }}:
@@ -206,6 +206,8 @@ export default {
       phoneValidErrorMessage: false,
 
       isHistoryTypeActive: true,
+
+      expandedItemsArray: [] // Массив для хранения индексов раскрытых элементов
     }
   },
 
@@ -416,8 +418,21 @@ export default {
         return teamType === "home" ? valueArray[0] : valueArray[1];
       }
       return "-"
-    }
+    },
 
+    toggleDetails(index) {
+      const position = this.expandedItemsArray.indexOf(index);
+      if (position === -1) {
+        // Если элемент не найден в массиве, добавляем его (раскрываем)
+        this.expandedItemsArray.push(index);
+      } else {
+        this.expandedItemsArray.splice(position, 1);
+      }
+    },
+
+    isExpanded(index) {
+      return this.expandedItemsArray.includes(index);
+    }
   }
 }
 </script>
@@ -482,7 +497,6 @@ export default {
     width: auto;
     padding: 0 8px;
     border-radius: 6px;
-
   }
 }
 
@@ -523,7 +537,6 @@ export default {
     color: white;
     opacity: 0.35;
   }
-
 }
 
 .phone-btn-container {
@@ -716,5 +729,27 @@ export default {
 .no-bets-text {
   margin-top: 60px;
   text-align: center;
+}
+
+.additionals-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.additionals-container.expanded {
+  max-height: 500px;
+}
+
+.forecast-history-score {
+  cursor: pointer;
+}
+
+.forecast-history-score-arrow {
+  transition: transform 0.3s ease;
+}
+
+.forecast-history-score-arrow.rotated {
+  transform: rotate(180deg);
 }
 </style>
