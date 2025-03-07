@@ -95,8 +95,7 @@
             <ul class="accordion-content-settings-list">
               <li class="accordion-content-settings-list-item">
                 <input type="checkbox" class="visually-hidden" :id="'exact-checkbox' + betDetailIdx"
-                  v-model="betsDetails[betDetailIdx].exact.isActive" :disabled="hasBets(betDetailIdx) &&
-                    betDetail.exact.isActive === true">
+                  v-model="betsDetails[betDetailIdx].exact.isActive">
                 <label class="accordion-content-settings-label" :for="'exact-checkbox' + betDetailIdx">
                   <div class="forecast-radio-immitator accordion-checkbox-immitator"></div>
                   <span class="accordion-content-settings-text">Точный исход</span>
@@ -105,20 +104,20 @@
                 <div class="exact-score-container" :class="{ 'disabled': !betDetail.exact.isActive }">
                   <p class="team-name">{{ liveMatches[betDetailIdx].homeTeam.name }}</p>
                   <input type="number" placeholder="0" v-model.number="betDetail.exact.valueHome"
-                    @input="handleScoreInput($event, 'valueHome', betDetailIdx)" :disabled="!betDetail.exact.isActive">
+                    @input="handleScoreInput($event, 'valueHome', betDetailIdx)">
                 </div>
 
                 <div class="exact-score-container" :class="{ 'disabled': !betDetail.exact.isActive }">
                   <p class="team-name">{{ liveMatches[betDetailIdx].awayTeam.name }}</p>
                   <input type="number" placeholder="0" v-model.number="betDetail.exact.valueAway"
-                    @input="handleScoreInput($event, 'valueAway', betDetailIdx)" :disabled="!betDetail.exact.isActive">
+                    @input="handleScoreInput($event, 'valueAway', betDetailIdx)">
                 </div>
               </li>
 
               <li class="accordion-content-settings-list-item">
                 <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 1" value="Tb"
-                  :checked="betDetail.total.key === 'Tb'" @click="toggleTotal($event, betDetailIdx)"
-                  :disabled="hasBets(betDetailIdx) && betDetail.total.key === 'Tb'">
+                  :checked="betDetail.total.key === 'Tb'" @click="toggleTotal($event, betDetailIdx)">
+
                 <label class="accordion-content-settings-label"
                   :class="{ 'no-active': betDetail.total.key !== 'Tb' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 1">
@@ -126,9 +125,9 @@
                   <span class="accordion-content-settings-text">Тотал больше 2.5</span>
                 </label>
 
-                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 2" value="Tm"
-                  :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)"
-                  :disabled="hasBets(betDetailIdx) && betDetail.total.key === 'Tm'">
+                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 1" value="Tm"
+                  :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)">
+
                 <label class="accordion-content-settings-label"
                   :class="{ 'no-active': betDetail.total.key !== 'Tm' && betDetail.total.key !== '' }"
                   :for="'total-checkbox' + betDetailIdx + 2">
@@ -305,13 +304,15 @@ export default {
           this.betsDetails[index].fact.key = event.target.value;
         }
       } else {
-        this.betsDetails[index].fact.isActive = true;
-        this.betsDetails[index].fact.key = event.target.value;
+        console.log(event.target.value)
+        this.betsDetails[index].fact.isActive = this.betsDetails[index].fact.key === event.target.value ? false : true;
+        this.betsDetails[index].fact.key = this.betsDetails[index].fact.key === event.target.value ? "" : event.target.value;
       }
 
     },
 
     toggleTotal(event, index) {
+      // Если нет ставок, позволяем полностью управлять переключателем
       if (!this.hasBets(index)) {
         if (this.betsDetails[index].total.key === event.target.value) {
           this.betsDetails[index].total.isActive = false;
@@ -322,10 +323,19 @@ export default {
           this.betsDetails[index].total.key = event.target.value;
         }
       } else {
-        this.betsDetails[index].total.isActive = true;
-        this.betsDetails[index].total.key = event.target.value;
+        // Если есть ставки, проверяем, включен ли уже переключатель
+        if (this.betsDetails[index].total.key === event.target.value) {
+          // Если переключатель включен, но не был таким изначально (при получении данных)
+          // то позволяем его выключить
+          if (!this.betsDetails[index].originalTotalState) {
+            this.betsDetails[index].total.isActive = false;
+            this.betsDetails[index].total.key = "";
+          }
+        } else {
+          this.betsDetails[index].total.isActive = true;
+          this.betsDetails[index].total.key = event.target.value;
+        }
       }
-
     },
 
     handleScoreInput(event, team, index) {
