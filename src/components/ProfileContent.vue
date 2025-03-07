@@ -19,7 +19,10 @@
           </div>
           <span class="score-text">{{ gameUserInfo?.score || 0 }}</span>
         </div>
-        <p class="score-change-period">За неделю <span>{{ gameUserInfo?.weeklyScore || 0 }}</span></p>
+        <p class="score-change-period">За неделю <span>{{ gameUserInfo?.weeklyScore ? (Number(gameUserInfo.weeklyScore)
+          > 0 ? "+" + gameUserInfo.weeklyScore : gameUserInfo.weeklyScore)
+          : 0
+            }}</span></p>
       </div>
     </nav>
 
