@@ -17,9 +17,9 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">{{ gameUserInfo?.balance || 0 }}</span>
+          <span class="score-text">{{ gameUserInfo?.score || 0 }}</span>
         </div>
-        <p class="score-change-period">За неделю <span>{{ weekAmount }}</span></p>
+        <p class="score-change-period">За неделю <span>{{ gameUserInfo?.weeklyScore || 0 }}</span></p>
       </div>
     </nav>
 
@@ -165,7 +165,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше 2.5
@@ -175,7 +175,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
@@ -184,7 +184,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span></div>
+              }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional">Ставка с риском <span :class="{
             'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
             'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
@@ -217,7 +217,6 @@ export default {
     return {
       appStore: useAppStore(),
       phoneNumberMasked: '',
-      weekAmount: "0",
       isPhoneValid: false,
       phoneValidErrorMessage: false,
 
@@ -227,10 +226,6 @@ export default {
 
       rerenderKey: 0
     }
-  },
-
-  mounted() {
-    this.getWeekAmount();
   },
 
   computed: {
@@ -328,19 +323,6 @@ export default {
       const year = date.getFullYear();
 
       return `${day}.${month}.${year}`;
-    },
-
-    getWeekAmount() {
-      if (Array.isArray(this.completedBetRewards)) {
-        let temp = this.completedBetRewards.reduce((total, bet) => {
-          console.log(bet.balanceDelta)
-          return total + bet.balanceDelta;
-        }, 0);
-
-        this.weekAmount = temp.toString();
-      }
-
-      this.weekAmount = "0"
     },
 
     onFocus() {
