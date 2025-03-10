@@ -74,7 +74,7 @@
       <div class="accordion-forecast-amount-wrapper">
         <div v-if="hasAdditionalBetSettingsActive(betDetailIdx)" class="forecasts-amount-indicator">{{
           hasAdditionalBetSettingsActive(betDetailIdx)
-          }}
+        }}
         </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
@@ -125,7 +125,7 @@
                   <span class="accordion-content-settings-text">Тотал больше 2.5</span>
                 </label>
 
-                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 1" value="Tm"
+                <input type="checkbox" class="visually-hidden" :id="'total-checkbox' + betDetailIdx + 2" value="Tm"
                   :checked="betDetail.total.key === 'Tm'" @click="toggleTotal($event, betDetailIdx)">
 
                 <label class="accordion-content-settings-label"
