@@ -145,7 +145,7 @@
     </Modal>
 
 
-    <!-- ? ! Three in a row reward modal -->
+    <!-- ! Three in a row reward modal -->
     <Modal :modalOpened="appStore.modalsState.gameReward" @close-modal="handleGameRewardModalClose">
       <template #modal-content>
         <strong class="daily-reward-modal-header">Вау, награда</strong>
@@ -160,7 +160,7 @@
           <img src="/img/lighting.svg" alt="lighting" class="lighting">
           <img src="/img/lighting.svg" alt="lighting" class="lighting second">
 
-          <p class="days-count-text">{{ `12 день входа` }} </p>
+          <p class="days-count-text">{{ `${appStore.gameRewardStatus.streak || 1} день входа` }} </p>
 
           <div class="daily-reward-modal-score">
             <div class="score-coin-wrapper big">
