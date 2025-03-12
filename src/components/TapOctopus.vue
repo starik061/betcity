@@ -227,8 +227,12 @@ export default {
         this.successExplosion();  // Запуск феерии успеха
         toast.success("Награда получена!");
         await claimOctopusTapReward();
-        getRating("top", 100);
-        getRating("top-weekly", 100);
+        await new Promise(resolve => setTimeout(resolve, 100)); // Задержка 100 мс
+        await Promise.allSettled([
+          getRating("top", 100),
+          getRating("top-weekly", 100),
+          getUserProfile()
+        ]);
       }
     },
 
