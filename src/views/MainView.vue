@@ -255,12 +255,13 @@ export default {
 
     async handleGameRewardModalClose() {
       const reward = await claimExternalGameReward();
+      this.rerenderKey++;
       this.closeModal('gameReward')
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
         this.appStore.gameRewardStatus.hasClaimed = true;
-        getRating("top", 100);
-        getRating("top-weekly", 100);
+        await getRating("top", 100);
+        await getRating("top-weekly", 100);
         toast.success("Награда за игру получена");
       }
     },

@@ -820,8 +820,10 @@ export async function claimExternalGameReward() {
     const data = await response.json();
     appStore.gameRewardStatus.status = data?.status;
     appStore.gameUserInfo.balance += data?.reward;
+    return data?.reward;
   } catch (error) {
     console.error("Ошибка в запросе о получении награды за игру Три в ряд:", error);
+    return false;
   }
 }
 
@@ -859,8 +861,8 @@ export async function getGameRewardStatus() {
     }
 
     const data = await response.json();
-    appStore.gameRewardStatus?.status = data?.status;
-    appStore.gameRewardStatus?.streak = data?.streak;
+    appStore.gameRewardStatus.status = data?.status;
+    appStore.gameRewardStatus.streak = data?.streak;
   } catch (error) {
     console.error("Ошибка запроса о статусе награды за игру", error);
   }

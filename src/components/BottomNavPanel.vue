@@ -68,7 +68,7 @@ export default {
     async openGameMiniApp() {
       await sendGameRewardRequest();
       // Открываем внешнюю игру
-      // window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
+      window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
 
       setTimeout(() => {
         this.openModal("gameReward");
