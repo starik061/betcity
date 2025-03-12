@@ -190,7 +190,7 @@ import { mapActions } from 'pinia';
 
 import {
   claimDailyReward, createBet, updateBet, getRating, getCompletedBetRewards, getMatchesLive,
-  getAllBets, markBetAsRead, getUnreadCompletedBets
+  getAllBets, markBetAsRead, getUnreadCompletedBets, claimExternalGameReward
 } from "@/api/index.js";
 
 
