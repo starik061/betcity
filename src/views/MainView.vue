@@ -238,7 +238,7 @@ export default {
 
     async handleGameRewardModalClose() {
       const reward = await claimExternalGameReward();
-      this.closeModal('dailyReward')
+      this.closeModal('gameReward')
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
         this.appStore.gameRewardStatus.hasClaimed = true;
