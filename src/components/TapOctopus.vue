@@ -27,7 +27,7 @@ import { gsap } from "gsap";
 import { useAppStore } from "@/stores/appStore";
 import {
   claimOctopusTapReward,
-  getRating
+  getRating, getUserProfile
 } from "@/api/index.js";
 import { toast } from 'vue3-toastify';
 
