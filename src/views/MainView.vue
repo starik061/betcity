@@ -246,7 +246,6 @@ export default {
       this.closeModal('dailyReward')
       if (reward) {
         this.appStore.dailyRewardStatus.hasClaimed = true;
-        await new Promise(resolve => setTimeout(resolve, 100)); // Задержка 100 мс
         await Promise.allSettled([
           getRating("top", 100),
           getRating("top-weekly", 100),
@@ -262,7 +261,6 @@ export default {
       this.closeModal('gameReward')
       if (reward) {
         this.appStore.gameRewardStatus.hasClaimed = true;
-        await new Promise(resolve => setTimeout(resolve, 100)); // Задержка 100 мс
         await Promise.allSettled([
           getRating("top", 100),
           getRating("top-weekly", 100),
