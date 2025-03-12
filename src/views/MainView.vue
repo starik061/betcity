@@ -190,7 +190,7 @@ import { mapActions } from 'pinia';
 
 import {
   claimDailyReward, createBet, updateBet, getRating, getCompletedBetRewards, getMatchesLive,
-  getAllBets, markBetAsRead, getUnreadCompletedBets, claimExternalGameReward
+  getAllBets, markBetAsRead, getUnreadCompletedBets, claimExternalGameReward, getUserProfile
 } from "@/api/index.js";
 
 
@@ -245,24 +245,29 @@ export default {
       const reward = await claimDailyReward();
       this.closeModal('dailyReward')
       if (reward) {
-        this.appStore.gameUserInfo.balance += reward;
         this.appStore.dailyRewardStatus.hasClaimed = true;
-        getRating("top", 100);
-        getRating("top-weekly", 100);
+        await Promise.allSettled([
+          getRating("top", 100),
+          getRating("top-weekly", 100),
+          getUserProfile()
+        ]);
         toast.success("Ежедневная награда получена");
+        this.rerenderKey++;
       }
     },
 
     async handleGameRewardModalClose() {
       const reward = await claimExternalGameReward();
-      this.rerenderKey++;
       this.closeModal('gameReward')
       if (reward) {
-        this.appStore.gameUserInfo.balance += reward;
         this.appStore.gameRewardStatus.hasClaimed = true;
-        await getRating("top", 100);
-        await getRating("top-weekly", 100);
+        await Promise.allSettled([
+          getRating("top", 100),
+          getRating("top-weekly", 100),
+          getUserProfile()
+        ]);
         toast.success("Награда за игру получена");
+        this.rerenderKey++;
       }
     },
 
