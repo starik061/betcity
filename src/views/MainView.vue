@@ -217,8 +217,25 @@ export default {
   },
   mounted() {
     initBackButton.call(this);
-    if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); };
-    if (!this.appStore.gameRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("gameReward") }, 1000); };
+
+    if (!this.appStore.dailyRewardStatus.hasClaimed) {
+      setTimeout(() => {
+        this.openModal("dailyReward");
+
+        // Открываем вторую модалку после закрытия первой
+        if (!this.appStore.gameRewardStatus.hasClaimed) {
+          const checkModalClosed = setInterval(() => {
+            if (!this.appStore.modalsState.dailyReward) {
+              clearInterval(checkModalClosed);
+              this.openModal("gameReward");
+            }
+          }, 300);
+        }
+      }, 500);
+    } else if (!this.appStore.gameRewardStatus.hasClaimed) {
+      // Если первая модалка не нужна, сразу открываем вторую
+      setTimeout(() => { this.openModal("gameReward") }, 500);
+    }
   },
 
   methods: {
