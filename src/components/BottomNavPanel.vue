@@ -70,31 +70,12 @@ export default {
       // Открываем внешнюю игру
       window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
 
-      // Подписываемся на событие изменения viewport (сворачивание/разворачивание приложения)
-      if (window.Telegram && window.Telegram.WebApp) {
-        const originalViewportChangedHandler = window.Telegram.WebApp.onViewportChanged || (() => { });
-
-        window.Telegram.WebApp.onViewportChanged = () => {
-          // Вызываем оригинальный обработчик, если он существует
-          originalViewportChangedHandler();
-
-          // Проверяем, было ли приложение развернуто
-          const isExpanded = window.Telegram.WebApp.isExpanded;
-
-          if (isExpanded) {
-            // Если приложение было развернуто и кнопка игры была нажата
-            if (this.appStore.isGameButtonClicked) {
-              // Открываем модальное окно с наградой
-              setTimeout(() => {
-                this.openModal("gameReward");
-              }, 500);
-            }
-          }
-        };
-      }
+      setTimeout(() => {
+        this.openModal("gameReward");
+      }, 800);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
