@@ -223,7 +223,7 @@ export default {
         this.openModal("dailyReward");
 
         // Открываем вторую модалку после закрытия первой
-        if (!this.appStore.gameRewardStatus.hasClaimed) {
+        if (this.appStore.gameRewardStatus.status === "pending") {
           const checkModalClosed = setInterval(() => {
             if (!this.appStore.modalsState.dailyReward) {
               clearInterval(checkModalClosed);
@@ -232,7 +232,7 @@ export default {
           }, 300);
         }
       }, 500);
-    } else if (!this.appStore.gameRewardStatus.hasClaimed) {
+    } else if (this.appStore.gameRewardStatus.status === "pending") {
       // Если первая модалка не нужна, сразу открываем вторую
       setTimeout(() => { this.openModal("gameReward") }, 500);
     }

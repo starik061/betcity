@@ -47,6 +47,7 @@ import IconBottomNavRating from '@/components/icons/IconBottomNavRating.vue';
 import IconLogoButton from '@/components/icons/IconLogoButton.vue';
 import { useAppStore } from '@/stores/appStore';
 import { mapActions } from 'pinia';
+import { sendGameRewardRequest } from "@/api/index.js";
 
 export default {
   components: { IconLogoButton, IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
@@ -65,14 +66,13 @@ export default {
     },
 
     async openGameMiniApp() {
-      this.appStore.isGameButtonClicked = true;
-
+      await sendGameRewardRequest();
       // Открываем внешнюю игру
-      window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
+      // window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
 
       setTimeout(() => {
         this.openModal("gameReward");
-      }, 800);
+      }, 1000);
     }
   }
 };

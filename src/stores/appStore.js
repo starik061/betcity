@@ -32,8 +32,7 @@ export const useAppStore = defineStore("app", {
 
     octopusTapGameStatus: false,
 
-    isGameButtonClicked: false,
-    gameRewardStatus: { hasClaimed: false, streak: 0 }
+    gameRewardStatus: { status: "", streak: 0 }
   }),
   actions: {
     init() {

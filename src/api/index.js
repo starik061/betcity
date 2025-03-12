@@ -805,7 +805,7 @@ export async function claimExternalGameReward() {
   }
 
   try {
-    const response = await fetch(`${VITE_BASE_URL}/users/game/claim-reward`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-approve`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -818,7 +818,7 @@ export async function claimExternalGameReward() {
       throw new Error(response.status);
     }
     const data = await response.json();
-
+    appStore.gameRewardStatus.status = data?.status;
     appStore.gameUserInfo.balance += data?.reward;
   } catch (error) {
     console.error("Ошибка в запросе о получении награды за игру Три в ряд:", error);
@@ -845,7 +845,7 @@ export async function getGameRewardStatus() {
   }
 
   try {
-    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-status`, {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-request-status`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -859,7 +859,48 @@ export async function getGameRewardStatus() {
     }
 
     const data = await response.json();
-    appStore.gameRewardStatus = data;
+    appStore.gameRewardStatus?.status = data?.status;
+    appStore.gameRewardStatus?.streak = data?.streak;
+  } catch (error) {
+    console.error("Ошибка запроса о статусе награды за игру", error);
+  }
+}
+
+// _____________________
+
+export async function sendGameRewardRequest() {
+  const appStore = useAppStore();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
+
+  try {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+
+    const data = await response.json();
+    appStore.gameRewardStatus.status = data?.status;
   } catch (error) {
     console.error("Ошибка запроса о статусе награды за игру", error);
   }
