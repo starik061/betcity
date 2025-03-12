@@ -6,7 +6,8 @@ export const useAppStore = defineStore("app", {
     modalsState: {
       dailyReward: false,
       forecastDetails: false,
-      congratulations: false
+      congratulations: false,
+      gameReward: false
     },
     initDataUnsafe: null,
     platform: undefined,

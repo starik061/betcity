@@ -144,6 +144,34 @@
       </template>
     </Modal>
 
+
+    <!-- ? ! Three in a row reward modal -->
+    <Modal :modalOpened="appStore.modalsState.gameReward" @close-modal="handleGameRewardModalClose">
+      <template #modal-content>
+        <strong class="daily-reward-modal-header">Вау, награда</strong>
+        <p class="modal-text">Играй в "Три в ряд" каждый <br /> день и получай Беткоин</p>
+        <div class="daily-reward-modal-img-container game-reward-modal-container">
+          <img src="/img/loading-one-rectangle.png" alt="background rectangle" class="background-rectangle">
+          <div class="shadow-wrapper-everyday-modal"></div>
+          <img src="/img/ball.png" alt="ball" class="ball">
+          <img src="/img/loading-four-star.png" alt="star image" class="star">
+          <img src="/img/coin-lightblue.png" alt="lightblue coin" class="lightblue-coin">
+          <img src="/img/coin-green.png" alt="green coin" class="green-coin">
+          <img src="/img/lighting.svg" alt="lighting" class="lighting">
+          <img src="/img/lighting.svg" alt="lighting" class="lighting second">
+
+          <p class="days-count-text">{{ `12 день входа` }} </p>
+
+          <div class="daily-reward-modal-score">
+            <div class="score-coin-wrapper big">
+              <img class="score-coin" src="/img/coin-cean.png" alt="coins">
+            </div>
+            <span>+1</span>
+          </div>
+        </div>
+        <button class="main-btn main-forecast-btn" type="button" @click="handleGameRewardModalClose">Продолжить</button>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -196,6 +224,18 @@ export default {
     ...mapActions(useAppStore, ['openModal', 'closeModal']),
 
     async handleDailyModalClose() {
+      const reward = await claimDailyReward();
+      this.closeModal('dailyReward')
+      if (reward) {
+        this.appStore.gameUserInfo.balance += reward;
+        this.appStore.dailyRewardStatus.hasClaimed = true;
+        getRating("top", 100);
+        getRating("top-weekly", 100);
+        toast.success("Ежедневная награда получена");
+      }
+    },
+
+    async handleGameRewardModalClose() {
       const reward = await claimDailyReward();
       this.closeModal('dailyReward')
       if (reward) {
@@ -876,5 +916,17 @@ export default {
   height: 30px;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+.game-reward-modal-container {
+  position: relative;
+
+  & .ball {
+    position: absolute;
+    width: 46%;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
