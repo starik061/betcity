@@ -217,7 +217,8 @@ export default {
   },
   mounted() {
     initBackButton.call(this);
-    if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); }
+    if (!this.appStore.dailyRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("dailyReward") }, 500); };
+    if (!this.appStore.gameRewardStatus.hasClaimed) { setTimeout(() => { this.openModal("gameReward") }, 1000); };
   },
 
   methods: {
@@ -236,14 +237,14 @@ export default {
     },
 
     async handleGameRewardModalClose() {
-      const reward = await claimDailyReward();
+      const reward = await claimExternalGameReward();
       this.closeModal('dailyReward')
       if (reward) {
         this.appStore.gameUserInfo.balance += reward;
-        this.appStore.dailyRewardStatus.hasClaimed = true;
+        this.appStore.gameRewardStatus.hasClaimed = true;
         getRating("top", 100);
         getRating("top-weekly", 100);
-        toast.success("Ежедневная награда получена");
+        toast.success("Награда за игру получена");
       }
     },
 

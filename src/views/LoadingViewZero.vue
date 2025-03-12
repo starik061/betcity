@@ -44,7 +44,8 @@ import {
   octopusTapGameStatusCheck,
   getAllBets,
   getCompletedBetRewards,
-  getUnreadCompletedBets
+  getUnreadCompletedBets,
+  getGameRewardStatus
 } from "@/api/index.js";
 
 export default {
@@ -73,7 +74,8 @@ export default {
       getRating("top-weekly", 100),
       getReferrals(),
       octopusTapGameStatusCheck(),
-      getUnreadCompletedBets()
+      getUnreadCompletedBets(),
+      getGameRewardStatus()
     ]);
 
     this.addBetsToMatches(this.appStore.liveMatches, this.appStore.activeBets);

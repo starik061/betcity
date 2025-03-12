@@ -30,7 +30,10 @@ export const useAppStore = defineStore("app", {
 
     betObject: null,
 
-    octopusTapGameStatus: false
+    octopusTapGameStatus: false,
+
+    isGameButtonClicked: false,
+    gameRewardStatus: { hasClaimed: false, streak: 0 }
   }),
   actions: {
     init() {

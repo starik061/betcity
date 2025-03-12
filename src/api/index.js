@@ -12,6 +12,14 @@ const authHeaders = () => {
   };
 };
 
+const testAuthHeaders = {
+  "tg-web-app-auth-date": 1740752119,
+  "tg-web-app-query-id": 1,
+  "tg-web-app-user":
+    "%7B%22id%22%3A91816918%2C%22first_name%22%3A%22%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22kiberYashka%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2F75z-Wp2fYIdyCtf5n1gql97vk_8ShGjiaME8DY1jkkw.svg%22%7D",
+  "tg-web-app-hash": "024adea9e3c5fcc27a5b57002e8f00f1e7c65a6272b62e72bb711ead12f745c9"
+};
+
 export async function authUser() {
   const appStore = useAppStore();
   let startParam = "";
@@ -27,7 +35,20 @@ export async function authUser() {
     }
   }
 
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/login`, {
@@ -67,7 +88,21 @@ export async function authUser() {
 // _____________________
 export async function getUserProfile() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
+
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/profile`, {
       method: "GET",
@@ -98,7 +133,20 @@ export async function getUserProfile() {
 
 export async function getMatchesLive() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/matches`, {
@@ -125,7 +173,20 @@ export async function getMatchesLive() {
 
 export async function createBet(betID, data) {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/bet/${betID}`, {
@@ -151,7 +212,20 @@ export async function createBet(betID, data) {
 
 export async function updateBet(betID, data) {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/bet/${betID}`, {
@@ -177,7 +251,20 @@ export async function updateBet(betID, data) {
 
 export async function getAllBets(betstype) {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   // betstype случаи:
   //.  - если не задан, то выдает все
@@ -250,7 +337,20 @@ export async function getAllBets(betstype) {
 
 export async function getCompletedBetRewards() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/bet/completed`, {
@@ -277,7 +377,20 @@ export async function getCompletedBetRewards() {
 
 export async function getUnreadCompletedBets() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/bet/unread`, {
@@ -304,7 +417,20 @@ export async function getUnreadCompletedBets() {
 
 export async function markBetAsRead(betID) {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/bet/unread/${betID}`, {
@@ -328,7 +454,20 @@ export async function markBetAsRead(betID) {
 
 export async function setPhoneNumber(phone) {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/phone`, {
@@ -354,7 +493,20 @@ export async function setPhoneNumber(phone) {
 // _____________________
 export async function generateRefLink() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   const url = `https://t.me/Crypto_freedom_news_bot/betcity?startapp=ref${appStore?.gameUserInfo?.id}`;
 
@@ -390,7 +542,20 @@ export async function generateRefLink() {
 
 export async function getDailyRewardStatus() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/daily/reward-status`, {
@@ -417,7 +582,20 @@ export async function getDailyRewardStatus() {
 
 export async function claimDailyReward() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/daily/claim-reward`, {
@@ -446,7 +624,21 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
   // ratingTypeUrl может быть"top" или ""top-weekly
 
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
+
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/${ratingTypeUrl}?limit=${limit}`, {
       method: "GET",
@@ -477,7 +669,20 @@ export async function getRating(ratingTypeUrl = "top", limit = 10) {
 
 export async function getReferrals() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/referrals`, {
@@ -498,7 +703,7 @@ export async function getReferrals() {
       appStore.referrals = data;
     }
   } catch (error) {
-    console.error("Ошибка получения данных о топе игроков:", error);
+    console.error("Ошибка получения данных о друзьях:", error);
   }
 }
 
@@ -506,7 +711,20 @@ export async function getReferrals() {
 
 export async function octopusTapGameStatusCheck() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/octopus/reward-status`, {
@@ -525,14 +743,27 @@ export async function octopusTapGameStatusCheck() {
 
     appStore.octopusTapGameStatus = data?.hasClaimed;
   } catch (error) {
-    console.error("Ошибка получения данных о топе игроков:", error);
+    console.error("Ошибка в запросе о получении статуса награды за тапанье Осьминога:", error);
   }
 }
 
 // _____________________
 export async function claimOctopusTapReward() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/octopus/claim-reward`, {
@@ -551,14 +782,27 @@ export async function claimOctopusTapReward() {
 
     appStore.gameUserInfo.balance += data?.reward;
   } catch (error) {
-    console.error("Ошибка получения данных о топе игроков:", error);
+    console.error("Ошибка в запросе о получении награды за тапанье Осьминога:", error);
   }
 }
 
 // _____________________
 export async function claimExternalGameReward() {
   const appStore = useAppStore();
-  let headers = authHeaders();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
 
   try {
     const response = await fetch(`${VITE_BASE_URL}/users/game/claim-reward`, {
@@ -577,6 +821,46 @@ export async function claimExternalGameReward() {
 
     appStore.gameUserInfo.balance += data?.reward;
   } catch (error) {
-    console.error("Ошибка получения данных о топе игроков:", error);
+    console.error("Ошибка в запросе о получении награды за игру Три в ряд:", error);
+  }
+}
+
+// _____________________
+
+export async function getGameRewardStatus() {
+  const appStore = useAppStore();
+  // Определяем, какие заголовки использовать
+  let headers;
+
+  if (import.meta.env.MODE === "production") {
+    // В продакшене всегда используем authHeaders()
+    headers = authHeaders();
+  } else {
+    // В разработке проверяем платформу
+    if (appStore.platform === "tdesktop" || appStore.platform === "ios" || appStore.platform === "android") {
+      headers = authHeaders();
+    } else {
+      headers = testAuthHeaders;
+    }
+  }
+
+  try {
+    const response = await fetch(`${VITE_BASE_URL}/users/game/reward-status`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      }
+    });
+
+    // Проверяем статус ответа
+    if (response.status !== 201 && response.status !== 200) {
+      throw new Error(response.status);
+    }
+
+    const data = await response.json();
+    appStore.gameRewardStatus = data;
+  } catch (error) {
+    console.error("Ошибка запроса о статусе награды за игру", error);
   }
 }

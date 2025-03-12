@@ -45,12 +45,17 @@ import IconBottomNavGame from '@/components/icons/IconBottomNavGame.vue';
 import IconBottomNavFriends from '@/components/icons/IconBottomNavFriends.vue';
 import IconBottomNavRating from '@/components/icons/IconBottomNavRating.vue';
 import IconLogoButton from '@/components/icons/IconLogoButton.vue';
-import { claimExternalGameReward } from "@/api/index.js";
 import { useAppStore } from '@/stores/appStore';
 import { mapActions } from 'pinia';
 
 export default {
   components: { IconLogoButton, IconBottomNavRules, IconBottomNavRating, IconBottomNavFriends, IconBottomNavGame },
+
+  data() {
+    return {
+      appStore: useAppStore(),
+    }
+  },
 
   methods: {
     ...mapActions(useAppStore, ['openModal', 'closeModal']),
@@ -58,10 +63,35 @@ export default {
     handleHomeClick() {
       this.$router.push('/main-view');
     },
+
     async openGameMiniApp() {
-      this.openModal("gameReward");
-      // await claimExternalGameReward();
-      // window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
+      this.appStore.isGameButtonClicked = true;
+
+      // Открываем внешнюю игру
+      window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
+
+      // Подписываемся на событие изменения viewport (сворачивание/разворачивание приложения)
+      if (window.Telegram && window.Telegram.WebApp) {
+        const originalViewportChangedHandler = window.Telegram.WebApp.onViewportChanged || (() => { });
+
+        window.Telegram.WebApp.onViewportChanged = () => {
+          // Вызываем оригинальный обработчик, если он существует
+          originalViewportChangedHandler();
+
+          // Проверяем, было ли приложение развернуто
+          const isExpanded = window.Telegram.WebApp.isExpanded;
+
+          if (isExpanded) {
+            // Если приложение было развернуто и кнопка игры была нажата
+            if (this.appStore.isGameButtonClicked) {
+              // Открываем модальное окно с наградой
+              setTimeout(() => {
+                this.openModal("gameReward");
+              }, 500);
+            }
+          }
+        };
+      }
     }
   }
 }
