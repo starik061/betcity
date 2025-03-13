@@ -1979,8 +1979,8 @@
   // library properties:
   lib.properties = {
     id: "DCFFF2F380E46043872989521ABB34F7",
-    width: 311,
-    height: 700,
+    width: 350,
+    height: 788,
     fps: 30,
     color: "#FFFFFF",
     opacity: 1.0,
