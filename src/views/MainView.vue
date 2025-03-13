@@ -522,8 +522,10 @@ export default {
             this.startBannerAnimation()
 
             const closeBtn = document.querySelector(".close-banner-btn");
+            const targetElement = document.querySelector('.gift-element-base-content-wrapper');
             if (closeBtn) {
               closeBtn.addEventListener("click", this.closeBunnerBtnClick);
+              targetElement.addEventListener("click", this.openBonusLink);
             }
           }, 60000)
         }
@@ -532,6 +534,11 @@ export default {
         console.error("Не удалось запустить скрипт проигрывания баннера!", error)
       }
     },
+
+    openBonusLink() {
+      window.Telegram.WebApp.openLink("https://promote.betcity.ru/2000freebet_reg/?widget_id=freebet2000_bonus2k&refcode=fullscreen&icm=1214&utm_source=1214&utm_medium=cpm&utm_campaign=freebet2000_bonus2k_fullscreen&utm_content=fullscreen_bonus2k");
+    },
+
     startBannerAnimation() {
       // Проверяем, показывался ли баннер в этой сессии
       if (this.appStore.isBannerShown) {
