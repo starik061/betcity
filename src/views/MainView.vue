@@ -522,10 +522,10 @@ export default {
             this.startBannerAnimation()
 
             const closeBtn = document.querySelector(".close-banner-btn");
-            const targetElement = document.querySelector('.gift-element-base-content-wrapper');
+            const banner = document.querySelector('#canvas');
             if (closeBtn) {
               closeBtn.addEventListener("click", this.closeBunnerBtnClick);
-              targetElement.addEventListener("click", this.openBonusLink);
+              banner.addEventListener("click", this.openBonusLink);
             }
           }, 60000)
         }
@@ -644,7 +644,7 @@ export default {
             animationContainer.classList.remove('collapsing');
             this.stopBannerAnimation();
           }, 500);
-        }, 5000);
+        }, 5500);
       });
 
       return true;
