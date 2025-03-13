@@ -218,6 +218,8 @@ export default {
   mounted() {
     initBackButton.call(this);
 
+    this.initBanner();
+
     if (!this.appStore.dailyRewardStatus.hasClaimed) {
       setTimeout(() => {
         this.openModal("dailyReward");
@@ -505,6 +507,133 @@ export default {
       await markBetAsRead(id);
       await getUnreadCompletedBets();
       this.closeModal('congratulations');
+    },
+
+    initBanner() {
+      try {
+        // Функция init() связана с проигрыванием баннера, находится в js файле баннера index.js в  папке public.
+        // Согласно ТЗ баннер нужно запускать раз за сессию через минуту после входа.
+        if (!this.appStore.isBannerShown) {
+          setTimeout(() => {
+            window.init();
+            this.startBannerAnimation()
+          }, 5000)
+
+        }
+
+      } catch (error) {
+        console.error("Не удалось запустить скрипт проигрывания баннера!", error)
+      }
+    },
+    startBannerAnimation() {
+      // Проверяем, показывался ли баннер в этой сессии
+      if (this.appStore.isBannerShown) {
+        console.log('Баннер уже был показан в этой сессии');
+        return;
+      }
+
+      // Получаем элемент из которого вылетит баннер
+      const targetElement = document.querySelector('.gift-element-base-content-wrapper');
+      // Получаем анимируемый элемент
+      const animationContainer = document.getElementById('animation_container');
+
+      if (!targetElement || !animationContainer) {
+        console.error('Не найдены необходимые элементы для анимации');
+        return;
+      }
+
+      // Получаем параметры положения целевого элемента
+      const targetRect = targetElement.getBoundingClientRect();
+      const targetCenterX = targetRect.left + targetRect.width / 2;
+      const targetCenterY = targetRect.top + targetRect.height / 2;
+      console.log("targetCenterX", targetCenterX)
+      console.log("targetCenterY", targetCenterY)
+      // Создаем или обновляем стили для анимации
+      let styleElement = document.getElementById('animation-styles');
+
+      if (!styleElement) {
+        styleElement = document.createElement('style');
+        styleElement.id = 'animation-styles';
+        document.head.appendChild(styleElement);
+      }
+
+      styleElement.textContent = `
+    #animation_container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      transform-origin: center center;
+      will-change: transform, opacity;
+    }
+
+    #animation_container.expanding {
+      animation: expandAnimation 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    #animation_container.collapsing {
+      animation: collapseAnimation 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes expandAnimation {
+      0% {
+        transform: translate(calc(${targetCenterX}px - 50vw), calc(${targetCenterY}px - 50vh)) scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes collapseAnimation {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(${targetCenterX}px - 50vw), calc(${targetCenterY}px - 50vh)) scale(0);
+        opacity: 0;
+      }
+    }
+  `;
+
+      // Сначала скрываем элемент
+      animationContainer.style.display = 'none';
+
+      // Используем requestAnimationFrame для точного управления анимацией
+      requestAnimationFrame(() => {
+        // Показываем элемент
+        animationContainer.style.display = 'flex';
+
+        // Запускаем анимацию появления
+        animationContainer.classList.remove('collapsing');
+        animationContainer.classList.add('expanding');
+
+        // Отмечаем в хранилище, что баннер был показан
+        this.appStore.isBannerShown = true;
+
+        // Настраиваем автоматическое закрытие через 5 секунд
+        setTimeout(() => {
+          // Запускаем анимацию исчезновения
+          animationContainer.classList.remove('expanding');
+          animationContainer.classList.add('collapsing');
+
+          // Скрываем элемент после завершения анимации
+          setTimeout(() => {
+            animationContainer.style.display = 'none';
+            animationContainer.classList.remove('collapsing');
+          }, 800); // Уменьшенная длительность анимации исчезновения
+        }, 5500);
+      });
+
+      return true;
     }
   }
 };

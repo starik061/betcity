@@ -32,7 +32,9 @@ export const useAppStore = defineStore("app", {
 
     octopusTapGameStatus: false,
 
-    gameRewardStatus: { status: "", streak: 0 }
+    gameRewardStatus: { status: "", streak: 0 },
+
+    isBannerShown: false
   }),
   actions: {
     init() {

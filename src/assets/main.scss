@@ -260,3 +260,9 @@
     box-shadow: 10px 10px 160px 100px rgba(0, 240, 255, 0.25);
   }
 }
+
+#animation_container {
+  z-index: -1;
+  display: none;
+
+}

@@ -40,7 +40,9 @@ export default {
         telegram.BackButton.onClick(backButtonHandler);
         telegram.BackButton.show();
       }
-    }
+    },
+
+
   }
 }
 </script>
