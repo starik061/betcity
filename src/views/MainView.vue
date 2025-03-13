@@ -514,10 +514,11 @@ export default {
         // Функция init() связана с проигрыванием баннера, находится в js файле баннера index.js в  папке public.
         // Согласно ТЗ баннер нужно запускать раз за сессию через минуту после входа.
         if (!this.appStore.isBannerShown) {
+          window.init();
           setTimeout(() => {
-            window.init();
+
             this.startBannerAnimation()
-          }, 5000)
+          }, 60000)
 
         }
 
@@ -528,7 +529,6 @@ export default {
     startBannerAnimation() {
       // Проверяем, показывался ли баннер в этой сессии
       if (this.appStore.isBannerShown) {
-        console.log('Баннер уже был показан в этой сессии');
         return;
       }
 
@@ -546,8 +546,7 @@ export default {
       const targetRect = targetElement.getBoundingClientRect();
       const targetCenterX = targetRect.left + targetRect.width / 2;
       const targetCenterY = targetRect.top + targetRect.height / 2;
-      console.log("targetCenterX", targetCenterX)
-      console.log("targetCenterY", targetCenterY)
+
       // Создаем или обновляем стили для анимации
       let styleElement = document.getElementById('animation-styles');
 
@@ -559,26 +558,27 @@ export default {
 
       styleElement.textContent = `
     #animation_container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 100;
+      width: 100vw !important;
+      height: 100vh !important;
+      position:fixed;
+      z-index: 10000;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0 auto;
+      background-color: rgba(35, 46, 60, 0.7);
+
+  backdrop-filter: blur(10px);
       transform-origin: center center;
       will-change: transform, opacity;
     }
 
     #animation_container.expanding {
-      animation: expandAnimation 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation: expandAnimation 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     #animation_container.collapsing {
-      animation: collapseAnimation 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation: collapseAnimation 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     @keyframes expandAnimation {
@@ -619,7 +619,7 @@ export default {
         // Отмечаем в хранилище, что баннер был показан
         this.appStore.isBannerShown = true;
 
-        // Настраиваем автоматическое закрытие через 5 секунд
+        // Настраиваем автоматическое закрытие через 5.5 секунд
         setTimeout(() => {
           // Запускаем анимацию исчезновения
           animationContainer.classList.remove('expanding');
@@ -629,11 +629,26 @@ export default {
           setTimeout(() => {
             animationContainer.style.display = 'none';
             animationContainer.classList.remove('collapsing');
-          }, 800); // Уменьшенная длительность анимации исчезновения
-        }, 5500);
+            this.stopBannerAnimation();
+          }, 500);
+        }, 5000);
       });
 
       return true;
+    },
+
+    stopBannerAnimation() {
+      if (createjs.Ticker) {
+        createjs.Ticker.removeAllEventListeners(); // Останавливаем тикер
+      }
+
+      if (canvas) {
+        canvas.parentNode.removeChild(canvas); // Удаляем canvas
+      }
+
+      if (anim_container) {
+        anim_container.innerHTML = ""; // Очищаем контейнер анимации
+      }
     }
   }
 };
