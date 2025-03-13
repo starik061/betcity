@@ -264,5 +264,19 @@
 #animation_container {
   z-index: -1;
   display: none;
+}
 
+.close-banner-btn {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 95px;
+  right: 20px;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  border: 0;
+  z-index: 10001;
+  background-color: rgba(36, 36, 36, 0.5);
+  border-radius: 50%;
 }

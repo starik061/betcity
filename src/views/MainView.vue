@@ -200,7 +200,9 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
-      rerenderKey: 0
+      rerenderKey: 0,
+      hideBannerTimeout: null,
+      hideAnimationTimeout: null
     }
   },
   computed: {
@@ -518,8 +520,12 @@ export default {
           setTimeout(() => {
 
             this.startBannerAnimation()
-          }, 60000)
 
+            const closeBtn = document.querySelector(".close-banner-btn");
+            if (closeBtn) {
+              closeBtn.addEventListener("click", this.closeBunnerBtnClick);
+            }
+          }, 60000)
         }
 
       } catch (error) {
@@ -620,13 +626,13 @@ export default {
         this.appStore.isBannerShown = true;
 
         // Настраиваем автоматическое закрытие через 5.5 секунд
-        setTimeout(() => {
+        this.hideBannerTimeout = setTimeout(() => {
           // Запускаем анимацию исчезновения
           animationContainer.classList.remove('expanding');
           animationContainer.classList.add('collapsing');
 
           // Скрываем элемент после завершения анимации
-          setTimeout(() => {
+          this.hideAnimationTimeout = setTimeout(() => {
             animationContainer.style.display = 'none';
             animationContainer.classList.remove('collapsing');
             this.stopBannerAnimation();
@@ -649,6 +655,31 @@ export default {
       if (anim_container) {
         anim_container.innerHTML = ""; // Очищаем контейнер анимации
       }
+    },
+
+    closeBunnerBtnClick() {
+      // Получаем анимируемый элемент
+      const animationContainer = document.getElementById('animation_container');
+      // Запускаем анимацию исчезновения
+      animationContainer.classList.remove('expanding');
+      animationContainer.classList.add('collapsing');
+
+      if (this.hideBannerTimeout) {
+        clearTimeout(this.hideBannerTimeout);
+        this.hideBannerTimeout = null;
+      }
+      if (this.hideAnimationTimeout) {
+        clearTimeout(this.hideAnimationTimeout);
+        this.hideAnimationTimeout = null;
+      }
+      // Скрываем элемент после завершения анимации
+      setTimeout(() => {
+        animationContainer.style.display = 'none';
+        animationContainer.classList.remove('collapsing');
+        this.stopBannerAnimation();
+      }, 500);
+
+
     }
   }
 };
