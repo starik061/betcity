@@ -1,6 +1,7 @@
 import { useAppStore } from "@/stores/appStore"; // Импортируем хранилище
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+const VITE_REF_URL = import.meta.env.VITE_REF_URL;
 
 const authHeaders = () => {
   const { initDataUnsafe } = window.Telegram.WebApp;
@@ -360,7 +361,7 @@ export async function generateRefLink() {
         "Content-Type": "application/json",
         ...headers
       },
-      body: JSON.stringify({ url })
+      body: JSON.stringify({ url: `VITE_REF_URL${appStore?.gameUserInfo?.id}` })
     });
 
     if (response.status !== 201 && response.status !== 200) {
