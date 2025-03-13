@@ -1652,7 +1652,7 @@
   p.nominalBounds = new cjs.Rectangle(-3442.3, 0.4, 8473.3, 18.400000000000002);
 
   // stage content:
-  (lib._375x844 = function (mode, startPosition, loop, reversed) {
+  (lib._350x788 = function (mode, startPosition, loop, reversed) {
     if (loop == null) {
       loop = true;
     }
@@ -1979,8 +1979,8 @@
   // library properties:
   lib.properties = {
     id: "DCFFF2F380E46043872989521ABB34F7",
-    width: 375,
-    height: 844,
+    width: 311,
+    height: 700,
     fps: 30,
     color: "#FFFFFF",
     opacity: 1.0,
