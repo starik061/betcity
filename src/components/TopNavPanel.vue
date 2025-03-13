@@ -193,7 +193,7 @@ export default {
     },
 
     openBonusLink() {
-      window.Telegram.WebApp.openLink("https://promote.betcity.ru/2000freebet_reg/?widget_id=freebet2000_bonus2k&refcode=gift_button&icm=1214&utm_source=1214&utm_medium=cpm&utm_campaign=freebet2000_bonus2k_gift_button&utm_content=gift_button_bonus2k");
+      window.Telegram.WebApp.openLink("https://promote.betcity.ru/2000freebet_reg/?widget_id=freebet2000_bonus2k&refcode=fullscreen&icm=1214&utm_source=1214&utm_medium=cpm&utm_campaign=freebet2000_bonus2k_fullscreen&utm_content=fullscreen_bonus2k");
     }
   }
 }
