@@ -17,7 +17,9 @@
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
           </div>
-          <span class="score-text">{{ gameUserInfo?.score || 0 }}</span>
+          <span class="score-text"
+            :class="{ 'score-margin': gameUserInfo?.score == 0 || gameUserInfo?.score == '-' }">{{ gameUserInfo?.score
+              || 0 }}</span>
         </div>
         <p class="score-change-period">За неделю <span>{{ gameUserInfo?.weeklyScore ? (Number(gameUserInfo.weeklyScore)
           > 0 ? "+" + gameUserInfo.weeklyScore : gameUserInfo.weeklyScore)
@@ -89,14 +91,18 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+            <span class="score-text"
+              :class="{ 'score-margin': getBetAmount(completedBetRewards[completedBetIdx]) == 0 || getBetAmount(completedBetRewards[completedBetIdx]) == '-' }">{{
+                getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
           </div>
 
           <div v-else class="score forecast-history-score">
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(activeBet[activeBetIdx]) }}</span>
+            <span class="score-text"
+              :class="{ 'score-margin': getBetAmount(activeBet[activeBetIdx]) == 0 || getBetAmount(activeBet[activeBetIdx]) == '-' }">{{
+                getBetAmount(activeBet[activeBetIdx]) }}</span>
           </div>
         </div>
 
@@ -145,14 +151,18 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+            <span class="score-text"
+              :class="{ 'score-margin': getBetAmount(completedBetRewards[completedBetIdx]) == 0 }">{{
+                getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
           </div>
 
           <div v-else class="score forecast-history-score">
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text">{{ getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+            <span class="score-text"
+              :class="{ 'score-margin': getBetAmount(completedBetRewards[completedBetIdx]) == 0 || getBetAmount(completedBetRewards[completedBetIdx]) == '-' }">{{
+                getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
           </div>
         </div>
 
@@ -168,7 +178,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше 2.5
@@ -178,7 +188,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
@@ -187,7 +197,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-            }}</span></div>
+              }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском <span
               class="plus">+1</span>
           </div>
@@ -766,5 +776,9 @@ export default {
 
 .forecast-history-score {
   cursor: pointer;
+}
+
+.score-margin {
+  margin-left: 6px;
 }
 </style>
