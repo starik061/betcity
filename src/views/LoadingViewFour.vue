@@ -29,7 +29,7 @@
         Сделать первый прогноз
       </RouterLink>
 
-      <div class="next-btn-dots-container">
+      <div class="next-btn-dots-container visually-hidden">
         <div class="dots">
           <span class="active"></span>
           <span class="active"></span>

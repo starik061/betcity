@@ -11,25 +11,25 @@
         <li class="bottom-nav-panel-list-item">
           <router-link to="/rules" class="bottom-nav-panel-link btn-style">
             <IconBottomNavRules />
-            <p class="bottom-nav-panel-text">Rules</p>
+            <p class="bottom-nav-panel-text">Правила</p>
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
           <button class="bottom-nav-panel-link btn-style game-btn" @click="openGameMiniApp">
             <IconBottomNavGame />
-            <p class="bottom-nav-panel-text">Game</p>
+            <p class="bottom-nav-panel-text">Игра</p>
           </button>
         </li>
         <li class="bottom-nav-panel-list-item">
           <router-link to="/rating" class="bottom-nav-panel-link btn-style">
             <IconBottomNavRating />
-            <p class="bottom-nav-panel-text">Rating</p>
+            <p class="bottom-nav-panel-text">Рейтинг</p>
           </router-link>
         </li>
         <li class="bottom-nav-panel-list-item">
           <router-link to="/friends" class="bottom-nav-panel-link btn-style">
             <IconBottomNavFriends />
-            <p class="bottom-nav-panel-text">Friends</p>
+            <p class="bottom-nav-panel-text">Друзья</p>
           </router-link>
         </li>
       </ul>
