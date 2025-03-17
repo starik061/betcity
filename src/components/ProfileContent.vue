@@ -24,7 +24,7 @@
         <p class="score-change-period">За неделю <span>{{ gameUserInfo?.weeklyScore ? (Number(gameUserInfo.weeklyScore)
           > 0 ? "+" + gameUserInfo.weeklyScore : gameUserInfo.weeklyScore)
           : 0
-            }}</span></p>
+        }}</span></p>
       </div>
     </nav>
 
@@ -75,9 +75,10 @@
             <p class="forecast-history-date">прогноз от {{ formatMatchDay(activeBet?.date) }}</p>
           </div>
 
-          <img v-if="getTeamLogo(activeBet)" :src="getTeamLogo(activeBet)" alt="forecast winner"
+          <IconForecastDraw v-if="getTeamLogo(activeBet) === 'draw'" class="forecast-history-img" />
+          <img v-else-if="getTeamLogo(activeBet)" :src="getTeamLogo(activeBet)" alt="forecast winner"
             class="forecast-history-img">
-          <IconForecastDraw v-else class="forecast-history-img" />
+          <IconForecastDraw v-else class="forecast-history-img" style="visibility:hidden" />
 
           <div v-if="getExactIndex(activeBet) || getTotalInfo(activeBet)?.index || activeBet?.danger"
             class="score forecast-history-score" @click="toggleDetails(activeBetIdx)">
@@ -107,6 +108,19 @@
         </div>
 
         <div class="additionals-container" :class="{ 'expanded': isExpanded(activeBetIdx) }">
+          <div v-if="getTeamLogo(activeBet) === activeBet.event.homeTeam.logoUrl"
+            class="forecast-history-list-item-additional">
+            Ставка на победу команды {{ activeBet?.event?.homeTeam?.name }}
+          </div>
+
+          <div v-else-if="getTeamLogo(activeBet) === activeBet.event.awayTeam.logoUrl"
+            class="forecast-history-list-item-additional">
+            Ставка на победу команды {{ activeBet?.event?.awayTeam?.name }}
+          </div>
+          <div v-else-if="getTeamLogo(activeBet) === 'draw'" class="forecast-history-list-item-additional">
+            Ставка на ничью
+          </div>
+
           <div v-if="getExactIndex(activeBet)" class="forecast-history-list-item-additional">Точный исход: {{
             activeBet?.event?.homeTeam?.name }} {{ getTeamValue(activeBet, getExactIndex(activeBet), "home")
             }}:
@@ -135,9 +149,10 @@
             <p class="forecast-history-date">прогноз от {{ formatMatchDay(completedBet?.date) }}</p>
           </div>
 
-          <img v-if="getTeamLogo(completedBet)" :src="getTeamLogo(completedBet)" alt="forecast winner"
+          <IconForecastDraw v-if="getTeamLogo(completedBet) === 'draw'" class="forecast-history-img" />
+          <img v-else-if="getTeamLogo(completedBet)" :src="getTeamLogo(completedBet)" alt="forecast winner"
             class="forecast-history-img">
-          <IconForecastDraw v-else class="forecast-history-img" />
+          <IconForecastDraw v-else class="forecast-history-img" style="visibility:hidden" />
 
           <div v-if="getExactIndex(completedBet) || getTotalInfo(completedBet)?.index || completedBet?.danger"
             class="score forecast-history-score" @click="toggleDetails(completedBetIdx)">
@@ -167,6 +182,20 @@
         </div>
 
         <div class="additionals-container" :class="{ 'expanded': isExpanded(completedBetIdx) }">
+          <div v-if="getTeamLogo(completedBet) === completedBet.event.homeTeam.logoUrl"
+            class="forecast-history-list-item-additional">
+            Ставка на победу команды {{ completedBet?.event?.homeTeam?.name }}
+          </div>
+
+          <div v-else-if="getTeamLogo(completedBet) === completedBet.event.awayTeam.logoUrl"
+            class="forecast-history-list-item-additional">
+            Ставка на победу команды {{ completedBet?.event?.awayTeam?.name }}
+          </div>
+          <div v-else-if="getTeamLogo(completedBet) === 'draw'" class="forecast-history-list-item-additional">
+            Ставка на ничью
+          </div>
+
+
           <div v-if="getExactIndex(completedBet)" class="forecast-history-list-item-additional">Точный исход: {{
             completedBet?.event?.homeTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "home")
             }}:
@@ -178,7 +207,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше 2.5
@@ -188,7 +217,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-if="getTotalInfo(completedBet)?.index && getTotalInfo(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
@@ -197,7 +226,7 @@
               'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
-              }}</span></div>
+            }}</span></div>
           <div v-if="completedBet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском <span
               class="plus">+1</span>
           </div>
@@ -364,7 +393,7 @@ export default {
           return bet.event.awayTeam.logoUrl;
         }
         if (key.coefficientKey === "X") {
-          return bet.event.draw || null;
+          return "draw";
         }
       }
 
