@@ -488,7 +488,18 @@ export default {
       const hours = matchDate.getHours().toString().padStart(2, "0");
       const minutes = matchDate.getMinutes().toString().padStart(2, "0");
 
-      return `${hours}:${minutes}`;
+      // Получаем число и месяц
+      const day = matchDate.getDate();
+
+      // Массив месяцев с окончаниями
+      const months = [
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+      ];
+
+      const month = months[matchDate.getMonth()]; // Получаем месяц с окончанием
+
+      return `${hours}:${minutes}, ${day} ${month}`;
     },
 
     getBetAmount(bet) {

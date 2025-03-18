@@ -192,7 +192,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
 
           <div v-else-if="getTeamLogoInCompleted(completedBet) === completedBet.event.awayTeam.logoUrl"
@@ -204,7 +204,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div v-else-if="getTeamLogoInCompleted(completedBet) === 'draw'"
             class="forecast-history-list-item-additional">
@@ -215,7 +215,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
 
 
@@ -233,7 +233,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div
             v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tb'"
@@ -244,7 +244,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
-              }}</span>
+            }}</span>
           </div>
           <div
             v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tm'"
@@ -254,7 +254,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
-              }}</span></div>
+            }}</span></div>
           <div v-if="completedBet?.bet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском</div>
         </div>
       </li>
@@ -371,7 +371,18 @@ export default {
       const hours = matchDate.getHours().toString().padStart(2, "0");
       const minutes = matchDate.getMinutes().toString().padStart(2, "0");
 
-      return `${hours}:${minutes}`;
+      // Получаем число и месяц
+      const day = matchDate.getDate();
+
+      // Массив месяцев с окончаниями
+      const months = [
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+      ];
+
+      const month = months[matchDate.getMonth()]; // Получаем месяц с окончанием
+
+      return `${hours}:${minutes}, ${day} ${month}`;
     },
 
     formatMatchDay(isoString) {
