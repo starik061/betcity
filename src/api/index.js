@@ -15,7 +15,7 @@ const authHeaders = () => {
 
 export async function authUser() {
   const appStore = useAppStore();
-  let startParam = "c9P3dQmhQrJ0LW";
+  let startParam = "";
   if (appStore && appStore.initDataUnsafe && appStore.initDataUnsafe.start_param) {
     startParam = appStore.initDataUnsafe.start_param;
   } else {
