@@ -8,7 +8,7 @@ const authHeaders = () => {
   return {
     "tg-web-app-auth-date": initDataUnsafe.auth_date,
     "tg-web-app-query-id": initDataUnsafe?.query_id || 1,
-    "tg-web-app-user": "%7B%22id%22%3A391956811%2C%22first_name%22%3A%22%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22kiberYashka%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2F75z-Wp2fYIdyCtf5n1gql97vk_8ShGjiagMeE8DY1jkkw.svg%22%7D",
+    "tg-web-app-user": encodeURIComponent(JSON.stringify(initDataUnsafe.user)),
     "tg-web-app-hash": initDataUnsafe.hash
   };
 };
