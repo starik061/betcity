@@ -192,7 +192,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
 
           <div v-else-if="getTeamLogoInCompleted(completedBet) === completedBet.event.awayTeam.logoUrl"
@@ -204,7 +204,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div v-else-if="getTeamLogoInCompleted(completedBet) === 'draw'"
             class="forecast-history-list-item-additional">
@@ -215,7 +215,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
 
 
@@ -233,7 +233,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div
             v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tb'"
@@ -244,7 +244,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
-            }}</span>
+              }}</span>
           </div>
           <div
             v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tm'"
@@ -254,7 +254,7 @@
               'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
               getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
-            }}</span></div>
+              }}</span></div>
           <div v-if="completedBet?.bet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском</div>
         </div>
       </li>
@@ -539,7 +539,6 @@ export default {
       const index = bet?.bet?.BetCoefficientKey?.findIndex(betKey => {
         return betKey?.coefficient?.coefficientKey === "Tb" || betKey?.coefficient?.coefficientKey === "Tm"
       });
-      console.log(index)
       return index !== -1 ? { index, coef: bet?.bet?.BetCoefficientKey[index]?.coefficient?.coefficientKey } : { index: false };
     },
 

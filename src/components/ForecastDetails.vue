@@ -74,7 +74,7 @@
       <div class="accordion-forecast-amount-wrapper">
         <div v-if="hasAdditionalBetSettingsActive(betDetailIdx)" class="forecasts-amount-indicator">{{
           hasAdditionalBetSettingsActive(betDetailIdx)
-          }}
+        }}
         </div>
         <div class="accordion">
           <input type="checkbox" name="forecast-accordion" class="forecast-radio visually-hidden"
@@ -315,7 +315,6 @@ export default {
           this.betsDetails[index].fact.key = event.target.value;
         }
       } else {
-        console.log(event.target.value)
         this.betsDetails[index].fact.isActive = this.betsDetails[index].fact.key === event.target.value ? false : true;
         this.betsDetails[index].fact.key = this.betsDetails[index].fact.key === event.target.value ? "" : event.target.value;
       }
