@@ -68,7 +68,7 @@ export default {
       getDailyRewardStatus(),
       generateRefLink(),
       getAllBets("active"),
-      getAllBets("completed"),
+      // getAllBets("completed"),
       getCompletedBetRewards(),
       getRating("top", 100),
       getRating("top-weekly", 100),

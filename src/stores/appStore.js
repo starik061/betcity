@@ -23,7 +23,6 @@ export const useAppStore = defineStore("app", {
     liveMatches: [],
     allBets: [],
     activeBets: [],
-    completedBets: [],
     completedBetRewards: [],
     unreadCompletedBets: [],
     showedUnreadBet: null,

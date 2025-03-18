@@ -59,7 +59,7 @@
         <span>
           Завершенные
         </span>
-        <span class="forecast-amount">{{ completedBets.length }}</span>
+        <span class="forecast-amount">{{ completedBetRewards.length }}</span>
       </button>
 
 
@@ -94,8 +94,8 @@
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
             <span class="score-text"
-              :class="{ 'score-margin': getBetAmount(activeBet[activeBetIdx]) == 0 || getBetAmount(activeBet[activeBetIdx]) == '-' }">{{
-                getBetAmount(activeBet[activeBetIdx]) }}</span>
+              :class="{ 'score-margin': getBetAmount(activeBet) == 0 || getBetAmount(activeBet) == '-' }">{{
+                getBetAmount(activeBet) }}</span>
           </div>
 
           <div v-else class="score forecast-history-score">
@@ -103,8 +103,8 @@
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
             <span class="score-text"
-              :class="{ 'score-margin': getBetAmount(activeBet[activeBetIdx]) == 0 || getBetAmount(activeBet[activeBetIdx]) == '-' }">{{
-                getBetAmount(activeBet[activeBetIdx]) }}</span>
+              :class="{ 'score-margin': getBetAmount(activeBet) == 0 || getBetAmount(activeBet) == '-' }">{{
+                getBetAmount(activeBet) }}</span>
           </div>
         </div>
 
@@ -140,23 +140,23 @@
 
     </ul>
 
-    <ul v-else-if="!isHistoryTypeActive && completedBets.length > 0" class="forecast-history-list">
-      <li v-for="(completedBet, completedBetIdx) in completedBets" class="forecast-history-list-item"
+    <ul v-else-if="!isHistoryTypeActive && completedBetRewards.length > 0" class="forecast-history-list">
+      <li v-for="(completedBet, completedBetIdx) in completedBetRewards" class="forecast-history-list-item"
         :key="completedBet + completedBetIdx">
         <div class="forecast-history-list-item-wrapper">
           <div class="forecast-history-info-container">
             <p class="forecast-history-header">{{ `${completedBet?.event?.homeTeam?.name} VS
-              ${completedBet?.event?.awayTeam?.name}, ${formatMatchDate(completedBet.date)}` }}</p>
-            <p class="forecast-history-date">прогноз от {{ formatMatchDay(completedBet?.date) }}</p>
+              ${completedBet?.event?.awayTeam?.name}, ${formatMatchDate(completedBet?.event?.date)}` }}</p>
+            <p class="forecast-history-date">прогноз от {{ formatMatchDay(completedBet?.event?.date) }}</p>
           </div>
 
-          <IconForecastDraw v-if="getTeamLogo(completedBet) === 'draw'" class="forecast-history-img" />
-          <img v-else-if="getTeamLogo(completedBet)" :src="getTeamLogo(completedBet)" alt="forecast winner"
-            class="forecast-history-img">
+          <IconForecastDraw v-if="getTeamLogoInCompleted(completedBet) === 'draw'" class="forecast-history-img" />
+          <img v-else-if="getTeamLogoInCompleted(completedBet)" :src="getTeamLogoInCompleted(completedBet)"
+            alt="forecast winner" class="forecast-history-img">
           <IconForecastDraw v-else class="forecast-history-img" style="visibility:hidden" />
 
           <div
-            v-if="getTeamBetIndex(completedBet) || getTeamBetIndex(completedBet) == 0 || getExactIndex(completedBet) || getExactIndex(completedBet) == 0 || getTotalInfo(completedBet)?.index || getTotalInfo(completedBet)?.index == 0 || completedBet?.danger"
+            v-if="getTeamBetIndexInCompleted(completedBet) || getTeamBetIndexInCompleted(completedBet) == 0 || getExactIndexInCompleted(completedBet) || getExactIndexInCompleted(completedBet) == 0 || getTotalInfoInCompleted(completedBet)?.index || getTotalInfoInCompleted(completedBet)?.index == 0 || completedBet?.bet?.danger"
             class="score forecast-history-score" @click="toggleDetails(completedBetIdx)">
             <svg class="forecast-history-score-arrow" :class="{ 'rotated': isExpanded(completedBetIdx) }" width="16"
               height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,9 +168,8 @@
             <div class="score-coin-wrapper">
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
-            <span class="score-text"
-              :class="{ 'score-margin': getBetAmount(completedBetRewards[completedBetIdx]) == 0 }">{{
-                getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+            <span class="score-text" :class="{ 'score-margin': getBetAmount(completedBet) == 0 }">{{
+              getBetAmount(completedBet) }}</span>
           </div>
 
           <div v-else class="score forecast-history-score">
@@ -178,79 +177,85 @@
               <img class="score-coin" src="/img/coin-cean.png" alt="coins">
             </div>
             <span class="score-text"
-              :class="{ 'score-margin': getBetAmount(completedBetRewards[completedBetIdx]) == 0 || getBetAmount(completedBetRewards[completedBetIdx]) == '-' }">{{
-                getBetAmount(completedBetRewards[completedBetIdx]) }}</span>
+              :class="{ 'score-margin': getBetAmount(completedBet) == 0 || getBetAmount(completedBet) == '-' }">{{
+                getBetAmount(completedBet) }}</span>
           </div>
         </div>
 
         <div class="additionals-container" :class="{ 'expanded': isExpanded(completedBetIdx) }">
-          <div v-if="getTeamLogo(completedBet) === completedBet.event.homeTeam.logoUrl"
+          <div v-if="getTeamLogoInCompleted(completedBet) === completedBet.event.homeTeam.logoUrl"
             class="forecast-history-list-item-additional">
             Ставка на победу команды {{ completedBet?.event?.homeTeam?.name }}
             <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
               }}</span>
           </div>
 
-          <div v-else-if="getTeamLogo(completedBet) === completedBet.event.awayTeam.logoUrl"
+          <div v-else-if="getTeamLogoInCompleted(completedBet) === completedBet.event.awayTeam.logoUrl"
             class="forecast-history-list-item-additional">
             Ставка на победу команды {{ completedBet?.event?.awayTeam?.name }}
             <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
               }}</span>
           </div>
-          <div v-else-if="getTeamLogo(completedBet) === 'draw'" class="forecast-history-list-item-additional">
+          <div v-else-if="getTeamLogoInCompleted(completedBet) === 'draw'"
+            class="forecast-history-list-item-additional">
             Ставка на ничью
             <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTeamBetIndex(completedBet)]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTeamBetIndexInCompleted(completedBet)]?.coefficient?.reward)
               }}</span>
           </div>
 
 
-          <div v-if="getExactIndex(completedBet) >= 0" class="forecast-history-list-item-additional">Точный исход: {{
-            completedBet?.event?.homeTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "home")
+          <div v-if="getExactIndexInCompleted(completedBet) >= 0" class="forecast-history-list-item-additional">Точный
+            исход: {{
+              completedBet?.event?.homeTeam?.name }} {{ getTeamValue(completedBet, getExactIndexInCompleted(completedBet),
+              "home")
             }}:
             {{
-              completedBet?.event?.awayTeam?.name }} {{ getTeamValue(completedBet, getExactIndex(completedBet), "away") }}
+              completedBet?.event?.awayTeam?.name }} {{ getTeamValue(completedBet, getExactIndexInCompleted(completedBet),
+              "away") }}
             <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getExactIndex(completedBet)]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getExactIndexInCompleted(completedBet)]?.coefficient?.reward)
               }}</span>
           </div>
-          <div v-if="getTotalInfo(completedBet)?.index >= 0 && getTotalInfo(completedBet)?.coef === 'Tb'"
+          <div
+            v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tb'"
             class="forecast-history-list-item-additional">Тотал больше 2.5
             <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
               }}</span>
           </div>
-          <div v-if="getTotalInfo(completedBet)?.index >= 0 && getTotalInfo(completedBet)?.coef === 'Tm'"
+          <div
+            v-if="getTotalInfoInCompleted(completedBet)?.index >= 0 && getTotalInfoInCompleted(completedBet)?.coef === 'Tm'"
             class="forecast-history-list-item-additional">Тотал меньше 2.5 <span :class="{
-              'plus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) > 0,
-              'minus': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) < 0,
-              'zero': getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward) == 0,
+              'plus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) > 0,
+              'minus': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) < 0,
+              'zero': getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward) == 0,
             }">{{
-              getBetExtraAmount(completedBetRewards[completedBetIdx]?.bet?.BetCoefficientKey[getTotalInfo(completedBet)?.index]?.coefficient?.reward)
+              getBetExtraAmount(completedBet?.bet?.BetCoefficientKey[getTotalInfoInCompleted(completedBet)?.index]?.coefficient?.reward)
               }}</span></div>
-          <div v-if="completedBet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском</div>
+          <div v-if="completedBet?.bet?.danger" class="forecast-history-list-item-additional plus">Ставка с риском</div>
         </div>
       </li>
 
@@ -349,15 +354,10 @@ export default {
       return false
     },
 
-    allBets() {
-      return Array.isArray(this.appStore.allBets) ? this.appStore.allBets : [];
-    },
     activeBets() {
       return Array.isArray(this.appStore.activeBets) ? this.appStore.activeBets : [];
     },
-    completedBets() {
-      return Array.isArray(this.appStore.completedBets) ? this.appStore.completedBets : [];
-    },
+
     completedBetRewards() {
       return Array.isArray(this.appStore.completedBetRewards) ? this.appStore.completedBetRewards : [];
     }
@@ -404,7 +404,7 @@ export default {
     },
 
     getTeamLogo(bet) {
-      if (!bet || !bet.BetCoefficientKey || !bet.event) return null;
+      if (!bet || !bet.BetCoefficientKey || !Array.isArray(bet.BetCoefficientKey) || !bet.event) return null;
 
       for (const key of bet.BetCoefficientKey) {
         if (key.coefficientKey === "P1") {
@@ -421,6 +421,23 @@ export default {
       return null;
     },
 
+    getTeamLogoInCompleted(bet) {
+      if (!bet || !bet?.bet?.BetCoefficientKey || !Array.isArray(bet.bet.BetCoefficientKey) || !bet.event) return null;
+      for (const key of bet.bet.BetCoefficientKey) {
+        if (key?.coefficient.coefficientKey === "P1") {
+          return bet.event.homeTeam.logoUrl;
+        }
+        if (key?.coefficient.coefficientKey === "P2") {
+          return bet.event.awayTeam.logoUrl;
+        }
+        if (key?.coefficient.coefficientKey === "X") {
+          return "draw";
+        }
+      }
+
+      return null;
+    },
+
     getBetAmount(bet) {
       if (!bet || (!bet.balanceDelta && bet?.balanceDelta != 0)) { return "-"; }
 
@@ -428,7 +445,7 @@ export default {
         return "+" + bet.balanceDelta
       }
 
-      if (Number(bet.balanceDelta) === 0) {
+      if (Number(bet.balanceDelta) <= 0) {
         return bet.balanceDelta
       }
 
@@ -476,6 +493,14 @@ export default {
       return index !== -1 ? index : undefined;
     },
 
+
+    getExactIndexInCompleted(bet) {
+      const index = bet?.bet?.BetCoefficientKey?.findIndex(betKey => {
+        return betKey?.coefficient?.coefficientId === betKey?.coefficient?.coefficientKey
+      });
+      return index !== -1 ? index : undefined;
+    },
+
     getTeamBetIndex(bet) {
       const index = bet?.BetCoefficientKey?.findIndex(betKey => {
         return betKey.coefficientKey === "P1" || betKey.coefficientKey === "P2" || betKey.coefficientKey === "X"
@@ -483,17 +508,33 @@ export default {
       return index !== -1 ? index : undefined;
     },
 
+    getTeamBetIndexInCompleted(bet) {
+
+      const index = bet?.bet?.BetCoefficientKey?.findIndex(betKey => {
+        return betKey?.coefficient?.coefficientKey === "P1" || betKey?.coefficient?.coefficientKey === "P2" || betKey?.coefficient?.coefficientKey === "X"
+      });
+
+      return index !== -1 ? index : undefined;
+    },
+
     getTotalInfo(bet) {
       const index = bet?.BetCoefficientKey?.findIndex(betKey => {
         return betKey.coefficientKey === "Tb" || betKey.coefficientKey === "Tm"
       });
+      return index !== -1 ? { index, coef: bet?.BetCoefficientKey[index]?.coefficientKey } : { index: false };
+    },
 
-      return index !== -1 ? { index, coef: bet?.BetCoefficientKey[index].coefficientKey } : { index: false };
+    getTotalInfoInCompleted(bet) {
+      const index = bet?.bet?.BetCoefficientKey?.findIndex(betKey => {
+        return betKey?.coefficient?.coefficientKey === "Tb" || betKey?.coefficient?.coefficientKey === "Tm"
+      });
+      console.log(index)
+      return index !== -1 ? { index, coef: bet?.bet?.BetCoefficientKey[index]?.coefficient?.coefficientKey } : { index: false };
     },
 
     getTeamValue(bet, index, teamType) {
-      if (bet?.BetCoefficientKey[index]?.value) {
-        const valueArray = bet.BetCoefficientKey[index]?.value.split(":");
+      if (bet?.bet?.BetCoefficientKey[index]?.value) {
+        const valueArray = bet?.bet.BetCoefficientKey[index]?.value.split(":");
         return teamType === "home" ? valueArray[0] : valueArray[1];
       }
       return "-"

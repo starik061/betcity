@@ -398,7 +398,7 @@ export default {
           getMatchesLive(),
           getAllBets(),
           getAllBets("active"),
-          getAllBets("completed"),
+          // getAllBets("completed"),
           getCompletedBetRewards()
         ]);
 
@@ -456,7 +456,7 @@ export default {
           getMatchesLive(),
           getAllBets(),
           getAllBets("active"),
-          getAllBets("completed"),
+          // getAllBets("completed"),
           getCompletedBetRewards()
         ]);
 
