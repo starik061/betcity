@@ -1,125 +1,154 @@
 <!doctype html>
 <html lang="">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+  />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
-    <link rel="preload" href="/img/friends-octopus.png" as="image" />
-    <link rel="preload" href="/img/loading-four-cap.png" as="image" />
-    <link rel="preload" href="/img/loading-four-gift.png" as="image" />
-    <link rel="preload" href="/img/loading-one-rectangle.png" as="image" />
-    <link rel="preload" href="/img/loading-one-octopus.png" as="image" />
-    <link rel="preload" href="/img/loading-three-content-img.png" as="image" />
-    <link rel="preload" href="/img/loading-two-octopus.png" as="image" />
-    <link rel="preload" href="/img/rules-octopus.png" as="image" />
-    <link rel="preload" href="/img/todo.png" as="image" />
-    <link rel="preload" href="/img/top-nav-gift.png" as="image" />
-    <link rel="preload" href="/img/ball.png" as="image" />
-    <link rel="preload" href="/img/coin-cean.png" as="image" />
-    <link rel="preload" href="/img/coin-green.png" as="image" />
-    <link rel="preload" href="/img/coin-red.png" as="image" />
-    <link rel="preload" href="/img/coin-lightblue.png" as="image" />
-    <link rel="preload" href="/img/congrat-modal-cup.png" as="image" />
-    <link rel="preload" href="/img/congrat-star-pink.svg" as="image" />
-    <link rel="preload" href="/img/congrat-star.svg" as="image" />
-    <link rel="preload" href="/img/congrat-stick-1.svg" as="image" />
-    <link rel="preload" href="/img/congrat-stick-2.svg" as="image" />
-    <link rel="preload" href="/img/congrat-triangle.svg" as="image" />
-    <link rel="preload" href="/img/congrat-triangle-2.svg" as="image" />
-    <link rel="preload" href="/img/lighting.svg" as="image" />
-    <link rel="preload" href="/img/loading-four-star.png" as="image" />
-    <link rel="preload" href="/img/tap-octopus.png" as="image" />
-    <link rel="preload" href="/img/i-am-pavel.png" as="image" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-
-    <!--? три скрипта ниже нужны для баннера и его воспроизведения  -->
-    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-    <script src="/index.js"></script>
-    <script>
-      var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
-      function init() {
-        canvas = document.getElementById("canvas");
-        anim_container = document.getElementById("animation_container");
-        dom_overlay_container = document.getElementById("dom_overlay_container");
-        var comp = AdobeAn.getComposition("DCFFF2F380E46043872989521ABB34F7");
-        var lib = comp.getLibrary();
-        var loader = new createjs.LoadQueue(false);
-        loader.addEventListener("fileload", function (evt) {
-          handleFileLoad(evt, comp);
-        });
-        loader.addEventListener("complete", function (evt) {
-          handleComplete(evt, comp);
-        });
-        var lib = comp.getLibrary();
-        loader.loadManifest(lib.properties.manifest);
-      }
-      function handleFileLoad(evt, comp) {
-        var images = comp.getImages();
-        if (evt && evt.item.type == "image") {
-          images[evt.item.id] = evt.result;
+  <script type="text/javascript">
+    (function(m, e, t, r, i, k, a) {
+      m[i] = m[i] || function() {
+        (m[i].a = m[i].a || []).push(arguments);
+      };
+      m[i].l = 1 * new Date();
+      for (var j = 0; j < document.scripts.length; j++) {
+        if (document.scripts[j].src === r) {
+          return;
         }
       }
-      function handleComplete(evt, comp) {
-        //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-        var lib = comp.getLibrary();
-        var ss = comp.getSpriteSheet();
-        var queue = evt.target;
-        var ssMetadata = lib.ssMetadata;
-        for (i = 0; i < ssMetadata.length; i++) {
-          ss[ssMetadata[i].name] = new createjs.SpriteSheet({
-            images: [queue.getResult(ssMetadata[i].name)],
-            frames: ssMetadata[i].frames
-          });
-        }
-        exportRoot = new lib._350x788();
-        stage = new lib.Stage(canvas);
-        stage.enableMouseOver();
-        //Registers the "tick" event listener.
-        fnStartAnimation = function () {
-          stage.addChild(exportRoot);
-          createjs.Ticker.framerate = lib.properties.fps;
-          createjs.Ticker.addEventListener("tick", stage);
-        };
-        //Code to support hidpi screens and responsive scaling.
-        AdobeAn.makeResponsive(false, "both", false, 1, [canvas, anim_container, dom_overlay_container]);
-        AdobeAn.compositionLoaded(lib.properties.id);
-        fnStartAnimation();
+      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(100471869, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript>
+    <div><img src="https://mc.yandex.ru/watch/100471869" style="position:absolute; left:-9999px;" alt="" /></div>
+  </noscript>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preload" href="/img/friends-octopus.png" as="image" />
+  <link rel="preload" href="/img/loading-four-cap.png" as="image" />
+  <link rel="preload" href="/img/loading-four-gift.png" as="image" />
+  <link rel="preload" href="/img/loading-one-rectangle.png" as="image" />
+  <link rel="preload" href="/img/loading-one-octopus.png" as="image" />
+  <link rel="preload" href="/img/loading-three-content-img.png" as="image" />
+  <link rel="preload" href="/img/loading-two-octopus.png" as="image" />
+  <link rel="preload" href="/img/rules-octopus.png" as="image" />
+  <link rel="preload" href="/img/todo.png" as="image" />
+  <link rel="preload" href="/img/top-nav-gift.png" as="image" />
+  <link rel="preload" href="/img/ball.png" as="image" />
+  <link rel="preload" href="/img/coin-cean.png" as="image" />
+  <link rel="preload" href="/img/coin-green.png" as="image" />
+  <link rel="preload" href="/img/coin-red.png" as="image" />
+  <link rel="preload" href="/img/coin-lightblue.png" as="image" />
+  <link rel="preload" href="/img/congrat-modal-cup.png" as="image" />
+  <link rel="preload" href="/img/congrat-star-pink.svg" as="image" />
+  <link rel="preload" href="/img/congrat-star.svg" as="image" />
+  <link rel="preload" href="/img/congrat-stick-1.svg" as="image" />
+  <link rel="preload" href="/img/congrat-stick-2.svg" as="image" />
+  <link rel="preload" href="/img/congrat-triangle.svg" as="image" />
+  <link rel="preload" href="/img/congrat-triangle-2.svg" as="image" />
+  <link rel="preload" href="/img/lighting.svg" as="image" />
+  <link rel="preload" href="/img/loading-four-star.png" as="image" />
+  <link rel="preload" href="/img/tap-octopus.png" as="image" />
+  <link rel="preload" href="/img/i-am-pavel.png" as="image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
+  <!--? три скрипта ниже нужны для баннера и его воспроизведения  -->
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script src="/index.js"></script>
+  <script>
+    var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+    function init() {
+      canvas = document.getElementById("canvas");
+      anim_container = document.getElementById("animation_container");
+      dom_overlay_container = document.getElementById("dom_overlay_container");
+      var comp = AdobeAn.getComposition("DCFFF2F380E46043872989521ABB34F7");
+      var lib = comp.getLibrary();
+      var loader = new createjs.LoadQueue(false);
+      loader.addEventListener("fileload", function(evt) {
+        handleFileLoad(evt, comp);
+      });
+      loader.addEventListener("complete", function(evt) {
+        handleComplete(evt, comp);
+      });
+      var lib = comp.getLibrary();
+      loader.loadManifest(lib.properties.manifest);
+    }
+
+    function handleFileLoad(evt, comp) {
+      var images = comp.getImages();
+      if (evt && evt.item.type == "image") {
+        images[evt.item.id] = evt.result;
       }
-    </script>
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="animation_container">
-      <button type="button" class="close-banner-btn">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M15 15L9 9M9 15L15 9M22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12Z"
-            stroke="white"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-      <canvas
-        id="canvas"
-        width="350"
-        height="788"
-        style="position: absolute; display: block; background-color: rgba(255, 255, 255, 1)"
-      ></canvas>
-      <div
-        id="dom_overlay_container"
-        style="
+    }
+
+    function handleComplete(evt, comp) {
+      //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+      var lib = comp.getLibrary();
+      var ss = comp.getSpriteSheet();
+      var queue = evt.target;
+      var ssMetadata = lib.ssMetadata;
+      for (i = 0; i < ssMetadata.length; i++) {
+        ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+          images: [queue.getResult(ssMetadata[i].name)],
+          frames: ssMetadata[i].frames
+        });
+      }
+      exportRoot = new lib._350x788();
+      stage = new lib.Stage(canvas);
+      stage.enableMouseOver();
+      //Registers the "tick" event listener.
+      fnStartAnimation = function() {
+        stage.addChild(exportRoot);
+        createjs.Ticker.framerate = lib.properties.fps;
+        createjs.Ticker.addEventListener("tick", stage);
+      };
+      //Code to support hidpi screens and responsive scaling.
+      AdobeAn.makeResponsive(false, "both", false, 1, [canvas, anim_container, dom_overlay_container]);
+      AdobeAn.compositionLoaded(lib.properties.id);
+      fnStartAnimation();
+    }
+  </script>
+  <title>Vite App</title>
+</head>
+<body>
+<div id="animation_container">
+  <button type="button" class="close-banner-btn">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M15 15L9 9M9 15L15 9M22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12Z"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+  <canvas
+    id="canvas"
+    width="350"
+    height="788"
+    style="position: absolute; display: block; background-color: rgba(255, 255, 255, 1)"
+  ></canvas>
+  <div
+    id="dom_overlay_container"
+    style="
           pointer-events: none;
           overflow: hidden;
           width: 350px;
@@ -129,9 +158,9 @@
           top: 0px;
           display: block;
         "
-      ></div>
-    </div>
-    <div id="root"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  ></div>
+</div>
+<div id="root"></div>
+<script type="module" src="/src/main.js"></script>
+</body>
 </html>
