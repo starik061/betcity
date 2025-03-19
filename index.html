@@ -90,7 +90,7 @@
 
     function handleFileLoad(evt, comp) {
       var images = comp.getImages();
-      if (evt && evt.item.type == "image") {
+      if (evt && (evt.item.type === "image")) {
         images[evt.item.id] = evt.result;
       }
     }
@@ -103,11 +103,11 @@
       var ssMetadata = lib.ssMetadata;
       for (i = 0; i < ssMetadata.length; i++) {
         ss[ssMetadata[i].name] = new createjs.SpriteSheet({
-          images: [queue.getResult(ssMetadata[i].name)],
-          frames: ssMetadata[i].frames
+          "images": [queue.getResult(ssMetadata[i].name)],
+          "frames": ssMetadata[i].frames
         });
       }
-      exportRoot = new lib._350x788();
+      exportRoot = new lib._375x844();
       stage = new lib.Stage(canvas);
       stage.enableMouseOver();
       //Registers the "tick" event listener.
@@ -117,14 +117,14 @@
         createjs.Ticker.addEventListener("tick", stage);
       };
       //Code to support hidpi screens and responsive scaling.
-      AdobeAn.makeResponsive(false, "both", false, 1, [canvas, anim_container, dom_overlay_container]);
+      AdobeAn.makeResponsive(true, "both", false, 1, [canvas, anim_container, dom_overlay_container]);
       AdobeAn.compositionLoaded(lib.properties.id);
       fnStartAnimation();
     }
   </script>
   <title>Vite App</title>
-  <script type="module" crossorigin src="/betcity/assets/index-Cf7kNT4R.js"></script>
-  <link rel="stylesheet" crossorigin href="/betcity/assets/index-DZR2ycOt.css">
+  <script type="module" crossorigin src="/betcity/assets/index-ZiFAvk_l.js"></script>
+  <link rel="stylesheet" crossorigin href="/betcity/assets/index-BYw_yuZZ.css">
 </head>
 <body>
 <noscript>
@@ -148,19 +148,6 @@
     height="788"
     style="position: absolute; display: block; background-color: rgba(255, 255, 255, 1)"
   ></canvas>
-  <div
-    id="dom_overlay_container"
-    style="
-          pointer-events: none;
-          overflow: hidden;
-          width: 350px;
-          height: 788px;
-          position: absolute;
-          left: 0px;
-          top: 0px;
-          display: block;
-        "
-  ></div>
 </div>
 <div id="root"></div>
 </body>
