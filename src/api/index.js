@@ -616,8 +616,8 @@ export async function sendGameRewardRequest() {
       throw new Error(response.status);
     }
 
-    const data = await response.json();
-    appStore.gameRewardStatus.status = data?.status;
+    // const data = await response.json();
+    appStore.gameRewardStatus.status = "approved";
   } catch (error) {
     console.error("Ошибка запроса о статусе награды за игру", error);
   }
