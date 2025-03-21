@@ -66,13 +66,16 @@ export default {
     },
 
     async openGameMiniApp() {
-      await sendGameRewardRequest();
+      if (this.appStore.gameRewardStatus && this.appStore.gameRewardStatus?.status !== "approved") {
+        await sendGameRewardRequest();
+        setTimeout(() => {
+          this.openModal("gameReward");
+        }, 1000);
+      }
       // Открываем внешнюю игру
       window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
 
-      setTimeout(() => {
-        this.openModal("gameReward");
-      }, 1000);
+
     }
   }
 };
