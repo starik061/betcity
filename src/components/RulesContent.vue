@@ -108,7 +108,7 @@
       </div> -->
 
       <div class="rules-text-small margin">
-        <span>3. Сделать ставку с риском.</span>
+        <span>3. Сделать ставку с риском на основной прогноз*</span>
       </div>
 
       <div class="rules-text-small margin">
@@ -130,11 +130,12 @@
           <span class="score-text">-3</span>
         </div>
       </div>
+      <p class="change-choice-text change-choice-text">* Распространяется только на основной прогноз "победа/ничья"</p>
 
       <div class="divider"></div>
 
       <div class="rules-text-small margin">
-        <span>Ежедневный вход а приложение</span>
+        <span>Ежедневный вход в приложение</span>
         <div class="score">
           <div class="score-coin-wrapper">
             <img class="score-coin" src="/img/coin-cean.png" alt="coins">
