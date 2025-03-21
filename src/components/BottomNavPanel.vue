@@ -55,6 +55,12 @@ export default {
   data() {
     return {
       appStore: useAppStore(),
+      hasGameRewardClaimed: false, // прям чтоб хуйня с первым заходом в день в игру и забором награды наверняка отработала один раз и дальше работало без вторичнывх запросов и попутных багов, создана эта переменная
+    }
+  },
+  mounted() {
+    if (this.appStore.gameRewardStatus && this.appStore.gameRewardStatus?.status === "approved") {
+      this.hasGameRewardClaimed = true;
     }
   },
 
@@ -66,16 +72,15 @@ export default {
     },
 
     async openGameMiniApp() {
-      if (this.appStore.gameRewardStatus && this.appStore.gameRewardStatus?.status !== "approved") {
+      if (!this.hasGameRewardClaimed || (this.appStore.gameRewardStatus && this.appStore.gameRewardStatus?.status !== "approved")) {
         await sendGameRewardRequest();
+        this.hasGameRewardClaimed = true
         setTimeout(() => {
           this.openModal("gameReward");
         }, 1000);
       }
       // Открываем внешнюю игру
       window.Telegram.WebApp.openTelegramLink("http://t.me/SirenaSpecBot/match_3_tg");
-
-
     }
   }
 };
