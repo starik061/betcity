@@ -590,8 +590,13 @@ export async function getGameRewardStatus() {
     }
 
     const data = await response.json();
-    appStore.gameRewardStatus.status = data?.status;
-    appStore.gameRewardStatus.streak = data?.streak;
+
+    appStore.$patch({
+      gameRewardStatus: {
+        status: data?.status,
+        streak: data?.streak
+      }
+    });
   } catch (error) {
     console.error("Ошибка запроса о статусе награды за игру", error);
   }
@@ -616,8 +621,12 @@ export async function sendGameRewardRequest() {
       throw new Error(response.status);
     }
 
-    // const data = await response.json();
-    appStore.gameRewardStatus.status = "approved";
+    appStore.$patch({
+      gameRewardStatus: {
+        ...appStore.gameRewardStatus,
+        status: "approved"
+      }
+    });
   } catch (error) {
     console.error("Ошибка запроса о статусе награды за игру", error);
   }
